@@ -113,6 +113,10 @@
             label20 = new Label();
             lblIndexerCount = new Label();
             indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
+            groupBox2 = new GroupBox();
+            btnStop = new Button();
+            btnReset = new Button();
+            btnCreateTreatment = new Button();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
@@ -121,6 +125,7 @@
             gpDDrive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // backWorkerTreatment
@@ -472,12 +477,12 @@
             timerClock1.BrushThickness = 6;
             timerClock1.CtValue = 0;
             timerClock1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            timerClock1.Location = new Point(928, 311);
+            timerClock1.Location = new Point(927, 331);
             timerClock1.Margin = new Padding(7, 7, 7, 7);
             timerClock1.MaxValue1 = 360;
             timerClock1.Name = "timerClock1";
-            timerClock1.Size = new Size(209, 209);
-            timerClock1.Size1 = 209;
+            timerClock1.Size = new Size(195, 195);
+            timerClock1.Size1 = 195;
             timerClock1.TabIndex = 50;
             // 
             // progressBarD
@@ -720,9 +725,9 @@
             // 
             // calibrate
             // 
-            calibrate.Location = new Point(900, 175);
+            calibrate.Location = new Point(6, 57);
             calibrate.Name = "calibrate";
-            calibrate.Size = new Size(107, 32);
+            calibrate.Size = new Size(91, 32);
             calibrate.TabIndex = 62;
             calibrate.Text = "Calibrate ";
             calibrate.UseVisualStyleBackColor = true;
@@ -733,26 +738,27 @@
             // 
             cbIndexer.FormattingEnabled = true;
             cbIndexer.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" });
-            cbIndexer.Location = new Point(1016, 175);
+            cbIndexer.Location = new Point(117, 63);
             cbIndexer.Name = "cbIndexer";
-            cbIndexer.Size = new Size(121, 23);
+            cbIndexer.Size = new Size(69, 23);
             cbIndexer.TabIndex = 64;
             cbIndexer.Text = "1";
             cbIndexer.Visible = false;
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(1068, 278);
+            numericUpDown1.Location = new Point(1068, 298);
             numericUpDown1.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(69, 23);
             numericUpDown1.TabIndex = 66;
             numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // indexTo
             // 
-            indexTo.Location = new Point(928, 270);
+            indexTo.Location = new Point(927, 290);
             indexTo.Name = "indexTo";
             indexTo.Size = new Size(91, 35);
             indexTo.TabIndex = 68;
@@ -812,17 +818,17 @@
             dataGridView1.Location = new Point(533, 175);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(361, 150);
+            dataGridView1.Size = new Size(291, 150);
             dataGridView1.TabIndex = 75;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 30F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
             label7.ForeColor = Color.Red;
-            label7.Location = new Point(94, 466);
+            label7.Location = new Point(93, 469);
             label7.Name = "label7";
-            label7.Size = new Size(46, 54);
+            label7.Size = new Size(33, 37);
             label7.TabIndex = 76;
             label7.Text = "0";
             // 
@@ -837,7 +843,7 @@
             // 
             // indSourcOut
             // 
-            indSourcOut.Location = new Point(633, 361);
+            indSourcOut.Location = new Point(441, 27);
             indSourcOut.Name = "indSourcOut";
             indSourcOut.Size = new Size(89, 89);
             indSourcOut.TabIndex = 78;
@@ -847,7 +853,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(633, 443);
+            label9.Location = new Point(348, 53);
             label9.Name = "label9";
             label9.Size = new Size(87, 32);
             label9.TabIndex = 79;
@@ -863,16 +869,16 @@
             tcDwell.BackColor = Color.LightSteelBlue;
             tcDwell.BrushThickness = 6;
             tcDwell.CtValue = 25;
-            tcDwell.Location = new Point(960, 573);
+            tcDwell.Location = new Point(964, 587);
             tcDwell.MaxValue1 = 100;
             tcDwell.Name = "tcDwell";
-            tcDwell.Size = new Size(150, 150);
-            tcDwell.Size1 = 150;
+            tcDwell.Size = new Size(118, 118);
+            tcDwell.Size1 = 118;
             tcDwell.TabIndex = 80;
             // 
             // btAs
             // 
-            btAs.Location = new Point(51, 47);
+            btAs.Location = new Point(117, 22);
             btAs.Name = "btAs";
             btAs.Size = new Size(75, 23);
             btAs.TabIndex = 81;
@@ -882,7 +888,7 @@
             // 
             // btAE
             // 
-            btAE.Location = new Point(165, 47);
+            btAE.Location = new Point(6, 22);
             btAE.Name = "btAE";
             btAE.Size = new Size(75, 23);
             btAE.TabIndex = 82;
@@ -893,7 +899,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(51, 81);
+            label20.Location = new Point(31, 91);
             label20.Name = "label20";
             label20.Size = new Size(82, 15);
             label20.TabIndex = 83;
@@ -902,7 +908,7 @@
             // lblIndexerCount
             // 
             lblIndexerCount.AutoSize = true;
-            lblIndexerCount.Location = new Point(149, 81);
+            lblIndexerCount.Location = new Point(126, 91);
             lblIndexerCount.Name = "lblIndexerCount";
             lblIndexerCount.Size = new Size(44, 15);
             lblIndexerCount.TabIndex = 84;
@@ -910,11 +916,56 @@
             // 
             // indIndexCalibrated
             // 
-            indIndexCalibrated.Location = new Point(0, 41);
+            indIndexCalibrated.Location = new Point(9, 36);
             indIndexCalibrated.Name = "indIndexCalibrated";
             indIndexCalibrated.Size = new Size(40, 40);
             indIndexCalibrated.TabIndex = 85;
             indIndexCalibrated.Value = false;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(btAE);
+            groupBox2.Controls.Add(calibrate);
+            groupBox2.Controls.Add(cbIndexer);
+            groupBox2.Controls.Add(btAs);
+            groupBox2.Location = new Point(921, 175);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(216, 108);
+            groupBox2.TabIndex = 86;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Indexer Search";
+            // 
+            // btnStop
+            // 
+            btnStop.BackColor = Color.FromArgb(255, 192, 255);
+            btnStop.ForeColor = Color.Red;
+            btnStop.Location = new Point(902, 733);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new Size(107, 45);
+            btnStop.TabIndex = 87;
+            btnStop.Text = "Emg Stop";
+            btnStop.UseVisualStyleBackColor = false;
+            btnStop.Click += btnStop_Click;
+            // 
+            // btnReset
+            // 
+            btnReset.Location = new Point(1027, 733);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(110, 47);
+            btnReset.TabIndex = 88;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
+            // 
+            // btnCreateTreatment
+            // 
+            btnCreateTreatment.Location = new Point(542, 131);
+            btnCreateTreatment.Name = "btnCreateTreatment";
+            btnCreateTreatment.Size = new Size(145, 38);
+            btnCreateTreatment.TabIndex = 89;
+            btnCreateTreatment.Text = "Creat Treatment";
+            btnCreateTreatment.UseVisualStyleBackColor = true;
+            btnCreateTreatment.Click += btnCreateTreatment_Click;
             // 
             // Form1
             // 
@@ -922,11 +973,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1484, 841);
+            Controls.Add(btnCreateTreatment);
+            Controls.Add(btnReset);
+            Controls.Add(btnStop);
+            Controls.Add(groupBox2);
             Controls.Add(indIndexCalibrated);
             Controls.Add(lblIndexerCount);
             Controls.Add(label20);
-            Controls.Add(btAE);
-            Controls.Add(btAs);
             Controls.Add(tcDwell);
             Controls.Add(label9);
             Controls.Add(indSourcOut);
@@ -940,8 +993,6 @@
             Controls.Add(progressBarS);
             Controls.Add(indexTo);
             Controls.Add(numericUpDown1);
-            Controls.Add(cbIndexer);
-            Controls.Add(calibrate);
             Controls.Add(gpDDrive);
             Controls.Add(gpSDrive);
             Controls.Add(label3);
@@ -991,6 +1042,7 @@
             gpDDrive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1082,5 +1134,9 @@
         private Label label20;
         private Label lblIndexerCount;
         private WinFormsControlLibrary1.Indicator indIndexCalibrated;
+        private GroupBox groupBox2;
+        private Button btnStop;
+        private Button btnReset;
+        private Button btnCreateTreatment;
     }
 }

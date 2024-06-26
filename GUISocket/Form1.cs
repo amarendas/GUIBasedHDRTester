@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static GUISocket.Form2;
 
@@ -514,7 +515,7 @@ namespace GUISocket
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 abtForm = new Form3();
+            frmQC abtForm = new frmQC();
             abtForm.FormBorderStyle = FormBorderStyle.Fixed3D;
             abtForm.Show();
         }
@@ -764,6 +765,47 @@ namespace GUISocket
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            string cmdStr = "SS"; // Stop imidiately = (Stop Set)
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            string cmdStr = "SR"; // Stop imidiately = (Stop Reset)
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+
+        }
+
+        private void btnCreateTreatment_Click(object sender, EventArgs e)
+        {
+            using (var f1 = new frmQC())
+            {
+                var result = f1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ChannelTable = f1.ChannelTable;
+                    dataGridView1.DataSource= ChannelTable;
+                    Debug.WriteLine(ChannelTable.Rows.Count);
+                    foreach (DataRow row in ChannelTable.Rows)
+                    {
+                        Debug.WriteLine(row["Position"]);
+                    }
+                }
+                
+            }
         }
     }
 }
