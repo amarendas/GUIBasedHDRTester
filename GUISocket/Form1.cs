@@ -43,7 +43,7 @@ namespace GUISocket
         System.Data.DataTable ChannelTable = new DataTable("ChannelData");
         int[] indexerPosition = { 0, 515, 3741, 6955, 10142, 13352, 16506, 19677, 22856, 26036, 29231, 32424, 35708, 38914, 42120, 45326, 48532, 51738, 54944, 58148, 61353 };
         int[] indexerEncPosition = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,
-        45740,50712,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};
+        45740,50740,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};
         TreatmentState ts = new TreatmentState();
 
         IPAddress ip;
@@ -761,6 +761,24 @@ namespace GUISocket
         {
             string countStr = tbIndxCount.Text;
             string cmdStr = "AE";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
+
+        private void btnEmgStop_Click(object sender, EventArgs e)
+        {
+            string countStr = tbIndxCount.Text;
+            string cmdStr = "S";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
+
+        private void btnEmgReset_Click(object sender, EventArgs e)
+        {
+            string countStr = tbIndxCount.Text;
+            string cmdStr = "R";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);

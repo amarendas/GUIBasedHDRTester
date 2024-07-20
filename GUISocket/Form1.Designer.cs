@@ -32,6 +32,9 @@
             backWorkerTreatment = new System.ComponentModel.BackgroundWorker();
             tbRecieved = new TextBox();
             groupBox1 = new GroupBox();
+            label24 = new Label();
+            indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
+            label23 = new Label();
             indCmdProgress = new WinFormsControlLibrary1.Indicator();
             label5 = new Label();
             lblStatServer = new Label();
@@ -112,7 +115,8 @@
             btAE = new Button();
             label20 = new Label();
             lblIndexerCount = new Label();
-            indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
+            btnEmgStop = new Button();
+            btnEmgReset = new Button();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
@@ -142,6 +146,9 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(label24);
+            groupBox1.Controls.Add(indIndexCalibrated);
+            groupBox1.Controls.Add(label23);
             groupBox1.Controls.Add(indCmdProgress);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(lblStatServer);
@@ -152,9 +159,35 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Status";
             // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(999, 23);
+            label24.Name = "label24";
+            label24.Size = new Size(145, 15);
+            label24.TabIndex = 86;
+            label24.Text = "Indexer Calibrated (Green)";
+            // 
+            // indIndexCalibrated
+            // 
+            indIndexCalibrated.Location = new Point(953, 14);
+            indIndexCalibrated.Name = "indIndexCalibrated";
+            indIndexCalibrated.Size = new Size(40, 40);
+            indIndexCalibrated.TabIndex = 85;
+            indIndexCalibrated.Value = false;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(1302, 19);
+            label23.Name = "label23";
+            label23.Size = new Size(164, 15);
+            label23.TabIndex = 77;
+            label23.Text = "Ready For Command ( Green)";
+            // 
             // indCmdProgress
             // 
-            indCmdProgress.Location = new Point(1431, 13);
+            indCmdProgress.Location = new Point(1261, 13);
             indCmdProgress.Name = "indCmdProgress";
             indCmdProgress.Size = new Size(35, 35);
             indCmdProgress.TabIndex = 76;
@@ -908,13 +941,25 @@
             lblIndexerCount.TabIndex = 84;
             lblIndexerCount.Text = "label23";
             // 
-            // indIndexCalibrated
+            // btnEmgStop
             // 
-            indIndexCalibrated.Location = new Point(0, 41);
-            indIndexCalibrated.Name = "indIndexCalibrated";
-            indIndexCalibrated.Size = new Size(40, 40);
-            indIndexCalibrated.TabIndex = 85;
-            indIndexCalibrated.Value = false;
+            btnEmgStop.Location = new Point(18, 725);
+            btnEmgStop.Name = "btnEmgStop";
+            btnEmgStop.Size = new Size(77, 55);
+            btnEmgStop.TabIndex = 85;
+            btnEmgStop.Text = "Emg Stop";
+            btnEmgStop.UseVisualStyleBackColor = true;
+            btnEmgStop.Click += btnEmgStop_Click;
+            // 
+            // btnEmgReset
+            // 
+            btnEmgReset.Location = new Point(117, 726);
+            btnEmgReset.Name = "btnEmgReset";
+            btnEmgReset.Size = new Size(76, 55);
+            btnEmgReset.TabIndex = 86;
+            btnEmgReset.Text = "Reset Emg";
+            btnEmgReset.UseVisualStyleBackColor = true;
+            btnEmgReset.Click += btnEmgReset_Click;
             // 
             // Form1
             // 
@@ -922,7 +967,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1484, 841);
-            Controls.Add(indIndexCalibrated);
+            Controls.Add(btnEmgReset);
+            Controls.Add(btnEmgStop);
             Controls.Add(lblIndexerCount);
             Controls.Add(label20);
             Controls.Add(btAE);
@@ -1082,5 +1128,9 @@
         private Label label20;
         private Label lblIndexerCount;
         private WinFormsControlLibrary1.Indicator indIndexCalibrated;
+        private Label label23;
+        private Label label24;
+        private Button btnEmgStop;
+        private Button btnEmgReset;
     }
 }
