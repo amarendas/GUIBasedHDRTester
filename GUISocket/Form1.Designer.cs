@@ -34,10 +34,9 @@
             groupBox1 = new GroupBox();
             label24 = new Label();
             indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
-            label23 = new Label();
-            indCmdProgress = new WinFormsControlLibrary1.Indicator();
             lblUser = new Label();
             lblStatServer = new Label();
+            label23 = new Label();
             label4 = new Label();
             menuStrip1 = new MenuStrip();
             loginToolStripMenuItem = new ToolStripMenuItem();
@@ -79,8 +78,18 @@
             btnIndxCCW = new Button();
             btnHome = new Button();
             Indexer = new GroupBox();
+            btnRight = new Button();
+            btnLeft = new Button();
             btnI_EReset = new Button();
             label6 = new Label();
+            lblIndexerCount = new Label();
+            label20 = new Label();
+            btAE = new Button();
+            btAs = new Button();
+            indexTo = new Button();
+            numericUpDown1 = new NumericUpDown();
+            calibrate = new Button();
+            cbIndexer = new ComboBox();
             gpSDrive = new GroupBox();
             btnS_Ereset = new Button();
             label18 = new Label();
@@ -95,10 +104,6 @@
             btnD_home = new Button();
             btnD_in = new Button();
             btnD_out = new Button();
-            calibrate = new Button();
-            cbIndexer = new ComboBox();
-            numericUpDown1 = new NumericUpDown();
-            indexTo = new Button();
             progressBarS = new ProgressBar();
             label21 = new Label();
             label22 = new Label();
@@ -111,20 +116,24 @@
             label9 = new Label();
             tmrSourceOUT = new System.Windows.Forms.Timer(components);
             tcDwell = new TimerClock();
-            btAs = new Button();
-            btAE = new Button();
-            label20 = new Label();
-            lblIndexerCount = new Label();
             btnEmgStop = new Button();
             btnEmgReset = new Button();
+            indCmdProgress = new WinFormsControlLibrary1.Indicator();
+            label5 = new Label();
+            panel2 = new Panel();
+            label25 = new Label();
+            panel3 = new Panel();
+            label26 = new Label();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
             Indexer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             gpSDrive.SuspendLayout();
             gpDDrive.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // backWorkerTreatment
@@ -135,12 +144,12 @@
             // 
             tbRecieved.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tbRecieved.Cursor = Cursors.No;
-            tbRecieved.Location = new Point(1167, 55);
+            tbRecieved.Location = new Point(1163, 50);
             tbRecieved.MaxLength = 25;
             tbRecieved.Multiline = true;
             tbRecieved.Name = "tbRecieved";
             tbRecieved.ReadOnly = true;
-            tbRecieved.Size = new Size(300, 725);
+            tbRecieved.Size = new Size(309, 692);
             tbRecieved.TabIndex = 5;
             // 
             // groupBox1
@@ -148,8 +157,6 @@
             groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(label24);
             groupBox1.Controls.Add(indIndexCalibrated);
-            groupBox1.Controls.Add(label23);
-            groupBox1.Controls.Add(indCmdProgress);
             groupBox1.Controls.Add(lblUser);
             groupBox1.Controls.Add(lblStatServer);
             groupBox1.Location = new Point(0, 786);
@@ -162,7 +169,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(999, 23);
+            label24.Location = new Point(1305, 19);
             label24.Name = "label24";
             label24.Size = new Size(145, 15);
             label24.TabIndex = 86;
@@ -170,28 +177,11 @@
             // 
             // indIndexCalibrated
             // 
-            indIndexCalibrated.Location = new Point(953, 14);
+            indIndexCalibrated.Location = new Point(1259, 8);
             indIndexCalibrated.Name = "indIndexCalibrated";
             indIndexCalibrated.Size = new Size(40, 40);
             indIndexCalibrated.TabIndex = 85;
             indIndexCalibrated.Value = false;
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new Point(1302, 19);
-            label23.Name = "label23";
-            label23.Size = new Size(164, 15);
-            label23.TabIndex = 77;
-            label23.Text = "Ready For Command ( Green)";
-            // 
-            // indCmdProgress
-            // 
-            indCmdProgress.Location = new Point(1261, 13);
-            indCmdProgress.Name = "indCmdProgress";
-            indCmdProgress.Size = new Size(35, 35);
-            indCmdProgress.TabIndex = 76;
-            indCmdProgress.Value = false;
             // 
             // lblUser
             // 
@@ -211,6 +201,15 @@
             lblStatServer.Size = new Size(110, 15);
             lblStatServer.TabIndex = 0;
             lblStatServer.Text = "Server: Disconected";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(326, 78);
+            label23.Name = "label23";
+            label23.Size = new Size(164, 15);
+            label23.TabIndex = 77;
+            label23.Text = "Ready For Command ( Green)";
             // 
             // label4
             // 
@@ -259,7 +258,7 @@
             // 
             // tbSrcEnc
             // 
-            tbSrcEnc.Location = new Point(140, 531);
+            tbSrcEnc.Location = new Point(140, 522);
             tbSrcEnc.Name = "tbSrcEnc";
             tbSrcEnc.Size = new Size(100, 23);
             tbSrcEnc.TabIndex = 27;
@@ -281,7 +280,7 @@
             // 
             // indAdapterSensor
             // 
-            indAdapterSensor.Location = new Point(193, 658);
+            indAdapterSensor.Location = new Point(471, 658);
             indAdapterSensor.Name = "indAdapterSensor";
             indAdapterSensor.Size = new Size(47, 47);
             indAdapterSensor.TabIndex = 30;
@@ -289,7 +288,7 @@
             // 
             // indiIndexHome
             // 
-            indiIndexHome.Location = new Point(266, 658);
+            indiIndexHome.Location = new Point(544, 658);
             indiIndexHome.Name = "indiIndexHome";
             indiIndexHome.Size = new Size(47, 47);
             indiIndexHome.TabIndex = 31;
@@ -297,7 +296,7 @@
             // 
             // indiSourceOut
             // 
-            indiSourceOut.Location = new Point(333, 658);
+            indiSourceOut.Location = new Point(740, 658);
             indiSourceOut.Name = "indiSourceOut";
             indiSourceOut.Size = new Size(47, 47);
             indiSourceOut.TabIndex = 32;
@@ -305,7 +304,7 @@
             // 
             // indicSOver
             // 
-            indicSOver.Location = new Point(526, 658);
+            indicSOver.Location = new Point(291, 658);
             indicSOver.Name = "indicSOver";
             indicSOver.Size = new Size(47, 47);
             indicSOver.TabIndex = 33;
@@ -313,7 +312,7 @@
             // 
             // indiSHome
             // 
-            indiSHome.Location = new Point(432, 658);
+            indiSHome.Location = new Point(216, 658);
             indiSHome.Name = "indiSHome";
             indiSHome.Size = new Size(47, 47);
             indiSHome.TabIndex = 34;
@@ -331,7 +330,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(200, 708);
+            label11.Location = new Point(478, 708);
             label11.Name = "label11";
             label11.Size = new Size(38, 15);
             label11.TabIndex = 36;
@@ -340,7 +339,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(255, 708);
+            label12.Location = new Point(533, 708);
             label12.Name = "label12";
             label12.Size = new Size(69, 15);
             label12.TabIndex = 38;
@@ -349,7 +348,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(344, 708);
+            label13.Location = new Point(742, 708);
             label13.Name = "label13";
             label13.Size = new Size(36, 15);
             label13.TabIndex = 39;
@@ -358,7 +357,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(512, 708);
+            label14.Location = new Point(280, 708);
             label14.Name = "label14";
             label14.Size = new Size(71, 15);
             label14.TabIndex = 40;
@@ -367,7 +366,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(441, 708);
+            label15.Location = new Point(225, 708);
             label15.Name = "label15";
             label15.Size = new Size(49, 15);
             label15.TabIndex = 41;
@@ -452,9 +451,9 @@
             // 
             // btnSend
             // 
-            btnSend.Location = new Point(579, 91);
+            btnSend.Location = new Point(181, 40);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(204, 28);
+            btnSend.Size = new Size(107, 52);
             btnSend.TabIndex = 6;
             btnSend.Text = "Send";
             btnSend.UseVisualStyleBackColor = true;
@@ -462,15 +461,15 @@
             // 
             // tbSend
             // 
-            tbSend.Location = new Point(579, 62);
+            tbSend.Location = new Point(12, 69);
             tbSend.Name = "tbSend";
-            tbSend.Size = new Size(204, 23);
+            tbSend.Size = new Size(151, 23);
             tbSend.TabIndex = 8;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(579, 42);
+            label3.Location = new Point(12, 40);
             label3.Name = "label3";
             label3.Size = new Size(143, 15);
             label3.TabIndex = 10;
@@ -505,12 +504,12 @@
             IndexerPosition.BrushThickness = 6;
             IndexerPosition.CtValue = 0;
             IndexerPosition.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            IndexerPosition.Location = new Point(928, 311);
+            IndexerPosition.Location = new Point(7, 36);
             IndexerPosition.Margin = new Padding(7, 7, 7, 7);
             IndexerPosition.MaxValue1 = 360;
             IndexerPosition.Name = "IndexerPosition";
-            IndexerPosition.Size = new Size(209, 209);
-            IndexerPosition.Size1 = 209;
+            IndexerPosition.Size = new Size(156, 156);
+            IndexerPosition.Size1 = 156;
             IndexerPosition.TabIndex = 50;
             // 
             // progressBarD
@@ -518,7 +517,7 @@
             progressBarD.Location = new Point(24, 629);
             progressBarD.Maximum = 40000;
             progressBarD.Name = "progressBarD";
-            progressBarD.Size = new Size(870, 23);
+            progressBarD.Size = new Size(794, 23);
             progressBarD.Step = 1;
             progressBarD.TabIndex = 51;
             // 
@@ -566,18 +565,48 @@
             // 
             // Indexer
             // 
+            Indexer.Controls.Add(btnRight);
+            Indexer.Controls.Add(btnLeft);
             Indexer.Controls.Add(btnI_EReset);
             Indexer.Controls.Add(label6);
+            Indexer.Controls.Add(lblIndexerCount);
             Indexer.Controls.Add(tbIndxCount);
+            Indexer.Controls.Add(label20);
             Indexer.Controls.Add(btnHome);
+            Indexer.Controls.Add(btAE);
             Indexer.Controls.Add(btnIndxCCW);
+            Indexer.Controls.Add(btAs);
             Indexer.Controls.Add(btnIndxCW);
+            Indexer.Controls.Add(indexTo);
+            Indexer.Controls.Add(numericUpDown1);
+            Indexer.Controls.Add(calibrate);
+            Indexer.Controls.Add(cbIndexer);
             Indexer.Location = new Point(18, 110);
             Indexer.Name = "Indexer";
-            Indexer.Size = new Size(152, 301);
+            Indexer.Size = new Size(295, 301);
             Indexer.TabIndex = 58;
             Indexer.TabStop = false;
             Indexer.Text = "Indexer Motion";
+            // 
+            // btnRight
+            // 
+            btnRight.Location = new Point(236, 109);
+            btnRight.Name = "btnRight";
+            btnRight.Size = new Size(34, 32);
+            btnRight.TabIndex = 86;
+            btnRight.Text = ">>";
+            btnRight.UseVisualStyleBackColor = true;
+            btnRight.Click += btnRight_Click;
+            // 
+            // btnLeft
+            // 
+            btnLeft.Location = new Point(163, 109);
+            btnLeft.Name = "btnLeft";
+            btnLeft.Size = new Size(34, 32);
+            btnLeft.TabIndex = 85;
+            btnLeft.Text = "<<";
+            btnLeft.UseVisualStyleBackColor = true;
+            btnLeft.Click += btnLeft_Click;
             // 
             // btnI_EReset
             // 
@@ -598,6 +627,87 @@
             label6.TabIndex = 58;
             label6.Text = "Motor Counts";
             // 
+            // lblIndexerCount
+            // 
+            lblIndexerCount.AutoSize = true;
+            lblIndexerCount.Location = new Point(251, 21);
+            lblIndexerCount.Name = "lblIndexerCount";
+            lblIndexerCount.Size = new Size(13, 15);
+            lblIndexerCount.TabIndex = 84;
+            lblIndexerCount.Text = "0";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(163, 21);
+            label20.Name = "label20";
+            label20.Size = new Size(94, 15);
+            label20.TabIndex = 83;
+            label20.Text = "Indexer E.Count.";
+            // 
+            // btAE
+            // 
+            btAE.Location = new Point(163, 80);
+            btAE.Name = "btAE";
+            btAE.Size = new Size(107, 23);
+            btAE.TabIndex = 82;
+            btAE.Text = "AE";
+            btAE.UseVisualStyleBackColor = true;
+            btAE.Click += btAE_Click;
+            // 
+            // btAs
+            // 
+            btAs.Location = new Point(163, 42);
+            btAs.Name = "btAs";
+            btAs.Size = new Size(107, 23);
+            btAs.TabIndex = 81;
+            btAs.Text = "AS";
+            btAs.UseVisualStyleBackColor = true;
+            btAs.Click += btAs_Click;
+            // 
+            // indexTo
+            // 
+            indexTo.Location = new Point(163, 165);
+            indexTo.Name = "indexTo";
+            indexTo.Size = new Size(107, 35);
+            indexTo.TabIndex = 68;
+            indexTo.Text = "Indexer To";
+            indexTo.UseVisualStyleBackColor = true;
+            indexTo.Click += indexTo_Click;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(163, 211);
+            numericUpDown1.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(107, 23);
+            numericUpDown1.TabIndex = 66;
+            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // calibrate
+            // 
+            calibrate.Enabled = false;
+            calibrate.Location = new Point(198, 254);
+            calibrate.Name = "calibrate";
+            calibrate.Size = new Size(88, 32);
+            calibrate.TabIndex = 62;
+            calibrate.Text = "Calibrate ";
+            calibrate.UseVisualStyleBackColor = true;
+            calibrate.Visible = false;
+            calibrate.Click += calibrate_Click;
+            // 
+            // cbIndexer
+            // 
+            cbIndexer.FormattingEnabled = true;
+            cbIndexer.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" });
+            cbIndexer.Location = new Point(157, 254);
+            cbIndexer.Name = "cbIndexer";
+            cbIndexer.Size = new Size(36, 23);
+            cbIndexer.TabIndex = 64;
+            cbIndexer.Text = "1";
+            cbIndexer.Visible = false;
+            // 
             // gpSDrive
             // 
             gpSDrive.Controls.Add(btnS_Ereset);
@@ -606,7 +716,7 @@
             gpSDrive.Controls.Add(btnS_home);
             gpSDrive.Controls.Add(btnS_in);
             gpSDrive.Controls.Add(btnS_out);
-            gpSDrive.Location = new Point(206, 110);
+            gpSDrive.Location = new Point(333, 110);
             gpSDrive.Name = "gpSDrive";
             gpSDrive.Size = new Size(152, 301);
             gpSDrive.TabIndex = 60;
@@ -682,7 +792,7 @@
             gpDDrive.Controls.Add(btnD_home);
             gpDDrive.Controls.Add(btnD_in);
             gpDDrive.Controls.Add(btnD_out);
-            gpDDrive.Location = new Point(375, 110);
+            gpDDrive.Location = new Point(502, 110);
             gpDDrive.Name = "gpDDrive";
             gpDDrive.Size = new Size(152, 301);
             gpDDrive.TabIndex = 61;
@@ -751,54 +861,12 @@
             btnD_out.UseVisualStyleBackColor = true;
             btnD_out.Click += btnD_out_Click;
             // 
-            // calibrate
-            // 
-            calibrate.Location = new Point(900, 175);
-            calibrate.Name = "calibrate";
-            calibrate.Size = new Size(107, 32);
-            calibrate.TabIndex = 62;
-            calibrate.Text = "Calibrate ";
-            calibrate.UseVisualStyleBackColor = true;
-            calibrate.Visible = false;
-            calibrate.Click += calibrate_Click;
-            // 
-            // cbIndexer
-            // 
-            cbIndexer.FormattingEnabled = true;
-            cbIndexer.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" });
-            cbIndexer.Location = new Point(1016, 175);
-            cbIndexer.Name = "cbIndexer";
-            cbIndexer.Size = new Size(121, 23);
-            cbIndexer.TabIndex = 64;
-            cbIndexer.Text = "1";
-            cbIndexer.Visible = false;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(1068, 278);
-            numericUpDown1.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(69, 23);
-            numericUpDown1.TabIndex = 66;
-            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // indexTo
-            // 
-            indexTo.Location = new Point(928, 270);
-            indexTo.Name = "indexTo";
-            indexTo.Size = new Size(91, 35);
-            indexTo.TabIndex = 68;
-            indexTo.Text = "Indexer To";
-            indexTo.UseVisualStyleBackColor = true;
-            indexTo.Click += indexTo_Click;
-            // 
             // progressBarS
             // 
-            progressBarS.Location = new Point(24, 565);
+            progressBarS.Location = new Point(24, 556);
             progressBarS.Maximum = 40000;
             progressBarS.Name = "progressBarS";
-            progressBarS.Size = new Size(870, 23);
+            progressBarS.Size = new Size(794, 26);
             progressBarS.Step = 1;
             progressBarS.TabIndex = 70;
             // 
@@ -814,7 +882,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(30, 534);
+            label22.Location = new Point(30, 525);
             label22.Name = "label22";
             label22.Size = new Size(96, 15);
             label22.TabIndex = 72;
@@ -822,9 +890,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(18, 417);
+            button1.Location = new Point(980, 163);
             button1.Name = "button1";
-            button1.Size = new Size(175, 33);
+            button1.Size = new Size(157, 33);
             button1.TabIndex = 73;
             button1.Text = "Start Treatment";
             button1.UseVisualStyleBackColor = true;
@@ -833,7 +901,7 @@
             // lblIndexSlotNo
             // 
             lblIndexSlotNo.AutoSize = true;
-            lblIndexSlotNo.Location = new Point(1027, 534);
+            lblIndexSlotNo.Location = new Point(98, 202);
             lblIndexSlotNo.Name = "lblIndexSlotNo";
             lblIndexSlotNo.Size = new Size(55, 15);
             lblIndexSlotNo.TabIndex = 74;
@@ -842,10 +910,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(533, 175);
+            dataGridView1.Location = new Point(824, 202);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(361, 150);
+            dataGridView1.Size = new Size(313, 286);
             dataGridView1.TabIndex = 75;
             // 
             // label7
@@ -853,7 +921,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 30F, FontStyle.Bold, GraphicsUnit.Point);
             label7.ForeColor = Color.Red;
-            label7.Location = new Point(94, 466);
+            label7.Location = new Point(94, 442);
             label7.Name = "label7";
             label7.Size = new Size(46, 54);
             label7.TabIndex = 76;
@@ -862,7 +930,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(30, 487);
+            label8.Location = new Point(30, 473);
             label8.Name = "label8";
             label8.Size = new Size(62, 15);
             label8.TabIndex = 77;
@@ -870,9 +938,9 @@
             // 
             // indSourcOut
             // 
-            indSourcOut.Location = new Point(633, 361);
+            indSourcOut.Location = new Point(555, 27);
             indSourcOut.Name = "indSourcOut";
-            indSourcOut.Size = new Size(89, 89);
+            indSourcOut.Size = new Size(66, 66);
             indSourcOut.TabIndex = 78;
             indSourcOut.Value = false;
             // 
@@ -880,11 +948,12 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(633, 443);
+            label9.Location = new Point(627, 45);
             label9.Name = "label9";
             label9.Size = new Size(87, 32);
             label9.TabIndex = 79;
             label9.Text = "Source";
+            label9.Click += label9_Click;
             // 
             // tmrSourceOUT
             // 
@@ -896,54 +965,16 @@
             tcDwell.BackColor = Color.LightSteelBlue;
             tcDwell.BrushThickness = 6;
             tcDwell.CtValue = 25;
-            tcDwell.Location = new Point(960, 573);
+            tcDwell.Location = new Point(7, 45);
             tcDwell.MaxValue1 = 100;
             tcDwell.Name = "tcDwell";
-            tcDwell.Size = new Size(150, 150);
-            tcDwell.Size1 = 150;
+            tcDwell.Size = new Size(147, 147);
+            tcDwell.Size1 = 147;
             tcDwell.TabIndex = 80;
-            // 
-            // btAs
-            // 
-            btAs.Location = new Point(51, 47);
-            btAs.Name = "btAs";
-            btAs.Size = new Size(75, 23);
-            btAs.TabIndex = 81;
-            btAs.Text = "AS";
-            btAs.UseVisualStyleBackColor = true;
-            btAs.Click += btAs_Click;
-            // 
-            // btAE
-            // 
-            btAE.Location = new Point(165, 47);
-            btAE.Name = "btAE";
-            btAE.Size = new Size(75, 23);
-            btAE.TabIndex = 82;
-            btAE.Text = "AE";
-            btAE.UseVisualStyleBackColor = true;
-            btAE.Click += btAE_Click;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(51, 81);
-            label20.Name = "label20";
-            label20.Size = new Size(82, 15);
-            label20.TabIndex = 83;
-            label20.Text = "Indexer Count";
-            // 
-            // lblIndexerCount
-            // 
-            lblIndexerCount.AutoSize = true;
-            lblIndexerCount.Location = new Point(149, 81);
-            lblIndexerCount.Name = "lblIndexerCount";
-            lblIndexerCount.Size = new Size(44, 15);
-            lblIndexerCount.TabIndex = 84;
-            lblIndexerCount.Text = "label23";
             // 
             // btnEmgStop
             // 
-            btnEmgStop.Location = new Point(18, 725);
+            btnEmgStop.Location = new Point(326, 453);
             btnEmgStop.Name = "btnEmgStop";
             btnEmgStop.Size = new Size(77, 55);
             btnEmgStop.TabIndex = 85;
@@ -953,7 +984,7 @@
             // 
             // btnEmgReset
             // 
-            btnEmgReset.Location = new Point(117, 726);
+            btnEmgReset.Location = new Point(451, 453);
             btnEmgReset.Name = "btnEmgReset";
             btnEmgReset.Size = new Size(76, 55);
             btnEmgReset.TabIndex = 86;
@@ -961,33 +992,84 @@
             btnEmgReset.UseVisualStyleBackColor = true;
             btnEmgReset.Click += btnEmgReset_Click;
             // 
+            // indCmdProgress
+            // 
+            indCmdProgress.Location = new Point(378, 37);
+            indCmdProgress.Name = "indCmdProgress";
+            indCmdProgress.Size = new Size(35, 35);
+            indCmdProgress.TabIndex = 76;
+            indCmdProgress.Value = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(55, 1);
+            label5.Name = "label5";
+            label5.Size = new Size(72, 28);
+            label5.TabIndex = 87;
+            label5.Text = "Source";
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(label25);
+            panel2.Controls.Add(IndexerPosition);
+            panel2.Controls.Add(lblIndexSlotNo);
+            panel2.Controls.Add(label5);
+            panel2.Location = new Point(824, 512);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(170, 232);
+            panel2.TabIndex = 88;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(19, 202);
+            label25.Name = "label25";
+            label25.Size = new Size(44, 15);
+            label25.TabIndex = 88;
+            label25.Text = "Ch No.";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(label26);
+            panel3.Controls.Add(tcDwell);
+            panel3.Location = new Point(1000, 511);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(157, 232);
+            panel3.TabIndex = 89;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label26.Location = new Point(23, 1);
+            label26.Name = "label26";
+            label26.Size = new Size(107, 28);
+            label26.TabIndex = 88;
+            label26.Text = "Dwell Time";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1484, 841);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
             Controls.Add(btnEmgReset);
             Controls.Add(btnEmgStop);
-            Controls.Add(lblIndexerCount);
-            Controls.Add(label20);
-            Controls.Add(btAE);
-            Controls.Add(btAs);
-            Controls.Add(tcDwell);
+            Controls.Add(label23);
+            Controls.Add(indCmdProgress);
             Controls.Add(label9);
             Controls.Add(indSourcOut);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(dataGridView1);
-            Controls.Add(lblIndexSlotNo);
             Controls.Add(button1);
             Controls.Add(label22);
             Controls.Add(label21);
             Controls.Add(progressBarS);
-            Controls.Add(indexTo);
-            Controls.Add(numericUpDown1);
-            Controls.Add(cbIndexer);
-            Controls.Add(calibrate);
             Controls.Add(gpDDrive);
             Controls.Add(gpSDrive);
             Controls.Add(label3);
@@ -995,7 +1077,6 @@
             Controls.Add(btnSend);
             Controls.Add(tbSend);
             Controls.Add(progressBarD);
-            Controls.Add(IndexerPosition);
             Controls.Add(panel1);
             Controls.Add(label17);
             Controls.Add(label16);
@@ -1020,6 +1101,7 @@
             Controls.Add(groupBox1);
             Controls.Add(tbRecieved);
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "My Application Client";
             Load += Form1_Load;
@@ -1031,12 +1113,16 @@
             panel1.PerformLayout();
             Indexer.ResumeLayout(false);
             Indexer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             gpSDrive.ResumeLayout(false);
             gpSDrive.PerformLayout();
             gpDDrive.ResumeLayout(false);
             gpDDrive.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1115,7 +1201,6 @@
         private Button button1;
         private Label lblIndexSlotNo;
         private DataGridView dataGridView1;
-        private WinFormsControlLibrary1.Indicator indCmdProgress;
         private ToolStripMenuItem helpToolStripMenuItem;
         private Label label7;
         private Label label8;
@@ -1132,5 +1217,13 @@
         private Label label24;
         private Button btnEmgStop;
         private Button btnEmgReset;
+        private WinFormsControlLibrary1.Indicator indCmdProgress;
+        private Label label5;
+        private Panel panel2;
+        private Label label25;
+        private Panel panel3;
+        private Label label26;
+        private Button btnRight;
+        private Button btnLeft;
     }
 }

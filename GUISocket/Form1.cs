@@ -783,5 +783,26 @@ namespace GUISocket
             CommandParser(data);
             Debug.WriteLine(cmdStr);
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLeft_Click(object sender, EventArgs e)
+        {
+            string cmdStr = "MIR" + "5" + ",";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
+
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            string cmdStr = "MIF" + "5" + ",";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
     }
 }
