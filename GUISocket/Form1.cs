@@ -191,7 +191,7 @@ namespace GUISocket
             progressBarD.Value = int.Parse(words[4]) < 0 ? 0 : int.Parse(words[4]);
             tbSrcEnc.Text = Convert.ToString(float.Parse(words[5]) * -0.0706);//Convert.ToString(float.Parse(words[]) * 360 / 100000);//For Indexer Encoder
             tbDmyEnc.Text = Convert.ToString(float.Parse(words[4]) * 0.0706);
-            timerClock1.CtValue = int.Parse(words[3]) * 360 / 100000;
+            IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
             indSourcOut.Value = SourceOut;
             lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
             label7.Text = (stopTime.Elapsed.TotalSeconds).ToString("0.00");
@@ -330,7 +330,7 @@ namespace GUISocket
         {
             string receivedData = e.Data;
             // Process the received data from the child form
-            label5.Text = "User: " + receivedData;
+            lblUser.Text = "User: " + receivedData;
 
         }
 

@@ -36,7 +36,7 @@
             indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
             label23 = new Label();
             indCmdProgress = new WinFormsControlLibrary1.Indicator();
-            label5 = new Label();
+            lblUser = new Label();
             lblStatServer = new Label();
             label4 = new Label();
             menuStrip1 = new MenuStrip();
@@ -72,7 +72,7 @@
             label3 = new Label();
             panel1 = new Panel();
             btnDisconnect = new Button();
-            timerClock1 = new TimerClock();
+            IndexerPosition = new TimerClock();
             progressBarD = new ProgressBar();
             tbIndxCount = new TextBox();
             btnIndxCW = new Button();
@@ -150,7 +150,7 @@
             groupBox1.Controls.Add(indIndexCalibrated);
             groupBox1.Controls.Add(label23);
             groupBox1.Controls.Add(indCmdProgress);
-            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(lblUser);
             groupBox1.Controls.Add(lblStatServer);
             groupBox1.Location = new Point(0, 786);
             groupBox1.Name = "groupBox1";
@@ -193,14 +193,14 @@
             indCmdProgress.TabIndex = 76;
             indCmdProgress.Value = false;
             // 
-            // label5
+            // lblUser
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(344, 19);
-            label5.Name = "label5";
-            label5.Size = new Size(36, 15);
-            label5.TabIndex = 1;
-            label5.Text = "User: ";
+            lblUser.AutoSize = true;
+            lblUser.Location = new Point(344, 19);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(36, 15);
+            lblUser.TabIndex = 1;
+            lblUser.Text = "User: ";
             // 
             // lblStatServer
             // 
@@ -499,19 +499,19 @@
             btnDisconnect.UseVisualStyleBackColor = true;
             btnDisconnect.Click += Form1_Closing;
             // 
-            // timerClock1
+            // IndexerPosition
             // 
-            timerClock1.BackColor = Color.LightSteelBlue;
-            timerClock1.BrushThickness = 6;
-            timerClock1.CtValue = 0;
-            timerClock1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            timerClock1.Location = new Point(928, 311);
-            timerClock1.Margin = new Padding(7, 7, 7, 7);
-            timerClock1.MaxValue1 = 360;
-            timerClock1.Name = "timerClock1";
-            timerClock1.Size = new Size(209, 209);
-            timerClock1.Size1 = 209;
-            timerClock1.TabIndex = 50;
+            IndexerPosition.BackColor = Color.LightSteelBlue;
+            IndexerPosition.BrushThickness = 6;
+            IndexerPosition.CtValue = 0;
+            IndexerPosition.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            IndexerPosition.Location = new Point(928, 311);
+            IndexerPosition.Margin = new Padding(7, 7, 7, 7);
+            IndexerPosition.MaxValue1 = 360;
+            IndexerPosition.Name = "IndexerPosition";
+            IndexerPosition.Size = new Size(209, 209);
+            IndexerPosition.Size1 = 209;
+            IndexerPosition.TabIndex = 50;
             // 
             // progressBarD
             // 
@@ -995,7 +995,7 @@
             Controls.Add(btnSend);
             Controls.Add(tbSend);
             Controls.Add(progressBarD);
-            Controls.Add(timerClock1);
+            Controls.Add(IndexerPosition);
             Controls.Add(panel1);
             Controls.Add(label17);
             Controls.Add(label16);
@@ -1047,7 +1047,7 @@
         private TextBox tbRecieved;
         private GroupBox groupBox1;
         private Label lblStatServer;
-        private Label label5;
+        private Label lblUser;
         private Label label4;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem loginToolStripMenuItem;
@@ -1081,7 +1081,7 @@
         private Label label3;
         private Panel panel1;
 
-        private TimerClock timerClock1;
+        private TimerClock IndexerPosition;
         private ProgressBar progressBarD;
         private Button btnIndxCW;
         private Button btnIndxCCW;
