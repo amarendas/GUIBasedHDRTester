@@ -2,11 +2,14 @@ using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static GUISocket.Form2;
+using static System.Windows.Forms.AxHost;
 
 
 namespace GUISocket
@@ -14,9 +17,11 @@ namespace GUISocket
 
     public partial class Form1 : Form
     {
+        
         class TreatmentState
         {
             bool active;
+            bool stopIssued=false;
             int state;
             int subState;
             string? lastCommandSent;
@@ -27,15 +32,24 @@ namespace GUISocket
                 State = 0;
                 SubState = 0;
                 LastCommandSent = "";
+                StopIssued=false ;
+                
             }
 
             public bool Active { get => active; set => active = value; }
             public int State { get => state; set => state = value; }
             public int SubState { get => subState; set => subState = value; }
             public String LastCommandSent { get => lastCommandSent; set => lastCommandSent = value; }
+            public bool StopIssued { get => stopIssued; set => stopIssued = value; }
         }
+
+
         Stopwatch stopTime = new Stopwatch();
         Stopwatch totalTime = new Stopwatch();
+        Int32 NoOfCycles = 0;
+        Int32 TotalCycles = 0;
+        int missedConnectioncounter = 0;// increments if request sent but no reply recieved
+        int maxMissedConnection = 10; // Max no of such replies misssed
         int currentSourcPos = 0;
         bool SourceOut = false;
 
@@ -43,8 +57,9 @@ namespace GUISocket
         System.Data.DataTable ChannelTable = new DataTable("ChannelData");
         int[] indexerPosition = { 0, 515, 3741, 6955, 10142, 13352, 16506, 19677, 22856, 26036, 29231, 32424, 35708, 38914, 42120, 45326, 48532, 51738, 54944, 58148, 61353 };
         int[] indexerEncPosition = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,
-        45740,50740,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};
+        45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
         TreatmentState ts = new TreatmentState();
+        HDRResponce ResponceData =new HDRResponce();
 
         IPAddress ip;
         IPEndPoint remoteEP;
@@ -54,6 +69,13 @@ namespace GUISocket
         byte[] buffer = new byte[1024];
         int ZeroSize_count = 0;
         Int32 mean;
+
+        const string dirpath = "C:\\HDR\\";
+        string path ;
+        const string pathcyclelog = "C:\\HDR\\CycleLog.txt";
+
+
+        StreamWriter log; 
 
         private void MakeChannelTable()
         {
@@ -123,7 +145,36 @@ namespace GUISocket
             remoteEP = new IPEndPoint(ip, port);
             MakeChannelTable();
             dataGridView1.DataSource = ChannelTable;
+            path = dirpath + "IndexePosData.txt";
+            ReadIndexerConfigFile(path);
+        }
 
+        private void ReadIndexerConfigFile(string path)
+        {
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    string line = reader.ReadLine(); // Read the first line
+                    if (line != null)
+                    {
+                        string[] subStr = line.Split(",");
+                        for (int i = 0; i < subStr.Length; i++)
+                        {
+                            indexerEncPosition[i] = int.Parse(subStr[i]);
+                            Debug.WriteLine(i + " > " + indexerEncPosition[i]);
+
+                        }
+                        reader.Close();
+                    }
+                    else MessageBox.Show("Indexer config could not be loaded.", "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Indexer config file could not be loaded.\n\n" + ex.Message, "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private string Send_to_client(string Data2send)
@@ -135,11 +186,18 @@ namespace GUISocket
                 int bytesSent = clientSocket.Send(msg1);
                 int bytesReceived = clientSocket.Receive(buffer);
                 string dtRecievd = Encoding.ASCII.GetString(buffer, 0, bytesReceived);
-                String timeStamp = (DateTime.Now).ToString("yyyyMMddHHmmssffff");
+                String timeStamp = (DateTime.Now).ToString("HHmmssffff");
                 tbRecieved.AppendText($"{timeStamp}:< {dtRecievd}> \n");
 
                 //Debug.WriteLine($"{timeStamp}: <{dtRecievd}>: {bytesReceived}: byte [0]={(int)buffer[0]}, byte[1]= {(int)buffer[1]}");
                 return dtRecievd;
+            }
+            catch ( NullReferenceException e1)
+            {
+                MessageBox.Show(" The client is not connected.");
+                //throw e1;
+                return "E";
+
             }
             catch (ArgumentNullException e1)
             {
@@ -169,12 +227,10 @@ namespace GUISocket
         {
             //Parsing of command
             string[] words = dtRecievd.Split(",");
-
+            ResponceData.Update(dtRecievd);
 
             //Update GUI -------
             UpdateGUI(words);
-
-
 
             return words;
 
@@ -182,25 +238,51 @@ namespace GUISocket
 
         private void UpdateGUI(string[] words)
         {
-
-            //Debug.WriteLine(words.Length);
-            //Debug.WriteLine("DSensor :" + Convert.ToString(dSensor, 2));
-            SensorUdate(byte.Parse(words[1]), byte.Parse(words[2])); // update the sensor display
-            //double srcEncoder = double.Parse(words[3]);
-            progressBarS.Value = (-1 * int.Parse(words[5])) < 0 ? 0 : -1 * (int.Parse(words[5]));
-            progressBarD.Value = int.Parse(words[4]) < 0 ? 0 : int.Parse(words[4]);
-            tbSrcEnc.Text = Convert.ToString(float.Parse(words[5]) * -0.0706);//Convert.ToString(float.Parse(words[]) * 360 / 100000);//For Indexer Encoder
-            tbDmyEnc.Text = Convert.ToString(float.Parse(words[4]) * 0.0706);
-            IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
-            indSourcOut.Value = SourceOut;
-            lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
-            label7.Text = (stopTime.Elapsed.TotalSeconds).ToString("0.00");
-            if (!indCmdProgress.Value)
+            if (words.Length > 8)
             {
-                lblIndexerCount.Text = words[3];
+                missedConnectioncounter = 0; // Reset missed counter
+                //Debug.WriteLine(words.Length);
+                //Debug.WriteLine("DSensor :" + Convert.ToString(dSensor, 2));
+                //SensorUdate(byte.Parse(words[1]), byte.Parse(words[2])); // update the sensor display
+                byte s1=ResponceData.Sensor1;
+                byte s2=ResponceData.Sensor2;
+                if(ResponceData.ErrCode !=0)
+                {
+                    ts.Active = false;
+                    WriteLogfile("cycle aborted Due to Fauly : " + ResponceData.ErrCode);
+
+                }
+                SensorUdate(s1, s2);
+                if (ts.Active && (ts.LastCommandSent == "W"))
+                {
+                    double v = ResponceData.DwellT / 1000;
+                    pbDwell.Value = ResponceData.DwellT > 5000 ? 5 : ResponceData.DwellT / 1000;
+                    lblTimeElapsed.Text = Math.Round(v, 1).ToString();
+                }
+                   
+                else
+                    pbDwell.Value = 0;
+
+                progressBarS.Value = (-1 * int.Parse(words[5])) < 0 ? 0 : -1 * (int.Parse(words[5]));
+                progressBarD.Value = int.Parse(words[4]) < 0 ? 0 : int.Parse(words[4]);
+                tbSrcEnc.Text = ResponceData.SourcePosMM().ToString(); //Convert.ToString(float.Parse(words[5]) * -0.0706);
+                tbDmyEnc.Text = ResponceData.DummyPosMM().ToString();
+                IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
+                indSourcOut.Value = SourceOut;
+                lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
+                
+                if (!indCmdProgress.Value)
+                {
+                    lblIndexerCount.Text = words[3];
+                }
+                else
+                    lblIndexerCount.Text = "-- NA --";
             }
-            else
-                lblIndexerCount.Text = "-- NA --";
+            else {
+                missedConnectioncounter++;
+                Debug.WriteLine(" Wrong Data recieved from Server.");
+            }
+            
         }
 
         void SensorUdate(byte dSensor, byte dSensor2)
@@ -232,8 +314,16 @@ namespace GUISocket
             // ----------------------
             mask = 0x02;
             indCmdProgress.Value = (dSensor2 & mask) != 0;
+            mask = 0x04;
+            indPwrSw.Value = (dSensor2 & mask)!=0;
             mask = 0x08;
             indIndexCalibrated.Value = (dSensor2 & mask) == 0;
+            mask = 0x10;
+            indDoorSw.Value = (dSensor2 & mask) != 0;
+            mask = 0x40;
+            indEmgSw.Value = (dSensor2 & mask) != 0;
+            mask = 0x80;
+            indTretSw.Value = (dSensor2 & mask) != 0;
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -242,7 +332,11 @@ namespace GUISocket
             tbPort.Text = port.ToString();
             btnSend.Enabled = false;
             btnSend.Text = "Send";
-            tcDwell.MaxValue1 = 0;
+           
+            bool exists = System.IO.Directory.Exists(dirpath);
+
+            if (!exists)
+                System.IO.Directory.CreateDirectory(dirpath);
 
 
         }
@@ -257,6 +351,8 @@ namespace GUISocket
             btnConnect.Enabled = true;
             btnSend.Enabled = false;
             Indexer.Enabled = false;
+            if(log!=null)
+                log.Close();
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -279,6 +375,9 @@ namespace GUISocket
                     lblStatServer.ForeColor = System.Drawing.Color.Green;
                     MessageBox.Show("Socket Connected", "Success ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     timer1.Enabled = true;
+                    Send_to_client("OD");
+                    System.Threading.Thread.Sleep(1000);
+                    Send_to_client("OS");
 
 
                 }
@@ -350,167 +449,108 @@ namespace GUISocket
                 tmrSourceOUT.Enabled = false;
                 SourceOut = false;
             }
-            Treament();
-
-        }
-
-        private void Treament()
-        {
-            string cmdStr;
-            string data;
-            int tipPosition = 4200; // steps to reach tip of appliacator
-
             if (ts.Active)
             {
+                btnStartCycle.Text = "Cycle On";
+                btnStartCycle.Enabled = false;
+                btnStopCycle.Enabled = true;
 
+            }
+            else
+            {
+                btnStartCycle.Text = "Cycle Start";
+                btnStopCycle.Enabled = false    ;
+                btnStartCycle.Enabled = true;
+            }
+           cycle();
 
+        }
+        private void cycle()
+        {
+           
+            string cmdStr;
+            string data;
+            int tipPosition = 4200;
+            
+            if (ts.Active)
+            {
                 switch (ts.State)
                 {
-                    case 0: //Send Dummy out
-                        if (!indCmdProgress.Value)
-                        {  // if previous command is completed
-                            ts.State = ts.State + 1;
+                    case 0://Send Dummy out
+                        if (ts.StopIssued)
+                        {
+                            ts.Active = false;
+                            WriteLogfile("--------Cycle manually halted. ------------");
+                            break;
                         }
-                        break;
-                    case 1: //Send Dummy out
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
-
-                            ts.State = ts.State + 1;
-                        }
-                        break;
-                    case 2: //Send Dummy out
-                        if (!indCmdProgress.Value)
-                        {  // if previous command is completed
-                            cmdStr = "MDF" + tipPosition + ",";
+                            cmdStr = "MSF" + tipPosition + ",";
+                            //cmdStr = "MDF" + tipPosition + ",";
+                            ts.LastCommandSent = "M";
                             data = Send_to_client(cmdStr);
+                            WriteLogfile("Source Sent Out.");
+                            Debug.WriteLine(cmdStr);
                             ts.State = ts.State + 1;
                         }
                         break;
-
-
-                    case 3: // Bring home the dummy
+                    case 1:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Tip position."+ResponceData.DummyPosMM());
+                            cmdStr = "W5";                            
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 2:
                         if (!indCmdProgress.Value)
                         {
                             // Send Dummy home ie to origin
-                            data = Send_to_client("OD");
-                            ts.State = ts.State + 1;
-                        }
-                        break;
-
-                    case 4: //Dymmy Reached Home
-                        if (!indCmdProgress.Value)
-                        {
-                            stopTime.Start();
-                            ts.State = ts.State + 1;
-                        }
-
-                        break;
-                    case 5:
-                        if (stopTime.ElapsedMilliseconds > 100)
-                        {
-                            stopTime.Reset();
-                            ts.State = ts.State + 1;
-                        }
-                        break;
-                    case 6: // Send Source Forward 
-
-                        if (!indCmdProgress.Value)
-                        {  // if previous command is completed
-                            Debug.WriteLine(ts.SubState);
-                            currentSourcPos = tipPosition - Convert.ToInt32(ChannelTable.Rows[ts.SubState]["Position"]);
-                            cmdStr = "MSF" + currentSourcPos + ",";
-                            data = Send_to_client(cmdStr);
-                            ts.State = ts.State + 1;
-                            Console.Beep();
-                        }
-                        break;
-                    case 7:
-                        if (!indCmdProgress.Value)
-                        {
-                            tcDwell.MaxValue1 = Convert.ToInt32(ChannelTable.Rows[ts.SubState]["TreatmentTime"]);
-                            stopTime.Restart();
-                            //stopTime.Start();
-                            ts.State = ts.State + 1;
-                        }
-
-                        break;
-                    case 8:
-                        if (stopTime.Elapsed.TotalMilliseconds > Convert.ToInt32(ChannelTable.Rows[ts.SubState]["TreatmentTime"]))
-                        {
-                            //stopTime.Stop();
-                            tcDwell.CtValue = 0;
-                            stopTime.Reset();
-                            ts.SubState = ts.SubState + 1;
-                            ts.State = ts.State + 1;
-                        }
-                        tcDwell.CtValue = Convert.ToInt32(stopTime.Elapsed.TotalMilliseconds);
-                        break;
-                    case 9: // Send Source reverse in step
-                        if (!indCmdProgress.Value)
-                        {  // if previous command is completed
-                            Debug.WriteLine(ts.SubState);
-                            currentSourcPos = Convert.ToInt32(ChannelTable.Rows[ts.SubState]["Position"]);
-
-                            cmdStr = "MSR" + currentSourcPos + ",";
-                            data = Send_to_client(cmdStr);
-                            ts.State = ts.State + 1;
-                        }
-                        break;
-                    case 10:
-                        if (!indCmdProgress.Value)
-                        {
-                            tcDwell.MaxValue1 = Convert.ToInt32(ChannelTable.Rows[ts.SubState]["TreatmentTime"]);
-                            stopTime.Restart();
-                            //stopTime.Start();
-                            ts.State = ts.State + 1;
-                        }
-
-                        break;
-                    case 11:
-                        if (stopTime.Elapsed.TotalMilliseconds > Convert.ToInt32(ChannelTable.Rows[ts.SubState]["TreatmentTime"]))
-                        {
-                            //stopTime.Stop();
-                            stopTime.Reset();
-                            ts.SubState = ts.SubState + 1;
-                            if (ts.SubState < ChannelTable.Rows.Count - 1)
-                            {
-                                ts.State = 9; // Loop is more controle points are therr.
-                                tcDwell.CtValue = 0;
-                            }
-                            else
-                            {
-                                ts.State = ts.State + 1;
-                                tcDwell.CtValue = 0;
-                            }
-                        }
-                        tcDwell.CtValue = Convert.ToInt32(stopTime.Elapsed.TotalMilliseconds);
-                        break;
-
-                    case 12:
-                        if (!indCmdProgress.Value)
-                        {
-                            // Send Source home ie to origin
                             data = Send_to_client("OS");
+                            //data = Send_to_client("OD");
+                            ts.LastCommandSent = "O";
+                            WriteLogfile("Source Sent to Home.");
+                            Debug.WriteLine("OS");
                             ts.State = ts.State + 1;
-                            currentSourcPos = 0;
                         }
                         break;
-
-                    case 13:// Command Completed
+                    case 3:
                         if (!indCmdProgress.Value)
-                        {
-                            ts.State = 0;
-                            ts.SubState = 0;
-                            ts.Active = false;
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Home.");
+                            NoOfCycles++;
+                            lblcyclesCompleted.Text = NoOfCycles.ToString();
+                            WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
+                            Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
+                            cmdStr = "W5" ;
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 4:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            
+                            if (NoOfCycles >= TotalCycles)
+                            {
+                                ts.Active = false; // stop the cycle
+                                WriteLogfile("xxxxx   Total cycles completed. " + NoOfCycles.ToString() + "  xxxx");
+                            }
+                            ts.State = 0; // Start another cycle
+
                         }
                         break;
 
-
-                }
-
+                } // End of switch.
             }
         }
+
+    
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -641,7 +681,7 @@ namespace GUISocket
         }
 
         private void calibrate_Click(object sender, EventArgs e)
-        {
+        { /*
             double avg = 0;
             double sum = 0;
 
@@ -693,6 +733,7 @@ namespace GUISocket
 
                 }
             }
+            */
         }
 
         private void tbDcount_TextChanged(object sender, EventArgs e)
@@ -791,7 +832,7 @@ namespace GUISocket
 
         private void btnLeft_Click(object sender, EventArgs e)
         {
-            string cmdStr = "MIR" + "5" + ",";
+            string cmdStr = "MIR" + "10" + ",";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
@@ -799,10 +840,44 @@ namespace GUISocket
 
         private void btnRight_Click(object sender, EventArgs e)
         {
-            string cmdStr = "MIF" + "5" + ",";
+            string cmdStr = "MIF" + "10" + ",";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
+        }
+
+        private void indexerDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IndexerData frm = new IndexerData();
+            frm.ShowDialog();
+        }
+
+        private void btnStartCycle_Click(object sender, EventArgs e)
+        {
+            
+
+            WriteLogfile("--------Cycle started. (N= " + numMaxcycles.Value+ " ) ------------");
+
+            TotalCycles = Convert.ToInt32(numMaxcycles.Value);
+            ts.Active = true;
+            ts.StopIssued=false;
+            
+        }
+        private void WriteLogfile(string msg)
+        {
+            //string pathcyclelog = Application.StartupPath + "CycleLog.txt";
+            
+            log = new StreamWriter(pathcyclelog,append:true);
+            //String timeStamp = (DateTime.Now).ToString("yyyyMMddHHmmssffff");
+            String timeStamp = (DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss.f");
+            log.WriteLine("{0,25}. {1} ",timeStamp,msg);
+            log.Close();
+        }
+
+        private void btnStopCycle_Click(object sender, EventArgs e)
+        {
+            ts.StopIssued = true;
+            
         }
     }
 }

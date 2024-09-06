@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUISocket
 {
-    internal class State
+   /* internal class State
     {
         int MainState = 0;
         int SubState = 0;
@@ -16,4 +16,5 @@ namespace GUISocket
         public int SubState1 { get => SubState; set => SubState = value; }
         public int SubSubState1 { get => SubSubState; set => SubSubState = value; }
     }
+   */
 }

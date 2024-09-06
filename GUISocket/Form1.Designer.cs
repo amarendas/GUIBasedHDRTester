@@ -36,12 +36,16 @@
             indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
             lblUser = new Label();
             lblStatServer = new Label();
+            indCmdProgress = new WinFormsControlLibrary1.Indicator();
             label23 = new Label();
+            label9 = new Label();
+            indSourcOut = new WinFormsControlLibrary1.Indicator();
             label4 = new Label();
             menuStrip1 = new MenuStrip();
             loginToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
+            indexerDataToolStripMenuItem = new ToolStripMenuItem();
             timer1 = new System.Windows.Forms.Timer(components);
             tbSrcEnc = new TextBox();
             tbDmyEnc = new TextBox();
@@ -110,20 +114,31 @@
             button1 = new Button();
             lblIndexSlotNo = new Label();
             dataGridView1 = new DataGridView();
-            label7 = new Label();
+            lblTimeElapsed = new Label();
             label8 = new Label();
-            indSourcOut = new WinFormsControlLibrary1.Indicator();
-            label9 = new Label();
             tmrSourceOUT = new System.Windows.Forms.Timer(components);
-            tcDwell = new TimerClock();
             btnEmgStop = new Button();
             btnEmgReset = new Button();
-            indCmdProgress = new WinFormsControlLibrary1.Indicator();
             label5 = new Label();
             panel2 = new Panel();
             label25 = new Label();
-            panel3 = new Panel();
+            btnStartCycle = new Button();
+            numMaxcycles = new NumericUpDown();
+            btnStopCycle = new Button();
+            lblcyclesCompleted = new Label();
+            pbDwell = new ProgressBar();
+            groupBox2 = new GroupBox();
+            label28 = new Label();
+            label27 = new Label();
+            indTretSw = new WinFormsControlLibrary1.Indicator();
+            indEmgSw = new WinFormsControlLibrary1.Indicator();
+            indDoorSw = new WinFormsControlLibrary1.Indicator();
+            indPwrSw = new WinFormsControlLibrary1.Indicator();
+            gbSafety = new GroupBox();
+            label7 = new Label();
             label26 = new Label();
+            label29 = new Label();
+            label30 = new Label();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
@@ -133,7 +148,9 @@
             gpDDrive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
-            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numMaxcycles).BeginInit();
+            groupBox2.SuspendLayout();
+            gbSafety.SuspendLayout();
             SuspendLayout();
             // 
             // backWorkerTreatment
@@ -144,12 +161,12 @@
             // 
             tbRecieved.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tbRecieved.Cursor = Cursors.No;
-            tbRecieved.Location = new Point(1163, 50);
+            tbRecieved.Location = new Point(1011, 69);
             tbRecieved.MaxLength = 25;
             tbRecieved.Multiline = true;
             tbRecieved.Name = "tbRecieved";
             tbRecieved.ReadOnly = true;
-            tbRecieved.Size = new Size(309, 692);
+            tbRecieved.Size = new Size(241, 593);
             tbRecieved.TabIndex = 5;
             // 
             // groupBox1
@@ -159,9 +176,13 @@
             groupBox1.Controls.Add(indIndexCalibrated);
             groupBox1.Controls.Add(lblUser);
             groupBox1.Controls.Add(lblStatServer);
-            groupBox1.Location = new Point(0, 786);
+            groupBox1.Controls.Add(indCmdProgress);
+            groupBox1.Controls.Add(label23);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(indSourcOut);
+            groupBox1.Location = new Point(0, 706);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1472, 54);
+            groupBox1.Size = new Size(1252, 54);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Status";
@@ -169,7 +190,7 @@
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new Point(1305, 19);
+            label24.Location = new Point(555, 19);
             label24.Name = "label24";
             label24.Size = new Size(145, 15);
             label24.TabIndex = 86;
@@ -177,7 +198,7 @@
             // 
             // indIndexCalibrated
             // 
-            indIndexCalibrated.Location = new Point(1259, 8);
+            indIndexCalibrated.Location = new Point(507, 8);
             indIndexCalibrated.Name = "indIndexCalibrated";
             indIndexCalibrated.Size = new Size(40, 40);
             indIndexCalibrated.TabIndex = 85;
@@ -202,20 +223,47 @@
             lblStatServer.TabIndex = 0;
             lblStatServer.Text = "Server: Disconected";
             // 
+            // indCmdProgress
+            // 
+            indCmdProgress.Location = new Point(742, 8);
+            indCmdProgress.Name = "indCmdProgress";
+            indCmdProgress.Size = new Size(40, 40);
+            indCmdProgress.TabIndex = 76;
+            indCmdProgress.Value = false;
+            // 
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(326, 78);
+            label23.Location = new Point(793, 19);
             label23.Name = "label23";
             label23.Size = new Size(164, 15);
             label23.TabIndex = 77;
             label23.Text = "Ready For Command ( Green)";
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Location = new Point(1142, 16);
+            label9.Name = "label9";
+            label9.Size = new Size(87, 32);
+            label9.TabIndex = 79;
+            label9.Text = "Source";
+            label9.Click += label9_Click;
+            // 
+            // indSourcOut
+            // 
+            indSourcOut.Location = new Point(1092, 10);
+            indSourcOut.Name = "indSourcOut";
+            indSourcOut.Size = new Size(44, 44);
+            indSourcOut.TabIndex = 78;
+            indSourcOut.Value = false;
+            // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(1166, 37);
+            label4.Location = new Point(1011, 49);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 11;
@@ -223,10 +271,10 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { loginToolStripMenuItem, aboutToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { loginToolStripMenuItem, aboutToolStripMenuItem, helpToolStripMenuItem, indexerDataToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1484, 24);
+            menuStrip1.Size = new Size(1264, 24);
             menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -251,28 +299,35 @@
             helpToolStripMenuItem.Text = "Help";
             helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
             // 
+            // indexerDataToolStripMenuItem
+            // 
+            indexerDataToolStripMenuItem.Name = "indexerDataToolStripMenuItem";
+            indexerDataToolStripMenuItem.Size = new Size(82, 20);
+            indexerDataToolStripMenuItem.Text = "IndexerData";
+            indexerDataToolStripMenuItem.Click += indexerDataToolStripMenuItem_Click;
+            // 
             // timer1
             // 
-            timer1.Interval = 500;
+            timer1.Interval = 250;
             timer1.Tick += timer1_Tick;
             // 
             // tbSrcEnc
             // 
-            tbSrcEnc.Location = new Point(140, 522);
+            tbSrcEnc.Location = new Point(146, 549);
             tbSrcEnc.Name = "tbSrcEnc";
-            tbSrcEnc.Size = new Size(100, 23);
+            tbSrcEnc.Size = new Size(86, 23);
             tbSrcEnc.TabIndex = 27;
             // 
             // tbDmyEnc
             // 
-            tbDmyEnc.Location = new Point(138, 600);
+            tbDmyEnc.Location = new Point(146, 497);
             tbDmyEnc.Name = "tbDmyEnc";
-            tbDmyEnc.Size = new Size(100, 23);
+            tbDmyEnc.Size = new Size(86, 23);
             tbDmyEnc.TabIndex = 28;
             // 
             // indIndexLock
             // 
-            indIndexLock.Location = new Point(607, 658);
+            indIndexLock.Location = new Point(607, 596);
             indIndexLock.Name = "indIndexLock";
             indIndexLock.Size = new Size(47, 47);
             indIndexLock.TabIndex = 29;
@@ -280,7 +335,7 @@
             // 
             // indAdapterSensor
             // 
-            indAdapterSensor.Location = new Point(471, 658);
+            indAdapterSensor.Location = new Point(471, 596);
             indAdapterSensor.Name = "indAdapterSensor";
             indAdapterSensor.Size = new Size(47, 47);
             indAdapterSensor.TabIndex = 30;
@@ -288,7 +343,7 @@
             // 
             // indiIndexHome
             // 
-            indiIndexHome.Location = new Point(544, 658);
+            indiIndexHome.Location = new Point(544, 596);
             indiIndexHome.Name = "indiIndexHome";
             indiIndexHome.Size = new Size(47, 47);
             indiIndexHome.TabIndex = 31;
@@ -296,7 +351,7 @@
             // 
             // indiSourceOut
             // 
-            indiSourceOut.Location = new Point(740, 658);
+            indiSourceOut.Location = new Point(740, 596);
             indiSourceOut.Name = "indiSourceOut";
             indiSourceOut.Size = new Size(47, 47);
             indiSourceOut.TabIndex = 32;
@@ -304,7 +359,7 @@
             // 
             // indicSOver
             // 
-            indicSOver.Location = new Point(291, 658);
+            indicSOver.Location = new Point(291, 596);
             indicSOver.Name = "indicSOver";
             indicSOver.Size = new Size(47, 47);
             indicSOver.TabIndex = 33;
@@ -312,7 +367,7 @@
             // 
             // indiSHome
             // 
-            indiSHome.Location = new Point(216, 658);
+            indiSHome.Location = new Point(216, 596);
             indiSHome.Name = "indiSHome";
             indiSHome.Size = new Size(47, 47);
             indiSHome.TabIndex = 34;
@@ -321,7 +376,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(607, 708);
+            label10.Location = new Point(607, 646);
             label10.Name = "label10";
             label10.Size = new Size(64, 15);
             label10.TabIndex = 35;
@@ -330,7 +385,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(478, 708);
+            label11.Location = new Point(478, 646);
             label11.Name = "label11";
             label11.Size = new Size(38, 15);
             label11.TabIndex = 36;
@@ -339,7 +394,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(533, 708);
+            label12.Location = new Point(533, 646);
             label12.Name = "label12";
             label12.Size = new Size(69, 15);
             label12.TabIndex = 38;
@@ -348,7 +403,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(742, 708);
+            label13.Location = new Point(742, 646);
             label13.Name = "label13";
             label13.Size = new Size(36, 15);
             label13.TabIndex = 39;
@@ -357,7 +412,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(280, 708);
+            label14.Location = new Point(280, 646);
             label14.Name = "label14";
             label14.Size = new Size(71, 15);
             label14.TabIndex = 40;
@@ -366,7 +421,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(225, 708);
+            label15.Location = new Point(214, 646);
             label15.Name = "label15";
             label15.Size = new Size(49, 15);
             label15.TabIndex = 41;
@@ -374,7 +429,7 @@
             // 
             // indiDOverShoot
             // 
-            indiDOverShoot.Location = new Point(93, 658);
+            indiDOverShoot.Location = new Point(93, 596);
             indiDOverShoot.Name = "indiDOverShoot";
             indiDOverShoot.Size = new Size(47, 47);
             indiDOverShoot.TabIndex = 42;
@@ -382,7 +437,7 @@
             // 
             // indiDHome
             // 
-            indiDHome.Location = new Point(22, 658);
+            indiDHome.Location = new Point(22, 596);
             indiDHome.Name = "indiDHome";
             indiDHome.Size = new Size(47, 47);
             indiDHome.TabIndex = 43;
@@ -391,7 +446,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(72, 708);
+            label16.Location = new Point(72, 646);
             label16.Name = "label16";
             label16.Size = new Size(73, 15);
             label16.TabIndex = 44;
@@ -400,7 +455,7 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(18, 708);
+            label17.Location = new Point(18, 646);
             label17.Name = "label17";
             label17.Size = new Size(51, 15);
             label17.TabIndex = 45;
@@ -436,12 +491,12 @@
             // 
             tbPort.Location = new Point(161, 22);
             tbPort.Name = "tbPort";
-            tbPort.Size = new Size(130, 23);
+            tbPort.Size = new Size(59, 23);
             tbPort.TabIndex = 3;
             // 
             // btnConnect
             // 
-            btnConnect.Location = new Point(161, 66);
+            btnConnect.Location = new Point(437, 15);
             btnConnect.Name = "btnConnect";
             btnConnect.Size = new Size(130, 35);
             btnConnect.TabIndex = 4;
@@ -483,14 +538,14 @@
             panel1.Controls.Add(tbIP);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(819, 36);
+            panel1.Location = new Point(326, 37);
             panel1.Name = "panel1";
-            panel1.Size = new Size(318, 110);
+            panel1.Size = new Size(608, 67);
             panel1.TabIndex = 49;
             // 
             // btnDisconnect
             // 
-            btnDisconnect.Location = new Point(9, 66);
+            btnDisconnect.Location = new Point(266, 15);
             btnDisconnect.Name = "btnDisconnect";
             btnDisconnect.Size = new Size(130, 35);
             btnDisconnect.TabIndex = 5;
@@ -514,10 +569,10 @@
             // 
             // progressBarD
             // 
-            progressBarD.Location = new Point(24, 629);
+            progressBarD.Location = new Point(249, 541);
             progressBarD.Maximum = 40000;
             progressBarD.Name = "progressBarD";
-            progressBarD.Size = new Size(794, 23);
+            progressBarD.Size = new Size(548, 28);
             progressBarD.Step = 1;
             progressBarD.TabIndex = 51;
             // 
@@ -863,17 +918,17 @@
             // 
             // progressBarS
             // 
-            progressBarS.Location = new Point(24, 556);
+            progressBarS.Location = new Point(249, 491);
             progressBarS.Maximum = 40000;
             progressBarS.Name = "progressBarS";
-            progressBarS.Size = new Size(794, 26);
+            progressBarS.Size = new Size(548, 26);
             progressBarS.Step = 1;
             progressBarS.TabIndex = 70;
             // 
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(24, 606);
+            label21.Location = new Point(29, 549);
             label21.Name = "label21";
             label21.Size = new Size(89, 15);
             label21.TabIndex = 71;
@@ -882,7 +937,7 @@
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new Point(30, 525);
+            label22.Location = new Point(29, 497);
             label22.Name = "label22";
             label22.Size = new Size(96, 15);
             label22.TabIndex = 72;
@@ -890,12 +945,15 @@
             // 
             // button1
             // 
-            button1.Location = new Point(980, 163);
+            button1.AccessibleRole = AccessibleRole.ButtonMenu;
+            button1.Enabled = false;
+            button1.Location = new Point(1023, 259);
             button1.Name = "button1";
             button1.Size = new Size(157, 33);
             button1.TabIndex = 73;
             button1.Text = "Start Treatment";
             button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // lblIndexSlotNo
@@ -910,71 +968,42 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(824, 202);
+            dataGridView1.Enabled = false;
+            dataGridView1.Location = new Point(1008, 298);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(313, 286);
+            dataGridView1.Size = new Size(221, 242);
             dataGridView1.TabIndex = 75;
+            dataGridView1.Visible = false;
             // 
-            // label7
+            // lblTimeElapsed
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 30F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.ForeColor = Color.Red;
-            label7.Location = new Point(94, 442);
-            label7.Name = "label7";
-            label7.Size = new Size(46, 54);
-            label7.TabIndex = 76;
-            label7.Text = "0";
+            lblTimeElapsed.AutoSize = true;
+            lblTimeElapsed.Font = new Font("Segoe UI", 30F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTimeElapsed.ForeColor = Color.Red;
+            lblTimeElapsed.Location = new Point(93, 426);
+            lblTimeElapsed.Name = "lblTimeElapsed";
+            lblTimeElapsed.Size = new Size(46, 54);
+            lblTimeElapsed.TabIndex = 76;
+            lblTimeElapsed.Text = "0";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(30, 473);
+            label8.Location = new Point(29, 445);
             label8.Name = "label8";
             label8.Size = new Size(62, 15);
             label8.TabIndex = 77;
             label8.Text = "Dwel Time";
-            // 
-            // indSourcOut
-            // 
-            indSourcOut.Location = new Point(555, 27);
-            indSourcOut.Name = "indSourcOut";
-            indSourcOut.Size = new Size(66, 66);
-            indSourcOut.TabIndex = 78;
-            indSourcOut.Value = false;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(627, 45);
-            label9.Name = "label9";
-            label9.Size = new Size(87, 32);
-            label9.TabIndex = 79;
-            label9.Text = "Source";
-            label9.Click += label9_Click;
             // 
             // tmrSourceOUT
             // 
             tmrSourceOUT.Interval = 1500;
             tmrSourceOUT.Tick += tmrSourceOUT_Tick;
             // 
-            // tcDwell
-            // 
-            tcDwell.BackColor = Color.LightSteelBlue;
-            tcDwell.BrushThickness = 6;
-            tcDwell.CtValue = 25;
-            tcDwell.Location = new Point(7, 45);
-            tcDwell.MaxValue1 = 100;
-            tcDwell.Name = "tcDwell";
-            tcDwell.Size = new Size(147, 147);
-            tcDwell.Size1 = 147;
-            tcDwell.TabIndex = 80;
-            // 
             // btnEmgStop
             // 
-            btnEmgStop.Location = new Point(326, 453);
+            btnEmgStop.Location = new Point(581, 425);
             btnEmgStop.Name = "btnEmgStop";
             btnEmgStop.Size = new Size(77, 55);
             btnEmgStop.TabIndex = 85;
@@ -984,21 +1013,13 @@
             // 
             // btnEmgReset
             // 
-            btnEmgReset.Location = new Point(451, 453);
+            btnEmgReset.Location = new Point(702, 425);
             btnEmgReset.Name = "btnEmgReset";
             btnEmgReset.Size = new Size(76, 55);
             btnEmgReset.TabIndex = 86;
             btnEmgReset.Text = "Reset Emg";
             btnEmgReset.UseVisualStyleBackColor = true;
             btnEmgReset.Click += btnEmgReset_Click;
-            // 
-            // indCmdProgress
-            // 
-            indCmdProgress.Location = new Point(378, 37);
-            indCmdProgress.Name = "indCmdProgress";
-            indCmdProgress.Size = new Size(35, 35);
-            indCmdProgress.TabIndex = 76;
-            indCmdProgress.Value = false;
             // 
             // label5
             // 
@@ -1016,7 +1037,7 @@
             panel2.Controls.Add(IndexerPosition);
             panel2.Controls.Add(lblIndexSlotNo);
             panel2.Controls.Add(label5);
-            panel2.Location = new Point(824, 512);
+            panel2.Location = new Point(830, 122);
             panel2.Name = "panel2";
             panel2.Size = new Size(170, 232);
             panel2.TabIndex = 88;
@@ -1030,41 +1051,191 @@
             label25.TabIndex = 88;
             label25.Text = "Ch No.";
             // 
-            // panel3
+            // btnStartCycle
             // 
-            panel3.Controls.Add(label26);
-            panel3.Controls.Add(tcDwell);
-            panel3.Location = new Point(1000, 511);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(157, 232);
-            panel3.TabIndex = 89;
+            btnStartCycle.Location = new Point(6, 157);
+            btnStartCycle.Name = "btnStartCycle";
+            btnStartCycle.Size = new Size(131, 51);
+            btnStartCycle.TabIndex = 90;
+            btnStartCycle.Text = "Start Cycle";
+            btnStartCycle.UseVisualStyleBackColor = true;
+            btnStartCycle.Click += btnStartCycle_Click;
+            // 
+            // numMaxcycles
+            // 
+            numMaxcycles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            numMaxcycles.Increment = new decimal(new int[] { 100, 0, 0, 0 });
+            numMaxcycles.Location = new Point(7, 118);
+            numMaxcycles.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
+            numMaxcycles.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numMaxcycles.Name = "numMaxcycles";
+            numMaxcycles.Size = new Size(120, 29);
+            numMaxcycles.TabIndex = 91;
+            numMaxcycles.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
+            // btnStopCycle
+            // 
+            btnStopCycle.Location = new Point(5, 220);
+            btnStopCycle.Name = "btnStopCycle";
+            btnStopCycle.Size = new Size(132, 51);
+            btnStopCycle.TabIndex = 92;
+            btnStopCycle.Text = "Stop Cycle";
+            btnStopCycle.UseVisualStyleBackColor = true;
+            btnStopCycle.Click += btnStopCycle_Click;
+            // 
+            // lblcyclesCompleted
+            // 
+            lblcyclesCompleted.AutoSize = true;
+            lblcyclesCompleted.Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblcyclesCompleted.Location = new Point(67, 22);
+            lblcyclesCompleted.Name = "lblcyclesCompleted";
+            lblcyclesCompleted.Size = new Size(38, 46);
+            lblcyclesCompleted.TabIndex = 93;
+            lblcyclesCompleted.Text = "0";
+            // 
+            // pbDwell
+            // 
+            pbDwell.Location = new Point(249, 445);
+            pbDwell.Maximum = 5;
+            pbDwell.Name = "pbDwell";
+            pbDwell.Size = new Size(291, 23);
+            pbDwell.Step = 1;
+            pbDwell.TabIndex = 94;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label28);
+            groupBox2.Controls.Add(label27);
+            groupBox2.Controls.Add(numMaxcycles);
+            groupBox2.Controls.Add(btnStartCycle);
+            groupBox2.Controls.Add(lblcyclesCompleted);
+            groupBox2.Controls.Add(btnStopCycle);
+            groupBox2.Location = new Point(660, 110);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(153, 301);
+            groupBox2.TabIndex = 95;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Cycle Generator";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            label28.Location = new Point(7, 22);
+            label28.Name = "label28";
+            label28.Size = new Size(68, 46);
+            label28.TabIndex = 95;
+            label28.Text = "N=";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.Location = new Point(7, 86);
+            label27.Name = "label27";
+            label27.Size = new Size(55, 21);
+            label27.TabIndex = 94;
+            label27.Text = "Target:";
+            // 
+            // indTretSw
+            // 
+            indTretSw.Location = new Point(11, 22);
+            indTretSw.Name = "indTretSw";
+            indTretSw.Size = new Size(48, 48);
+            indTretSw.TabIndex = 96;
+            indTretSw.Value = false;
+            // 
+            // indEmgSw
+            // 
+            indEmgSw.Location = new Point(14, 77);
+            indEmgSw.Name = "indEmgSw";
+            indEmgSw.Size = new Size(45, 45);
+            indEmgSw.TabIndex = 97;
+            indEmgSw.Value = false;
+            // 
+            // indDoorSw
+            // 
+            indDoorSw.Location = new Point(15, 130);
+            indDoorSw.Name = "indDoorSw";
+            indDoorSw.Size = new Size(44, 44);
+            indDoorSw.TabIndex = 98;
+            indDoorSw.Value = false;
+            // 
+            // indPwrSw
+            // 
+            indPwrSw.Location = new Point(14, 180);
+            indPwrSw.Name = "indPwrSw";
+            indPwrSw.Size = new Size(44, 44);
+            indPwrSw.TabIndex = 99;
+            indPwrSw.Value = false;
+            // 
+            // gbSafety
+            // 
+            gbSafety.Controls.Add(label30);
+            gbSafety.Controls.Add(label29);
+            gbSafety.Controls.Add(label26);
+            gbSafety.Controls.Add(label7);
+            gbSafety.Controls.Add(indTretSw);
+            gbSafety.Controls.Add(indPwrSw);
+            gbSafety.Controls.Add(indEmgSw);
+            gbSafety.Controls.Add(indDoorSw);
+            gbSafety.Location = new Point(819, 389);
+            gbSafety.Name = "gbSafety";
+            gbSafety.Size = new Size(152, 226);
+            gbSafety.TabIndex = 100;
+            gbSafety.TabStop = false;
+            gbSafety.Text = "Safety Int Lock";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(68, 36);
+            label7.Name = "label7";
+            label7.Size = new Size(76, 15);
+            label7.TabIndex = 100;
+            label7.Text = "Treatment En";
             // 
             // label26
             // 
             label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label26.Location = new Point(23, 1);
+            label26.Location = new Point(70, 83);
             label26.Name = "label26";
-            label26.Size = new Size(107, 28);
-            label26.TabIndex = 88;
-            label26.Text = "Dwell Time";
+            label26.Size = new Size(59, 15);
+            label26.TabIndex = 101;
+            label26.Text = "EMG Stop";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(75, 143);
+            label29.Name = "label29";
+            label29.Size = new Size(36, 15);
+            label29.TabIndex = 102;
+            label29.Text = "Door ";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(80, 194);
+            label30.Name = "label30";
+            label30.Size = new Size(40, 15);
+            label30.TabIndex = 103;
+            label30.Text = "Power";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1484, 841);
-            Controls.Add(panel3);
+            ClientSize = new Size(1264, 761);
+            Controls.Add(gbSafety);
+            Controls.Add(groupBox2);
+            Controls.Add(pbDwell);
             Controls.Add(panel2);
             Controls.Add(btnEmgReset);
             Controls.Add(btnEmgStop);
-            Controls.Add(label23);
-            Controls.Add(indCmdProgress);
-            Controls.Add(label9);
-            Controls.Add(indSourcOut);
             Controls.Add(label8);
-            Controls.Add(label7);
+            Controls.Add(lblTimeElapsed);
             Controls.Add(dataGridView1);
             Controls.Add(button1);
             Controls.Add(label22);
@@ -1121,8 +1292,11 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numMaxcycles).EndInit();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            gbSafety.ResumeLayout(false);
+            gbSafety.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1202,12 +1376,11 @@
         private Label lblIndexSlotNo;
         private DataGridView dataGridView1;
         private ToolStripMenuItem helpToolStripMenuItem;
-        private Label label7;
+        private Label lblTimeElapsed;
         private Label label8;
         private WinFormsControlLibrary1.Indicator indSourcOut;
         private Label label9;
         private System.Windows.Forms.Timer tmrSourceOUT;
-        private TimerClock tcDwell;
         private Button btAs;
         private Button btAE;
         private Label label20;
@@ -1221,9 +1394,25 @@
         private Label label5;
         private Panel panel2;
         private Label label25;
-        private Panel panel3;
-        private Label label26;
         private Button btnRight;
         private Button btnLeft;
+        private ToolStripMenuItem indexerDataToolStripMenuItem;
+        private Button btnStartCycle;
+        private NumericUpDown numMaxcycles;
+        private Button btnStopCycle;
+        private Label lblcyclesCompleted;
+        private ProgressBar pbDwell;
+        private GroupBox groupBox2;
+        private Label label28;
+        private Label label27;
+        private WinFormsControlLibrary1.Indicator indTretSw;
+        private WinFormsControlLibrary1.Indicator indEmgSw;
+        private WinFormsControlLibrary1.Indicator indDoorSw;
+        private WinFormsControlLibrary1.Indicator indPwrSw;
+        private GroupBox gbSafety;
+        private Label label30;
+        private Label label29;
+        private Label label26;
+        private Label label7;
     }
 }
