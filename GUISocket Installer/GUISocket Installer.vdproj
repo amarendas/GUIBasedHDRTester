@@ -15,13 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1C806CEFBBD24FC8BF22345D8F569B8C"
+        "MsmKey" = "8:_3D5EA972AFEB42198972D14B1F656D13"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_282DC04F9CCC4288BDAC7AF6AC6B1698"
+        "MsmKey" = "8:_57E75B8B6E2B477C84D22E5A382EE209"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -122,10 +128,30 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_282DC04F9CCC4288BDAC7AF6AC6B1698"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3D5EA972AFEB42198972D14B1F656D13"
             {
-            "SourcePath" = "8:C:\\Users\\HP\\Pictures\\hdrIcon.ico"
+            "SourcePath" = "8:C:\\Users\\HP\\Pictures\\HDR\\hdrIcon.ico"
             "TargetName" = "8:hdrIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57E75B8B6E2B477C84D22E5A382EE209"
+            {
+            "SourcePath" = "8:D:\\Projects\\HDR-BRIT\\HDR Operation Manual.pdf"
+            "TargetName" = "8:HDR Operation Manual.pdf"
             "Tag" = "8:"
             "Folder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
             "Condition" = "8:"
@@ -164,29 +190,6 @@
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_6AFC1123B4B24AA284CE41A4A085D877"
-                        "Folders"
-                        {
-                        }
-                    }
-                }
-            }
-            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_7D36A3BD92534759AF27062E00B0B5CB"
-            {
-            "DefaultLocation" = "8:[WindowsVolume]"
-            "Name" = "8:C folder"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:NEWPROPERTY1"
-                "Folders"
-                {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_51D109D940B949C989E86CA5CE47674F"
-                    {
-                    "Name" = "8:HDR"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_075370FB2ED542AFAE5495DB6C092D2C"
                         "Folders"
                         {
                         }
@@ -233,7 +236,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GUISocket Installer"
         "ProductCode" = "8:{06CB8360-C291-413F-A16B-0C28AEC580F9}"
-        "PackageCode" = "8:{A12E181D-347A-464B-9204-1F05A5541710}"
+        "PackageCode" = "8:{E037A78D-EBC8-40BB-8485-45ABE54E3A77}"
         "UpgradeCode" = "8:{5E7EE8FA-1C18-409C-BD5F-B547DA62BFFD}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -353,7 +356,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_11E5685E25104C4FA006B08C35A6CF09"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_442390B8674B4058940BE2EE162F5C45"
             {
             "Name" = "8:GUISocket"
             "Arguments" = "8:"
@@ -361,24 +364,38 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_1C806CEFBBD24FC8BF22345D8F569B8C"
-            "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
-            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Icon" = "8:_282DC04F9CCC4288BDAC7AF6AC6B1698"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7FB769EF9BE445658C6EA810B067B494"
-            {
-            "Name" = "8:GUISocket"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_1C806CEFBBD24FC8BF22345D8F569B8C"
+            "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
             "Folder" = "8:_F2DC2BD9D2654C53BAD2959DEC842198"
             "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Icon" = "8:_282DC04F9CCC4288BDAC7AF6AC6B1698"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E7EED7C4753D46818E0E99749DF38ECA"
+            {
+            "Name" = "8:GUISocket"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
+            "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
+            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E91FDAFFABE34B68A7645FBF89724DC9"
+            {
+            "Name" = "8:Shortcut to %sHDR Operation Manual.pdf"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_57E75B8B6E2B477C84D22E5A382EE209"
+            "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
+            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
@@ -780,7 +797,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_1C806CEFBBD24FC8BF22345D8F569B8C"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
             {
             "SourcePath" = "8:..\\GUISocket\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"

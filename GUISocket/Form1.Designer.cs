@@ -95,6 +95,8 @@
             calibrate = new Button();
             cbIndexer = new ComboBox();
             gpSDrive = new GroupBox();
+            lblSEnc = new Label();
+            label31 = new Label();
             btnS_Ereset = new Button();
             label18 = new Label();
             tbScount = new TextBox();
@@ -102,6 +104,8 @@
             btnS_in = new Button();
             btnS_out = new Button();
             gpDDrive = new GroupBox();
+            lblDEnc = new Label();
+            label33 = new Label();
             btnD_Ereset = new Button();
             label19 = new Label();
             tbDcount = new TextBox();
@@ -128,6 +132,8 @@
             lblcyclesCompleted = new Label();
             pbDwell = new ProgressBar();
             groupBox2 = new GroupBox();
+            cbDummy = new CheckBox();
+            cbSource = new CheckBox();
             label28 = new Label();
             label27 = new Label();
             indTretSw = new WinFormsControlLibrary1.Indicator();
@@ -135,10 +141,10 @@
             indDoorSw = new WinFormsControlLibrary1.Indicator();
             indPwrSw = new WinFormsControlLibrary1.Indicator();
             gbSafety = new GroupBox();
-            label7 = new Label();
-            label26 = new Label();
-            label29 = new Label();
             label30 = new Label();
+            label29 = new Label();
+            label26 = new Label();
+            label7 = new Label();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
@@ -308,7 +314,7 @@
             // 
             // timer1
             // 
-            timer1.Interval = 250;
+            timer1.Interval = 300;
             timer1.Tick += timer1_Tick;
             // 
             // tbSrcEnc
@@ -555,8 +561,9 @@
             // 
             // IndexerPosition
             // 
-            IndexerPosition.BackColor = Color.LightSteelBlue;
+            IndexerPosition.BackColor = SystemColors.ActiveBorder;
             IndexerPosition.BrushThickness = 6;
+            IndexerPosition.CircleColor = Color.Aqua;
             IndexerPosition.CtValue = 0;
             IndexerPosition.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             IndexerPosition.Location = new Point(7, 36);
@@ -570,7 +577,7 @@
             // progressBarD
             // 
             progressBarD.Location = new Point(249, 541);
-            progressBarD.Maximum = 40000;
+            progressBarD.Maximum = 60000;
             progressBarD.Name = "progressBarD";
             progressBarD.Size = new Size(548, 28);
             progressBarD.Step = 1;
@@ -685,7 +692,7 @@
             // lblIndexerCount
             // 
             lblIndexerCount.AutoSize = true;
-            lblIndexerCount.Location = new Point(251, 21);
+            lblIndexerCount.Location = new Point(257, 19);
             lblIndexerCount.Name = "lblIndexerCount";
             lblIndexerCount.Size = new Size(13, 15);
             lblIndexerCount.TabIndex = 84;
@@ -765,6 +772,8 @@
             // 
             // gpSDrive
             // 
+            gpSDrive.Controls.Add(lblSEnc);
+            gpSDrive.Controls.Add(label31);
             gpSDrive.Controls.Add(btnS_Ereset);
             gpSDrive.Controls.Add(label18);
             gpSDrive.Controls.Add(tbScount);
@@ -777,6 +786,24 @@
             gpSDrive.TabIndex = 60;
             gpSDrive.TabStop = false;
             gpSDrive.Text = "Source Drive";
+            // 
+            // lblSEnc
+            // 
+            lblSEnc.AutoSize = true;
+            lblSEnc.Location = new Point(97, 22);
+            lblSEnc.Name = "lblSEnc";
+            lblSEnc.Size = new Size(13, 15);
+            lblSEnc.TabIndex = 62;
+            lblSEnc.Text = "0";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(11, 24);
+            label31.Name = "label31";
+            label31.Size = new Size(67, 15);
+            label31.TabIndex = 61;
+            label31.Text = "Enc Counts";
             // 
             // btnS_Ereset
             // 
@@ -791,7 +818,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(12, 21);
+            label18.Location = new Point(9, 46);
             label18.Name = "label18";
             label18.Size = new Size(81, 15);
             label18.TabIndex = 58;
@@ -799,10 +826,10 @@
             // 
             // tbScount
             // 
-            tbScount.Location = new Point(9, 42);
+            tbScount.Location = new Point(98, 42);
             tbScount.MaxLength = 10;
             tbScount.Name = "tbScount";
-            tbScount.Size = new Size(136, 23);
+            tbScount.Size = new Size(47, 23);
             tbScount.TabIndex = 52;
             tbScount.TabStop = false;
             tbScount.Text = "100";
@@ -841,6 +868,8 @@
             // 
             // gpDDrive
             // 
+            gpDDrive.Controls.Add(lblDEnc);
+            gpDDrive.Controls.Add(label33);
             gpDDrive.Controls.Add(btnD_Ereset);
             gpDDrive.Controls.Add(label19);
             gpDDrive.Controls.Add(tbDcount);
@@ -853,6 +882,24 @@
             gpDDrive.TabIndex = 61;
             gpDDrive.TabStop = false;
             gpDDrive.Text = "Dummy Drive";
+            // 
+            // lblDEnc
+            // 
+            lblDEnc.AutoSize = true;
+            lblDEnc.Location = new Point(98, 19);
+            lblDEnc.Name = "lblDEnc";
+            lblDEnc.Size = new Size(13, 15);
+            lblDEnc.TabIndex = 62;
+            lblDEnc.Text = "0";
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(6, 18);
+            label33.Name = "label33";
+            label33.Size = new Size(67, 15);
+            label33.TabIndex = 61;
+            label33.Text = "Enc Counts";
             // 
             // btnD_Ereset
             // 
@@ -867,7 +914,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(12, 21);
+            label19.Location = new Point(6, 46);
             label19.Name = "label19";
             label19.Size = new Size(81, 15);
             label19.TabIndex = 58;
@@ -875,10 +922,10 @@
             // 
             // tbDcount
             // 
-            tbDcount.Location = new Point(9, 42);
+            tbDcount.Location = new Point(90, 42);
             tbDcount.MaxLength = 10;
             tbDcount.Name = "tbDcount";
-            tbDcount.Size = new Size(136, 23);
+            tbDcount.Size = new Size(55, 23);
             tbDcount.TabIndex = 52;
             tbDcount.TabStop = false;
             tbDcount.Text = "100";
@@ -919,7 +966,7 @@
             // progressBarS
             // 
             progressBarS.Location = new Point(249, 491);
-            progressBarS.Maximum = 40000;
+            progressBarS.Maximum = 60000;
             progressBarS.Name = "progressBarS";
             progressBarS.Size = new Size(548, 26);
             progressBarS.Step = 1;
@@ -1003,7 +1050,7 @@
             // 
             // btnEmgStop
             // 
-            btnEmgStop.Location = new Point(581, 425);
+            btnEmgStop.Location = new Point(453, 425);
             btnEmgStop.Name = "btnEmgStop";
             btnEmgStop.Size = new Size(77, 55);
             btnEmgStop.TabIndex = 85;
@@ -1013,7 +1060,7 @@
             // 
             // btnEmgReset
             // 
-            btnEmgReset.Location = new Point(702, 425);
+            btnEmgReset.Location = new Point(555, 426);
             btnEmgReset.Name = "btnEmgReset";
             btnEmgReset.Size = new Size(76, 55);
             btnEmgReset.TabIndex = 86;
@@ -1025,11 +1072,12 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(55, 1);
+            label5.Location = new Point(23, 1);
             label5.Name = "label5";
-            label5.Size = new Size(72, 28);
+            label5.Size = new Size(118, 28);
             label5.TabIndex = 87;
-            label5.Text = "Source";
+            label5.Text = "Indexer Arm";
+            label5.Click += label5_Click;
             // 
             // panel2
             // 
@@ -1053,7 +1101,7 @@
             // 
             // btnStartCycle
             // 
-            btnStartCycle.Location = new Point(6, 157);
+            btnStartCycle.Location = new Point(7, 239);
             btnStartCycle.Name = "btnStartCycle";
             btnStartCycle.Size = new Size(131, 51);
             btnStartCycle.TabIndex = 90;
@@ -1075,7 +1123,7 @@
             // 
             // btnStopCycle
             // 
-            btnStopCycle.Location = new Point(5, 220);
+            btnStopCycle.Location = new Point(6, 302);
             btnStopCycle.Name = "btnStopCycle";
             btnStopCycle.Size = new Size(132, 51);
             btnStopCycle.TabIndex = 92;
@@ -1095,7 +1143,7 @@
             // 
             // pbDwell
             // 
-            pbDwell.Location = new Point(249, 445);
+            pbDwell.Location = new Point(145, 445);
             pbDwell.Maximum = 5;
             pbDwell.Name = "pbDwell";
             pbDwell.Size = new Size(291, 23);
@@ -1104,6 +1152,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(cbDummy);
+            groupBox2.Controls.Add(cbSource);
             groupBox2.Controls.Add(label28);
             groupBox2.Controls.Add(label27);
             groupBox2.Controls.Add(numMaxcycles);
@@ -1112,10 +1162,32 @@
             groupBox2.Controls.Add(btnStopCycle);
             groupBox2.Location = new Point(660, 110);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(153, 301);
+            groupBox2.Size = new Size(153, 371);
             groupBox2.TabIndex = 95;
             groupBox2.TabStop = false;
             groupBox2.Text = "Cycle Generator";
+            // 
+            // cbDummy
+            // 
+            cbDummy.AutoSize = true;
+            cbDummy.Checked = true;
+            cbDummy.CheckState = CheckState.Checked;
+            cbDummy.Location = new Point(21, 191);
+            cbDummy.Name = "cbDummy";
+            cbDummy.Size = new Size(69, 19);
+            cbDummy.TabIndex = 97;
+            cbDummy.Text = "Dummy";
+            cbDummy.UseVisualStyleBackColor = true;
+            // 
+            // cbSource
+            // 
+            cbSource.AutoSize = true;
+            cbSource.Location = new Point(21, 166);
+            cbSource.Name = "cbSource";
+            cbSource.Size = new Size(62, 19);
+            cbSource.TabIndex = 96;
+            cbSource.Text = "Source";
+            cbSource.UseVisualStyleBackColor = true;
             // 
             // label28
             // 
@@ -1133,9 +1205,9 @@
             label27.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label27.Location = new Point(7, 86);
             label27.Name = "label27";
-            label27.Size = new Size(55, 21);
+            label27.Size = new Size(101, 21);
             label27.TabIndex = 94;
-            label27.Text = "Target:";
+            label27.Text = "Target Count:";
             // 
             // indTretSw
             // 
@@ -1186,23 +1258,14 @@
             gbSafety.TabStop = false;
             gbSafety.Text = "Safety Int Lock";
             // 
-            // label7
+            // label30
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(68, 36);
-            label7.Name = "label7";
-            label7.Size = new Size(76, 15);
-            label7.TabIndex = 100;
-            label7.Text = "Treatment En";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Location = new Point(70, 83);
-            label26.Name = "label26";
-            label26.Size = new Size(59, 15);
-            label26.TabIndex = 101;
-            label26.Text = "EMG Stop";
+            label30.AutoSize = true;
+            label30.Location = new Point(80, 194);
+            label30.Name = "label30";
+            label30.Size = new Size(40, 15);
+            label30.TabIndex = 103;
+            label30.Text = "Power";
             // 
             // label29
             // 
@@ -1213,14 +1276,23 @@
             label29.TabIndex = 102;
             label29.Text = "Door ";
             // 
-            // label30
+            // label26
             // 
-            label30.AutoSize = true;
-            label30.Location = new Point(80, 194);
-            label30.Name = "label30";
-            label30.Size = new Size(40, 15);
-            label30.TabIndex = 103;
-            label30.Text = "Power";
+            label26.AutoSize = true;
+            label26.Location = new Point(70, 83);
+            label26.Name = "label26";
+            label26.Size = new Size(59, 15);
+            label26.TabIndex = 101;
+            label26.Text = "EMG Stop";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(68, 36);
+            label7.Name = "label7";
+            label7.Size = new Size(76, 15);
+            label7.TabIndex = 100;
+            label7.Text = "Treatment En";
             // 
             // Form1
             // 
@@ -1414,5 +1486,11 @@
         private Label label29;
         private Label label26;
         private Label label7;
+        private CheckBox cbDummy;
+        private CheckBox cbSource;
+        private Label lblSEnc;
+        private Label label31;
+        private Label lblDEnc;
+        private Label label33;
     }
 }

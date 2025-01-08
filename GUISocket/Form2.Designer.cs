@@ -31,6 +31,8 @@
             textBox1 = new TextBox();
             label1 = new Label();
             btnLoginOK = new Button();
+            panel1 = new Panel();
+            button1 = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -51,7 +53,7 @@
             // 
             // btnLoginOK
             // 
-            btnLoginOK.Location = new Point(119, 128);
+            btnLoginOK.Location = new Point(290, 41);
             btnLoginOK.Name = "btnLoginOK";
             btnLoginOK.Size = new Size(75, 23);
             btnLoginOK.TabIndex = 2;
@@ -59,11 +61,31 @@
             btnLoginOK.UseVisualStyleBackColor = true;
             btnLoginOK.Click += btnLoginOK_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ActiveCaption;
+            panel1.Location = new Point(308, 148);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(707, 408);
+            panel1.TabIndex = 3;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(523, 49);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "add pbox";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(420, 232);
+            ClientSize = new Size(1046, 583);
+            Controls.Add(button1);
+            Controls.Add(panel1);
             Controls.Add(btnLoginOK);
             Controls.Add(label1);
             Controls.Add(textBox1);
@@ -78,5 +100,7 @@
         private TextBox textBox1;
         private Label label1;
         private Button btnLoginOK;
+        private Panel panel1;
+        private Button button1;
     }
 }

@@ -17,14 +17,15 @@ namespace GUISocket
 
     public partial class Form1 : Form
     {
-        
+
         class TreatmentState
         {
             bool active;
-            bool stopIssued=false;
+            bool stopIssued = false;
             int state;
             int subState;
             string? lastCommandSent;
+
 
             public TreatmentState()
             {
@@ -32,8 +33,9 @@ namespace GUISocket
                 State = 0;
                 SubState = 0;
                 LastCommandSent = "";
-                StopIssued=false ;
-                
+                StopIssued = false;
+
+
             }
 
             public bool Active { get => active; set => active = value; }
@@ -52,14 +54,14 @@ namespace GUISocket
         int maxMissedConnection = 10; // Max no of such replies misssed
         int currentSourcPos = 0;
         bool SourceOut = false;
-
+        Boolean dummystarted = false;
         System.Data.DataSet dataSet;
         System.Data.DataTable ChannelTable = new DataTable("ChannelData");
         int[] indexerPosition = { 0, 515, 3741, 6955, 10142, 13352, 16506, 19677, 22856, 26036, 29231, 32424, 35708, 38914, 42120, 45326, 48532, 51738, 54944, 58148, 61353 };
         int[] indexerEncPosition = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,
         45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
         TreatmentState ts = new TreatmentState();
-        HDRResponce ResponceData =new HDRResponce();
+        HDRResponce ResponceData = new HDRResponce();
 
         IPAddress ip;
         IPEndPoint remoteEP;
@@ -71,11 +73,11 @@ namespace GUISocket
         Int32 mean;
 
         const string dirpath = "C:\\HDR\\";
-        string path ;
+        string path;
         const string pathcyclelog = "C:\\HDR\\CycleLog.txt";
 
 
-        StreamWriter log; 
+        StreamWriter log;
 
         private void MakeChannelTable()
         {
@@ -192,7 +194,7 @@ namespace GUISocket
                 //Debug.WriteLine($"{timeStamp}: <{dtRecievd}>: {bytesReceived}: byte [0]={(int)buffer[0]}, byte[1]= {(int)buffer[1]}");
                 return dtRecievd;
             }
-            catch ( NullReferenceException e1)
+            catch (NullReferenceException e1)
             {
                 MessageBox.Show(" The client is not connected.");
                 //throw e1;
@@ -244,9 +246,9 @@ namespace GUISocket
                 //Debug.WriteLine(words.Length);
                 //Debug.WriteLine("DSensor :" + Convert.ToString(dSensor, 2));
                 //SensorUdate(byte.Parse(words[1]), byte.Parse(words[2])); // update the sensor display
-                byte s1=ResponceData.Sensor1;
-                byte s2=ResponceData.Sensor2;
-                if(ResponceData.ErrCode !=0)
+                byte s1 = ResponceData.Sensor1;
+                byte s2 = ResponceData.Sensor2;
+                if (ResponceData.ErrCode != 0)
                 {
                     ts.Active = false;
                     WriteLogfile("cycle aborted Due to Fauly : " + ResponceData.ErrCode);
@@ -259,7 +261,7 @@ namespace GUISocket
                     pbDwell.Value = ResponceData.DwellT > 5000 ? 5 : ResponceData.DwellT / 1000;
                     lblTimeElapsed.Text = Math.Round(v, 1).ToString();
                 }
-                   
+
                 else
                     pbDwell.Value = 0;
 
@@ -270,7 +272,11 @@ namespace GUISocket
                 IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
                 indSourcOut.Value = SourceOut;
                 lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
-                
+                lblDEnc.Text = progressBarS.Value.ToString();
+                lblSEnc.Text = (progressBarD.Value).ToString();
+
+
+
                 if (!indCmdProgress.Value)
                 {
                     lblIndexerCount.Text = words[3];
@@ -278,11 +284,12 @@ namespace GUISocket
                 else
                     lblIndexerCount.Text = "-- NA --";
             }
-            else {
+            else
+            {
                 missedConnectioncounter++;
                 Debug.WriteLine(" Wrong Data recieved from Server.");
             }
-            
+
         }
 
         void SensorUdate(byte dSensor, byte dSensor2)
@@ -315,7 +322,7 @@ namespace GUISocket
             mask = 0x02;
             indCmdProgress.Value = (dSensor2 & mask) != 0;
             mask = 0x04;
-            indPwrSw.Value = (dSensor2 & mask)!=0;
+            indPwrSw.Value = (dSensor2 & mask) != 0;
             mask = 0x08;
             indIndexCalibrated.Value = (dSensor2 & mask) == 0;
             mask = 0x10;
@@ -332,7 +339,7 @@ namespace GUISocket
             tbPort.Text = port.ToString();
             btnSend.Enabled = false;
             btnSend.Text = "Send";
-           
+
             bool exists = System.IO.Directory.Exists(dirpath);
 
             if (!exists)
@@ -351,7 +358,7 @@ namespace GUISocket
             btnConnect.Enabled = true;
             btnSend.Enabled = false;
             Indexer.Enabled = false;
-            if(log!=null)
+            if (log != null)
                 log.Close();
         }
 
@@ -375,9 +382,9 @@ namespace GUISocket
                     lblStatServer.ForeColor = System.Drawing.Color.Green;
                     MessageBox.Show("Socket Connected", "Success ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     timer1.Enabled = true;
-                    Send_to_client("OD");
-                    System.Threading.Thread.Sleep(1000);
-                    Send_to_client("OS");
+                    //Send_to_client("OD");
+                    //System.Threading.Thread.Sleep(1000);
+                    //Send_to_client("OS");
 
 
                 }
@@ -454,24 +461,37 @@ namespace GUISocket
                 btnStartCycle.Text = "Cycle On";
                 btnStartCycle.Enabled = false;
                 btnStopCycle.Enabled = true;
+                cbSource.Enabled = false;
+                cbDummy.Enabled = false;
 
             }
             else
             {
                 btnStartCycle.Text = "Cycle Start";
-                btnStopCycle.Enabled = false    ;
+                btnStopCycle.Enabled = false;
                 btnStartCycle.Enabled = true;
+                cbSource.Enabled = true;
+                cbDummy.Enabled = true;
             }
-           cycle();
+            if (cbDummy.Checked && cbSource.Checked)
+            {
+                Combinedcycle();
+            }
+            if (!cbDummy.Checked && cbSource.Checked)
+                Sourcecycle();
+            if (cbDummy.Checked && !cbSource.Checked)
+                Dummycycle();
+
+
 
         }
-        private void cycle()
+        private void Sourcecycle()
         {
-           
+
             string cmdStr;
             string data;
             int tipPosition = 4200;
-            
+
             if (ts.Active)
             {
                 switch (ts.State)
@@ -497,8 +517,8 @@ namespace GUISocket
                     case 1:
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
-                            WriteLogfile("Source Reached Tip position."+ResponceData.DummyPosMM());
-                            cmdStr = "W5";                            
+                            WriteLogfile("Source Reached Tip position." + ResponceData.DummyPosMM());
+                            cmdStr = "W5";
                             ts.LastCommandSent = "W";
                             data = Send_to_client(cmdStr);
                             Debug.WriteLine(cmdStr);
@@ -525,7 +545,7 @@ namespace GUISocket
                             lblcyclesCompleted.Text = NoOfCycles.ToString();
                             WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
                             Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
-                            cmdStr = "W5" ;
+                            cmdStr = "W5";
                             ts.LastCommandSent = "W";
                             data = Send_to_client(cmdStr);
                             Debug.WriteLine(cmdStr);
@@ -535,7 +555,7 @@ namespace GUISocket
                     case 4:
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
-                            
+
                             if (NoOfCycles >= TotalCycles)
                             {
                                 ts.Active = false; // stop the cycle
@@ -549,8 +569,235 @@ namespace GUISocket
                 } // End of switch.
             }
         }
+        private void Dummycycle()
+        {
 
-    
+            string cmdStr;
+            string data;
+            int tipPosition = 4200;
+
+            if (ts.Active)
+            {
+                switch (ts.State)
+                {
+                    case 0://Send Dummy out
+                        if (ts.StopIssued)
+                        {
+                            ts.Active = false;
+                            WriteLogfile("--------Cycle manually halted. ------------");
+                            break;
+                        }
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            cmdStr = "MDF" + tipPosition + ",";
+                            //cmdStr = "MDF" + tipPosition + ",";
+                            ts.LastCommandSent = "MDF";
+                            data = Send_to_client(cmdStr);
+                            WriteLogfile("Dummy Sent Out.");
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 1:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Tip position." + ResponceData.DummyPosMM());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 2:
+                        if (!indCmdProgress.Value)
+                        {
+                            // Send Dummy home ie to origin
+                            data = Send_to_client("OD");
+                            //data = Send_to_client("OD");
+                            ts.LastCommandSent = "O";
+                            WriteLogfile("Dummy Sent to Home.");
+                            Debug.WriteLine("OS");
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 3:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Home.");
+                            NoOfCycles++;
+                            lblcyclesCompleted.Text = NoOfCycles.ToString();
+                            WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
+                            Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 4:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+
+                            if (NoOfCycles >= TotalCycles)
+                            {
+                                ts.Active = false; // stop the cycle
+                                WriteLogfile("xxxxx   Total cycles completed. " + NoOfCycles.ToString() + "  xxxx");
+                            }
+                            ts.State = 0; // Start another cycle
+
+                        }
+                        break;
+
+                } // End of switch.
+            }
+        }
+        private void Combinedcycle()
+        {
+
+            string cmdStr;
+            string data;
+            int tipPosition = 4200;
+
+            if (ts.Active)
+            {
+                switch (ts.State)
+                {
+                    case 0://Send Dummy out
+                        if (ts.StopIssued)
+                        {
+                            ts.Active = false;
+                            WriteLogfile("--------Cycle manually halted. ------------");
+                            break;
+
+                        }
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            cmdStr = "MDF" + tipPosition + ",";
+                            //cmdStr = "MDF" + tipPosition + ",";
+                            ts.LastCommandSent = "MDF";
+                            data = Send_to_client(cmdStr);
+                            WriteLogfile("Dummy Sent Out.");
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 1:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Tip position." + ResponceData.DummyPosMM());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 2:
+                        if (!indCmdProgress.Value)
+                        {
+                            // Send Dummy home ie to origin
+                            data = Send_to_client("OD");
+                            //data = Send_to_client("OD");
+                            ts.LastCommandSent = "O";
+                            WriteLogfile("Dummy Sent to Home.");
+                            Debug.WriteLine("OS");
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 3:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Home.");
+                            NoOfCycles++;
+                            lblcyclesCompleted.Text = NoOfCycles.ToString();
+                            WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
+                            Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 4:
+                        if (ts.StopIssued)
+                        {
+                            ts.Active = false;
+                            WriteLogfile("--------Cycle manually halted. ------------");
+                            break;
+                        }
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            cmdStr = "MSF" + tipPosition + ",";
+                            //cmdStr = "MDF" + tipPosition + ",";
+                            ts.LastCommandSent = "M";
+                            data = Send_to_client(cmdStr);
+                            WriteLogfile("Source Sent Out.");
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 5:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Tip position." + ResponceData.DummyPosMM());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 6:
+                        if (!indCmdProgress.Value)
+                        {
+                            // Send Dummy home ie to origin
+                            data = Send_to_client("OS");
+                            //data = Send_to_client("OD");
+                            ts.LastCommandSent = "O";
+                            WriteLogfile("Source Sent to Home.");
+                            Debug.WriteLine("OS");
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 7:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+                            WriteLogfile("Source Reached Home.");
+                            NoOfCycles++;
+                            lblcyclesCompleted.Text = NoOfCycles.ToString();
+                            WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
+                            Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
+                            cmdStr = "W5";
+                            ts.LastCommandSent = "W";
+                            data = Send_to_client(cmdStr);
+                            Debug.WriteLine(cmdStr);
+                            ts.State = ts.State + 1;
+                        }
+                        break;
+                    case 8:
+                        if (!indCmdProgress.Value)
+                        {  // if previous command is completed
+
+                            if (NoOfCycles >= TotalCycles)
+                            {
+                                ts.Active = false; // stop the cycle
+                                WriteLogfile("xxxxx   Total cycles completed. " + NoOfCycles.ToString() + "  xxxx");
+                            }
+                            ts.State = 0; // Start another cycle
+
+                        }
+                        break;
+
+
+
+                } // End of switch.
+            }
+        }
+
+
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -791,7 +1038,7 @@ namespace GUISocket
 
         private void btAs_Click(object sender, EventArgs e)
         {
-            string countStr = tbIndxCount.Text;
+
             string cmdStr = "AS";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
@@ -800,7 +1047,7 @@ namespace GUISocket
 
         private void btAE_Click(object sender, EventArgs e)
         {
-            string countStr = tbIndxCount.Text;
+
             string cmdStr = "AE";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
@@ -809,8 +1056,8 @@ namespace GUISocket
 
         private void btnEmgStop_Click(object sender, EventArgs e)
         {
-            string countStr = tbIndxCount.Text;
-            string cmdStr = "S";
+
+            string cmdStr = "Q";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
@@ -818,7 +1065,7 @@ namespace GUISocket
 
         private void btnEmgReset_Click(object sender, EventArgs e)
         {
-            string countStr = tbIndxCount.Text;
+
             string cmdStr = "R";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
@@ -854,30 +1101,36 @@ namespace GUISocket
 
         private void btnStartCycle_Click(object sender, EventArgs e)
         {
-            
 
-            WriteLogfile("--------Cycle started. (N= " + numMaxcycles.Value+ " ) ------------");
+
+            WriteLogfile("--------Cycle started. (N= " + numMaxcycles.Value + " ) ------------");
 
             TotalCycles = Convert.ToInt32(numMaxcycles.Value);
             ts.Active = true;
-            ts.StopIssued=false;
-            
+            ts.StopIssued = false;
+            NoOfCycles = 0;
+
         }
         private void WriteLogfile(string msg)
         {
             //string pathcyclelog = Application.StartupPath + "CycleLog.txt";
-            
-            log = new StreamWriter(pathcyclelog,append:true);
+
+            log = new StreamWriter(pathcyclelog, append: true);
             //String timeStamp = (DateTime.Now).ToString("yyyyMMddHHmmssffff");
             String timeStamp = (DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss.f");
-            log.WriteLine("{0,25}. {1} ",timeStamp,msg);
+            log.WriteLine("{0,25}. {1} ", timeStamp, msg);
             log.Close();
         }
 
         private void btnStopCycle_Click(object sender, EventArgs e)
         {
             ts.StopIssued = true;
-            
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

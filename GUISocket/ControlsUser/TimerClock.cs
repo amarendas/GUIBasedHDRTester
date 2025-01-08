@@ -1,12 +1,19 @@
-﻿namespace GUISocket
+﻿using System.ComponentModel;
+
+namespace GUISocket
 {
     public partial class TimerClock : UserControl
     {
         #region Properties
+        
+        [Category("HDR")]
         private int size1 = 100;
         private int ctValue = 25;
         private int MaxValue = 100;
         private int brushThickness = 6;
+        private Color _circleColor = Color.Aqua;
+
+
 
 
         public int Size1
@@ -53,6 +60,16 @@
                 this.Invalidate();
             }
         }
+        [TypeConverter(typeof(ColorConverter))]
+        public Color CircleColor 
+        {
+            get => _circleColor;
+            set
+            {
+                _circleColor = value;
+                this.Invalidate();
+            }
+        }
 
 
         #endregion
@@ -63,7 +80,7 @@
             InitializeComponent();
             this.Width = Size1;
             this.Height = Size1;
-            this.BackColor = Color.LightSteelBlue;
+            this.BackColor = Color.Aqua;
         }
 
 
@@ -73,10 +90,11 @@
             PointF CenterPt = new PointF(this.Width / 2f, this.Height / 2f);
             int r1 = (int)(size1 / 2f * (80f / 100f));
             int r2 = (int)(size1 / 2f * (60f / 100f));
-            float startingAngle = ctValue * 360f / MaxValue;
+            float startingAngle = ctValue * 360f / MaxValue+90f;
 
             Rectangle rect = new Rectangle((int)CenterPt.X - r1, (int)CenterPt.Y - r1, 2 * r1, 2 * r1);
-            g.DrawArc(new Pen(Color.AliceBlue, BrushThickness), rect, startingAngle, (float)(360 - startingAngle));
+            g.DrawArc(new Pen(_circleColor, BrushThickness), rect, startingAngle, (float)(360-startingAngle+90f));
+            g.DrawEllipse(new Pen(Color.Black,1), rect);
 
             string text = ctValue.ToString();
 
