@@ -58,8 +58,7 @@ namespace GUISocket
         System.Data.DataSet dataSet;
         System.Data.DataTable ChannelTable = new DataTable("ChannelData");
         int[] indexerPosition = { 0, 515, 3741, 6955, 10142, 13352, 16506, 19677, 22856, 26036, 29231, 32424, 35708, 38914, 42120, 45326, 48532, 51738, 54944, 58148, 61353 };
-        int[] indexerEncPosition = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,
-        45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
+        int[] indexerEncPosition= new int[21];// = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
         TreatmentState ts = new TreatmentState();
         HDRResponce ResponceData = new HDRResponce();
 
@@ -75,6 +74,7 @@ namespace GUISocket
         const string dirpath = "C:\\HDR\\";
         string path;
         const string pathcyclelog = "C:\\HDR\\CycleLog.txt";
+        const string rawDatalog = "C:\\HDR\\RawDataLog.txt";
 
 
         StreamWriter log;
@@ -145,8 +145,8 @@ namespace GUISocket
             InitializeComponent();
             ip = IPAddress.Parse(ipno);
             remoteEP = new IPEndPoint(ip, port);
-            MakeChannelTable();
-            dataGridView1.DataSource = ChannelTable;
+            //MakeChannelTable();
+            //dataGridView1.DataSource = ChannelTable;
             path = dirpath + "IndexePosData.txt";
             ReadIndexerConfigFile(path);
         }
@@ -255,6 +255,10 @@ namespace GUISocket
 
                 }
                 SensorUdate(s1, s2);
+                if (indiSourceOut.Value)
+                    label9.Text = "Source OUT";
+                else
+                    label9.Text = "Source IN";
                 if (ts.Active && (ts.LastCommandSent == "W"))
                 {
                     double v = ResponceData.DwellT / 1000;
@@ -265,18 +269,22 @@ namespace GUISocket
                 else
                     pbDwell.Value = 0;
 
-                progressBarS.Value = (-1 * int.Parse(words[5])) < 0 ? 0 : -1 * (int.Parse(words[5]));
-                progressBarD.Value = int.Parse(words[4]) < 0 ? 0 : int.Parse(words[4]);
+                lblErrorcode.Text = words[8].ToString();
+                if(lblErrorcode.Text!="0")
+                    lblErrorcode.BackColor = Color.Red;
+                progressBarS.Value = (-1 * int.Parse(words[4])) < 0 ? 0 : -1 * (int.Parse(words[4]));
+                progressBarD.Value = int.Parse(words[5]) < 0 ? 0 : int.Parse(words[5]);
                 tbSrcEnc.Text = ResponceData.SourcePosMM().ToString(); //Convert.ToString(float.Parse(words[5]) * -0.0706);
                 tbDmyEnc.Text = ResponceData.DummyPosMM().ToString();
                 IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
                 indSourcOut.Value = SourceOut;
+                if (indSourcOut.Value)
+                    label9.Text = "Source OUT";
+                else
+                    label9.Text = "Source IN";
                 lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
-                lblDEnc.Text = progressBarS.Value.ToString();
-                lblSEnc.Text = (progressBarD.Value).ToString();
-
-
-
+                lblDEnc.Text = (progressBarD.Value).ToString();
+                lblSEnc.Text = progressBarS.Value.ToString(); 
                 if (!indCmdProgress.Value)
                 {
                     lblIndexerCount.Text = words[3];
@@ -318,19 +326,63 @@ namespace GUISocket
             mask = 0x20;
             indiDOverShoot.Value = (dSensor & mask) != 0;
 
+
             // ----------------------
+            mask = 0x01;
+            indSysFault.Value=!((dSensor2 & mask)!= 0);
+            if (indSysFault.Value)
+                lblSysFault.Text = "System Faulted";
+            else lblSysFault.Text = "System Ready";
+
+
+
             mask = 0x02;
+            bool temp = indCmdProgress.Value;
             indCmdProgress.Value = (dSensor2 & mask) != 0;
+            if (indCmdProgress.Value)
+            {
+                lblCmdInProg.Text = "Cmd In Progress";
+                pBCmdInProgress.Visible = true;
+            }
+            else
+            {
+                lblCmdInProg.Text = "M/c Idle";
+                pBCmdInProgress.Visible = false;
+            }
+                
+
             mask = 0x04;
             indPwrSw.Value = (dSensor2 & mask) != 0;
+            if (indPwrSw.Value)
+                lblACPower.Text = "AC POWER OFF";
+            else
+                lblACPower.Text = "AC Power ON";
+
             mask = 0x08;
             indIndexCalibrated.Value = (dSensor2 & mask) == 0;
+
+
             mask = 0x10;
-            indDoorSw.Value = (dSensor2 & mask) != 0;
+            indDoorSw.Value = !((dSensor2 & mask) != 0);
+            if (indDoorSw.Value)
+                lblDoor.Text = "DOOR OPEN";
+            else
+                lblDoor.Text = "DOOR CLOSED";
+
             mask = 0x40;
-            indEmgSw.Value = (dSensor2 & mask) != 0;
+            indEmgSw.Value = !((dSensor2 & mask) != 0);
+            if (indEmgSw.Value)
+                lblEmgSw.Text = "Emg Pressed";
+            else
+                lblEmgSw.Text = "Emg Armed ";
+
             mask = 0x80;
             indTretSw.Value = (dSensor2 & mask) != 0;
+            if (!indTretSw.Value)
+                lblKeySw.Text = "Key Sw ON";
+            else
+                lblKeySw.Text = "Key Sw OFF";
+
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -339,7 +391,7 @@ namespace GUISocket
             tbPort.Text = port.ToString();
             btnSend.Enabled = false;
             btnSend.Text = "Send";
-
+            pBCmdInProgress.Visible = false;
             bool exists = System.IO.Directory.Exists(dirpath);
 
             if (!exists)
@@ -446,6 +498,7 @@ namespace GUISocket
             string cmdStr = "HB";
             string data = Send_to_client(cmdStr);
             string[] parList = CommandParser(data); // UpdateGui
+            //Beeper Action
             if (indiSHome.Value == false)
             {
                 tmrSourceOUT.Enabled = true;
@@ -456,6 +509,8 @@ namespace GUISocket
                 tmrSourceOUT.Enabled = false;
                 SourceOut = false;
             }
+            //Beeper Action over
+
             if (ts.Active)
             {
                 btnStartCycle.Text = "Cycle On";
@@ -870,7 +925,10 @@ namespace GUISocket
 
         private void btnHome_Click(object sender, EventArgs e)
         {
+            
             string cmdStr = "O" + "I"; // Send Indexer to origin
+            if (indIndexCalibrated.Value)
+                cmdStr =  "I";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
@@ -922,76 +980,15 @@ namespace GUISocket
 
         }
 
-        private void tbIndexEnc_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void calibrate_Click(object sender, EventArgs e)
-        { /*
-            double avg = 0;
-            double sum = 0;
-
-
-            string path = @"D:\CalibData" + $"{cbIndexer.Text}" + "_" + DateTime.Now.ToString("ddMMy_hhmmss") + ".txt";
-            MessageBox.Show(path);
-
-            string data;
-            if (!File.Exists(path))
-            {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(path))
-                {
-
-                    timer1.Enabled = false;
-                    for (int i = 0; i < 20; i++)
-                    {
-                        Debug.WriteLine($"Count: {i}");
-                        string cmdStr = "O" + "I"; // Send Indexer to origin
-                        Send_to_client(cmdStr);
-                        data = Send_to_client("HB");
-                        CommandParser(data);
-                        Debug.WriteLine("Homing Completed");
-                        cmdStr = "E" + "I"; // erase the encoder register set to zero
-                        Send_to_client(cmdStr);
-                        data = Send_to_client("HB");
-                        CommandParser(data);
-                        Debug.WriteLine("Reset Encoder");
-                        cmdStr = "A" + "S";
-                        Send_to_client(cmdStr);
-
-                        data = Send_to_client("HB");
-                        string[] replystringArray = CommandParser(data);
-                        cmdStr = "A" + "E";
-                        Send_to_client(cmdStr);
-                        data = Send_to_client("HB");
-                        mean = Convert.ToInt32(replystringArray[2]) + Convert.ToInt32(CommandParser(data)[2]);
-                        mean = mean / 2;
-                        sw.WriteLine(replystringArray[2] + "," + CommandParser(data)[2] + "," + mean);
-                        sum += Convert.ToDouble(mean);
-                        //MessageBox.Show(Convert.ToString(sum));
-                    }
-
-                    timer1.Enabled = true;
-                    sum = sum / 20;
-                    sum = Convert.ToInt64(sum);
-                    sw.WriteLine(sum);
-                    MessageBox.Show(" Calibration completed ");
-
-                }
-            }
-            */
-        }
+       
 
         private void tbDcount_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void btnTreatment_Click(object sender, EventArgs e)
-        {
-            //backWorkerTreatment.RunWorkerAsync();
-        }
+
 
         private void backWorkerTreatment_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -1122,6 +1119,7 @@ namespace GUISocket
             log.Close();
         }
 
+
         private void btnStopCycle_Click(object sender, EventArgs e)
         {
             ts.StopIssued = true;
@@ -1131,6 +1129,13 @@ namespace GUISocket
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSaveRawData_Click(object sender, EventArgs e)
+        {
+            StreamWriter log1 = new StreamWriter(rawDatalog, append: true);
+            log1.WriteLine(tbRecieved.Text);
+            log1.Close();
         }
     }
 }

@@ -32,12 +32,22 @@
             backWorkerTreatment = new System.ComponentModel.BackgroundWorker();
             tbRecieved = new TextBox();
             groupBox1 = new GroupBox();
-            label24 = new Label();
-            indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
             lblUser = new Label();
             lblStatServer = new Label();
+            panel1 = new Panel();
+            btnDisconnect = new Button();
+            tbPort = new TextBox();
+            tbIP = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
+            tbSend = new TextBox();
+            btnSend = new Button();
+            label3 = new Label();
+            btnConnect = new Button();
+            label24 = new Label();
+            indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
             indCmdProgress = new WinFormsControlLibrary1.Indicator();
-            label23 = new Label();
+            lblCmdInProg = new Label();
             label9 = new Label();
             indSourcOut = new WinFormsControlLibrary1.Indicator();
             label4 = new Label();
@@ -65,16 +75,6 @@
             indiDHome = new WinFormsControlLibrary1.Indicator();
             label16 = new Label();
             label17 = new Label();
-            label1 = new Label();
-            label2 = new Label();
-            tbIP = new TextBox();
-            tbPort = new TextBox();
-            btnConnect = new Button();
-            btnSend = new Button();
-            tbSend = new TextBox();
-            label3 = new Label();
-            panel1 = new Panel();
-            btnDisconnect = new Button();
             IndexerPosition = new TimerClock();
             progressBarD = new ProgressBar();
             tbIndxCount = new TextBox();
@@ -92,8 +92,6 @@
             btAs = new Button();
             indexTo = new Button();
             numericUpDown1 = new NumericUpDown();
-            calibrate = new Button();
-            cbIndexer = new ComboBox();
             gpSDrive = new GroupBox();
             lblSEnc = new Label();
             label31 = new Label();
@@ -115,9 +113,7 @@
             progressBarS = new ProgressBar();
             label21 = new Label();
             label22 = new Label();
-            button1 = new Button();
             lblIndexSlotNo = new Label();
-            dataGridView1 = new DataGridView();
             lblTimeElapsed = new Label();
             label8 = new Label();
             tmrSourceOUT = new System.Windows.Forms.Timer(components);
@@ -141,18 +137,23 @@
             indDoorSw = new WinFormsControlLibrary1.Indicator();
             indPwrSw = new WinFormsControlLibrary1.Indicator();
             gbSafety = new GroupBox();
-            label30 = new Label();
-            label29 = new Label();
-            label26 = new Label();
-            label7 = new Label();
+            lblACPower = new Label();
+            lblDoor = new Label();
+            lblEmgSw = new Label();
+            lblKeySw = new Label();
+            btnSaveRawData = new Button();
+            label32 = new Label();
+            lblErrorcode = new Label();
+            pBCmdInProgress = new ProgressBar();
+            indSysFault = new WinFormsControlLibrary1.Indicator();
+            lblSysFault = new Label();
             groupBox1.SuspendLayout();
-            menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             Indexer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             gpSDrive.SuspendLayout();
             gpDDrive.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numMaxcycles).BeginInit();
             groupBox2.SuspendLayout();
@@ -167,53 +168,34 @@
             // 
             tbRecieved.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tbRecieved.Cursor = Cursors.No;
-            tbRecieved.Location = new Point(1011, 69);
+            tbRecieved.Location = new Point(1011, 110);
             tbRecieved.MaxLength = 25;
             tbRecieved.Multiline = true;
             tbRecieved.Name = "tbRecieved";
             tbRecieved.ReadOnly = true;
-            tbRecieved.Size = new Size(241, 593);
+            tbRecieved.Size = new Size(241, 505);
             tbRecieved.TabIndex = 5;
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(label24);
-            groupBox1.Controls.Add(indIndexCalibrated);
             groupBox1.Controls.Add(lblUser);
             groupBox1.Controls.Add(lblStatServer);
-            groupBox1.Controls.Add(indCmdProgress);
-            groupBox1.Controls.Add(label23);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(indSourcOut);
-            groupBox1.Location = new Point(0, 706);
+            groupBox1.Controls.Add(panel1);
+            groupBox1.Controls.Add(tbSend);
+            groupBox1.Controls.Add(btnSend);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Location = new Point(0, 679);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1252, 54);
+            groupBox1.Size = new Size(1252, 81);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Status";
             // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Location = new Point(555, 19);
-            label24.Name = "label24";
-            label24.Size = new Size(145, 15);
-            label24.TabIndex = 86;
-            label24.Text = "Indexer Calibrated (Green)";
-            // 
-            // indIndexCalibrated
-            // 
-            indIndexCalibrated.Location = new Point(507, 8);
-            indIndexCalibrated.Name = "indIndexCalibrated";
-            indIndexCalibrated.Size = new Size(40, 40);
-            indIndexCalibrated.TabIndex = 85;
-            indIndexCalibrated.Value = false;
-            // 
             // lblUser
             // 
             lblUser.AutoSize = true;
-            lblUser.Location = new Point(344, 19);
+            lblUser.Location = new Point(12, 52);
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(36, 15);
             lblUser.TabIndex = 1;
@@ -223,34 +205,142 @@
             // 
             lblStatServer.AutoSize = true;
             lblStatServer.ForeColor = Color.Red;
-            lblStatServer.Location = new Point(9, 19);
+            lblStatServer.Location = new Point(1, 19);
             lblStatServer.Name = "lblStatServer";
             lblStatServer.Size = new Size(110, 15);
             lblStatServer.TabIndex = 0;
             lblStatServer.Text = "Server: Disconected";
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(btnDisconnect);
+            panel1.Controls.Add(tbPort);
+            panel1.Controls.Add(tbIP);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Location = new Point(135, 19);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(608, 56);
+            panel1.TabIndex = 49;
+            // 
+            // btnDisconnect
+            // 
+            btnDisconnect.Location = new Point(266, 15);
+            btnDisconnect.Name = "btnDisconnect";
+            btnDisconnect.Size = new Size(130, 35);
+            btnDisconnect.TabIndex = 5;
+            btnDisconnect.Text = "Dis-Connect";
+            btnDisconnect.UseVisualStyleBackColor = true;
+            btnDisconnect.Click += Form1_Closing;
+            // 
+            // tbPort
+            // 
+            tbPort.Location = new Point(156, 30);
+            tbPort.Name = "tbPort";
+            tbPort.Size = new Size(59, 23);
+            tbPort.TabIndex = 3;
+            // 
+            // tbIP
+            // 
+            tbIP.Location = new Point(3, 30);
+            tbIP.Name = "tbIP";
+            tbIP.Size = new Size(147, 23);
+            tbIP.TabIndex = 2;
+            tbIP.Text = "200.100.2.4";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(173, 15);
+            label2.Name = "label2";
+            label2.Size = new Size(29, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Port";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(5, 15);
+            label1.Name = "label1";
+            label1.Size = new Size(49, 15);
+            label1.TabIndex = 0;
+            label1.Text = "ServerIP";
+            // 
+            // tbSend
+            // 
+            tbSend.Location = new Point(956, 41);
+            tbSend.Name = "tbSend";
+            tbSend.Size = new Size(151, 23);
+            tbSend.TabIndex = 8;
+            // 
+            // btnSend
+            // 
+            btnSend.Location = new Point(1113, 19);
+            btnSend.Name = "btnSend";
+            btnSend.Size = new Size(107, 52);
+            btnSend.TabIndex = 6;
+            btnSend.Text = "Send";
+            btnSend.UseVisualStyleBackColor = true;
+            btnSend.Click += btnSend_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(956, 19);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 15);
+            label3.TabIndex = 10;
+            label3.Text = "Command To send (RAW)";
+            // 
+            // btnConnect
+            // 
+            btnConnect.Location = new Point(1113, 59);
+            btnConnect.Name = "btnConnect";
+            btnConnect.Size = new Size(130, 35);
+            btnConnect.TabIndex = 4;
+            btnConnect.Text = "Connect";
+            btnConnect.UseVisualStyleBackColor = true;
+            btnConnect.Click += btnConnect_Click;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(403, 51);
+            label24.Name = "label24";
+            label24.Size = new Size(145, 15);
+            label24.TabIndex = 86;
+            label24.Text = "Indexer Calibrated (Green)";
+            // 
+            // indIndexCalibrated
+            // 
+            indIndexCalibrated.Location = new Point(355, 40);
+            indIndexCalibrated.Name = "indIndexCalibrated";
+            indIndexCalibrated.Size = new Size(40, 40);
+            indIndexCalibrated.TabIndex = 85;
+            indIndexCalibrated.Value = false;
+            // 
             // indCmdProgress
             // 
-            indCmdProgress.Location = new Point(742, 8);
+            indCmdProgress.Location = new Point(666, 29);
             indCmdProgress.Name = "indCmdProgress";
-            indCmdProgress.Size = new Size(40, 40);
+            indCmdProgress.Size = new Size(29, 29);
             indCmdProgress.TabIndex = 76;
             indCmdProgress.Value = false;
             // 
-            // label23
+            // lblCmdInProg
             // 
-            label23.AutoSize = true;
-            label23.Location = new Point(793, 19);
-            label23.Name = "label23";
-            label23.Size = new Size(164, 15);
-            label23.TabIndex = 77;
-            label23.Text = "Ready For Command ( Green)";
+            lblCmdInProg.AutoSize = true;
+            lblCmdInProg.Location = new Point(699, 40);
+            lblCmdInProg.Name = "lblCmdInProg";
+            lblCmdInProg.Size = new Size(51, 15);
+            lblCmdInProg.TabIndex = 77;
+            lblCmdInProg.Text = "M/c Idle";
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.Location = new Point(1142, 16);
+            label9.Location = new Point(76, 48);
             label9.Name = "label9";
             label9.Size = new Size(87, 32);
             label9.TabIndex = 79;
@@ -259,7 +349,7 @@
             // 
             // indSourcOut
             // 
-            indSourcOut.Location = new Point(1092, 10);
+            indSourcOut.Location = new Point(25, 43);
             indSourcOut.Name = "indSourcOut";
             indSourcOut.Size = new Size(44, 44);
             indSourcOut.TabIndex = 78;
@@ -269,7 +359,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(1011, 49);
+            label4.Location = new Point(1026, 628);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 11;
@@ -467,98 +557,6 @@
             label17.TabIndex = 45;
             label17.Text = "D Home";
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(8, 4);
-            label1.Name = "label1";
-            label1.Size = new Size(49, 15);
-            label1.TabIndex = 0;
-            label1.Text = "ServerIP";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(161, 4);
-            label2.Name = "label2";
-            label2.Size = new Size(29, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Port";
-            // 
-            // tbIP
-            // 
-            tbIP.Location = new Point(8, 22);
-            tbIP.Name = "tbIP";
-            tbIP.Size = new Size(147, 23);
-            tbIP.TabIndex = 2;
-            tbIP.Text = "200.100.2.4";
-            // 
-            // tbPort
-            // 
-            tbPort.Location = new Point(161, 22);
-            tbPort.Name = "tbPort";
-            tbPort.Size = new Size(59, 23);
-            tbPort.TabIndex = 3;
-            // 
-            // btnConnect
-            // 
-            btnConnect.Location = new Point(437, 15);
-            btnConnect.Name = "btnConnect";
-            btnConnect.Size = new Size(130, 35);
-            btnConnect.TabIndex = 4;
-            btnConnect.Text = "Connect";
-            btnConnect.UseVisualStyleBackColor = true;
-            btnConnect.Click += btnConnect_Click;
-            // 
-            // btnSend
-            // 
-            btnSend.Location = new Point(181, 40);
-            btnSend.Name = "btnSend";
-            btnSend.Size = new Size(107, 52);
-            btnSend.TabIndex = 6;
-            btnSend.Text = "Send";
-            btnSend.UseVisualStyleBackColor = true;
-            btnSend.Click += btnSend_Click;
-            // 
-            // tbSend
-            // 
-            tbSend.Location = new Point(12, 69);
-            tbSend.Name = "tbSend";
-            tbSend.Size = new Size(151, 23);
-            tbSend.TabIndex = 8;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 40);
-            label3.Name = "label3";
-            label3.Size = new Size(143, 15);
-            label3.TabIndex = 10;
-            label3.Text = "Command To send (RAW)";
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(btnDisconnect);
-            panel1.Controls.Add(btnConnect);
-            panel1.Controls.Add(tbPort);
-            panel1.Controls.Add(tbIP);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(326, 37);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(608, 67);
-            panel1.TabIndex = 49;
-            // 
-            // btnDisconnect
-            // 
-            btnDisconnect.Location = new Point(266, 15);
-            btnDisconnect.Name = "btnDisconnect";
-            btnDisconnect.Size = new Size(130, 35);
-            btnDisconnect.TabIndex = 5;
-            btnDisconnect.Text = "Dis-Connect";
-            btnDisconnect.UseVisualStyleBackColor = true;
-            btnDisconnect.Click += Form1_Closing;
-            // 
             // IndexerPosition
             // 
             IndexerPosition.BackColor = SystemColors.ActiveBorder;
@@ -576,7 +574,7 @@
             // 
             // progressBarD
             // 
-            progressBarD.Location = new Point(249, 541);
+            progressBarD.Location = new Point(238, 497);
             progressBarD.Maximum = 60000;
             progressBarD.Name = "progressBarD";
             progressBarD.Size = new Size(548, 28);
@@ -585,7 +583,7 @@
             // 
             // tbIndxCount
             // 
-            tbIndxCount.Location = new Point(9, 42);
+            tbIndxCount.Location = new Point(12, 43);
             tbIndxCount.MaxLength = 10;
             tbIndxCount.Name = "tbIndxCount";
             tbIndxCount.Size = new Size(136, 23);
@@ -641,8 +639,6 @@
             Indexer.Controls.Add(btnIndxCW);
             Indexer.Controls.Add(indexTo);
             Indexer.Controls.Add(numericUpDown1);
-            Indexer.Controls.Add(calibrate);
-            Indexer.Controls.Add(cbIndexer);
             Indexer.Location = new Point(18, 110);
             Indexer.Name = "Indexer";
             Indexer.Size = new Size(295, 301);
@@ -703,9 +699,9 @@
             label20.AutoSize = true;
             label20.Location = new Point(163, 21);
             label20.Name = "label20";
-            label20.Size = new Size(94, 15);
+            label20.Size = new Size(78, 15);
             label20.TabIndex = 83;
-            label20.Text = "Indexer E.Count.";
+            label20.Text = "Indx E.Count.";
             // 
             // btAE
             // 
@@ -746,29 +742,6 @@
             numericUpDown1.Size = new Size(107, 23);
             numericUpDown1.TabIndex = 66;
             numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // calibrate
-            // 
-            calibrate.Enabled = false;
-            calibrate.Location = new Point(198, 254);
-            calibrate.Name = "calibrate";
-            calibrate.Size = new Size(88, 32);
-            calibrate.TabIndex = 62;
-            calibrate.Text = "Calibrate ";
-            calibrate.UseVisualStyleBackColor = true;
-            calibrate.Visible = false;
-            calibrate.Click += calibrate_Click;
-            // 
-            // cbIndexer
-            // 
-            cbIndexer.FormattingEnabled = true;
-            cbIndexer.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" });
-            cbIndexer.Location = new Point(157, 254);
-            cbIndexer.Name = "cbIndexer";
-            cbIndexer.Size = new Size(36, 23);
-            cbIndexer.TabIndex = 64;
-            cbIndexer.Text = "1";
-            cbIndexer.Visible = false;
             // 
             // gpSDrive
             // 
@@ -965,7 +938,7 @@
             // 
             // progressBarS
             // 
-            progressBarS.Location = new Point(249, 491);
+            progressBarS.Location = new Point(239, 549);
             progressBarS.Maximum = 60000;
             progressBarS.Name = "progressBarS";
             progressBarS.Size = new Size(548, 26);
@@ -990,19 +963,6 @@
             label22.TabIndex = 72;
             label22.Text = "Dummy Position";
             // 
-            // button1
-            // 
-            button1.AccessibleRole = AccessibleRole.ButtonMenu;
-            button1.Enabled = false;
-            button1.Location = new Point(1023, 259);
-            button1.Name = "button1";
-            button1.Size = new Size(157, 33);
-            button1.TabIndex = 73;
-            button1.Text = "Start Treatment";
-            button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
-            button1.Click += button1_Click;
-            // 
             // lblIndexSlotNo
             // 
             lblIndexSlotNo.AutoSize = true;
@@ -1011,17 +971,6 @@
             lblIndexSlotNo.Size = new Size(55, 15);
             lblIndexSlotNo.TabIndex = 74;
             lblIndexSlotNo.Text = "Initilizing";
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Enabled = false;
-            dataGridView1.Location = new Point(1008, 298);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(221, 242);
-            dataGridView1.TabIndex = 75;
-            dataGridView1.Visible = false;
             // 
             // lblTimeElapsed
             // 
@@ -1243,56 +1192,113 @@
             // 
             // gbSafety
             // 
-            gbSafety.Controls.Add(label30);
-            gbSafety.Controls.Add(label29);
-            gbSafety.Controls.Add(label26);
-            gbSafety.Controls.Add(label7);
+            gbSafety.Controls.Add(lblSysFault);
+            gbSafety.Controls.Add(indSysFault);
+            gbSafety.Controls.Add(lblACPower);
+            gbSafety.Controls.Add(lblDoor);
+            gbSafety.Controls.Add(lblEmgSw);
+            gbSafety.Controls.Add(lblKeySw);
             gbSafety.Controls.Add(indTretSw);
             gbSafety.Controls.Add(indPwrSw);
             gbSafety.Controls.Add(indEmgSw);
             gbSafety.Controls.Add(indDoorSw);
-            gbSafety.Location = new Point(819, 389);
+            gbSafety.Location = new Point(819, 360);
             gbSafety.Name = "gbSafety";
-            gbSafety.Size = new Size(152, 226);
+            gbSafety.Size = new Size(181, 283);
             gbSafety.TabIndex = 100;
             gbSafety.TabStop = false;
             gbSafety.Text = "Safety Int Lock";
             // 
-            // label30
+            // lblACPower
             // 
-            label30.AutoSize = true;
-            label30.Location = new Point(80, 194);
-            label30.Name = "label30";
-            label30.Size = new Size(40, 15);
-            label30.TabIndex = 103;
-            label30.Text = "Power";
+            lblACPower.AutoSize = true;
+            lblACPower.Location = new Point(80, 194);
+            lblACPower.Name = "lblACPower";
+            lblACPower.Size = new Size(40, 15);
+            lblACPower.TabIndex = 103;
+            lblACPower.Text = "Power";
             // 
-            // label29
+            // lblDoor
             // 
-            label29.AutoSize = true;
-            label29.Location = new Point(75, 143);
-            label29.Name = "label29";
-            label29.Size = new Size(36, 15);
-            label29.TabIndex = 102;
-            label29.Text = "Door ";
+            lblDoor.AutoSize = true;
+            lblDoor.Location = new Point(75, 143);
+            lblDoor.Name = "lblDoor";
+            lblDoor.Size = new Size(36, 15);
+            lblDoor.TabIndex = 102;
+            lblDoor.Text = "Door ";
             // 
-            // label26
+            // lblEmgSw
             // 
-            label26.AutoSize = true;
-            label26.Location = new Point(70, 83);
-            label26.Name = "label26";
-            label26.Size = new Size(59, 15);
-            label26.TabIndex = 101;
-            label26.Text = "EMG Stop";
+            lblEmgSw.AutoSize = true;
+            lblEmgSw.Location = new Point(70, 83);
+            lblEmgSw.Name = "lblEmgSw";
+            lblEmgSw.Size = new Size(59, 15);
+            lblEmgSw.TabIndex = 101;
+            lblEmgSw.Text = "EMG Stop";
             // 
-            // label7
+            // lblKeySw
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(68, 36);
-            label7.Name = "label7";
-            label7.Size = new Size(76, 15);
-            label7.TabIndex = 100;
-            label7.Text = "Treatment En";
+            lblKeySw.AutoSize = true;
+            lblKeySw.Location = new Point(68, 36);
+            lblKeySw.Name = "lblKeySw";
+            lblKeySw.Size = new Size(76, 15);
+            lblKeySw.TabIndex = 100;
+            lblKeySw.Text = "Treatment En";
+            // 
+            // btnSaveRawData
+            // 
+            btnSaveRawData.Location = new Point(1136, 621);
+            btnSaveRawData.Name = "btnSaveRawData";
+            btnSaveRawData.Size = new Size(116, 30);
+            btnSaveRawData.TabIndex = 101;
+            btnSaveRawData.Text = "Save Raw Data";
+            btnSaveRawData.UseVisualStyleBackColor = true;
+            btnSaveRawData.Click += btnSaveRawData_Click;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(238, 40);
+            label32.Name = "label32";
+            label32.Size = new Size(69, 15);
+            label32.TabIndex = 102;
+            label32.Text = "Error Code: ";
+            // 
+            // lblErrorcode
+            // 
+            lblErrorcode.AutoSize = true;
+            lblErrorcode.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblErrorcode.Location = new Point(254, 55);
+            lblErrorcode.Name = "lblErrorcode";
+            lblErrorcode.Size = new Size(28, 32);
+            lblErrorcode.TabIndex = 103;
+            lblErrorcode.Text = "0";
+            // 
+            // pBCmdInProgress
+            // 
+            pBCmdInProgress.Location = new Point(592, 64);
+            pBCmdInProgress.Name = "pBCmdInProgress";
+            pBCmdInProgress.Size = new Size(355, 23);
+            pBCmdInProgress.Style = ProgressBarStyle.Marquee;
+            pBCmdInProgress.TabIndex = 104;
+            pBCmdInProgress.Value = 1;
+            // 
+            // indSysFault
+            // 
+            indSysFault.Location = new Point(14, 230);
+            indSysFault.Name = "indSysFault";
+            indSysFault.Size = new Size(44, 44);
+            indSysFault.TabIndex = 104;
+            indSysFault.Value = false;
+            // 
+            // lblSysFault
+            // 
+            lblSysFault.AutoSize = true;
+            lblSysFault.Location = new Point(77, 242);
+            lblSysFault.Name = "lblSysFault";
+            lblSysFault.Size = new Size(74, 15);
+            lblSysFault.TabIndex = 105;
+            lblSysFault.Text = "System Fault";
             // 
             // Form1
             // 
@@ -1300,27 +1306,32 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
             ClientSize = new Size(1264, 761);
+            Controls.Add(label24);
+            Controls.Add(btnConnect);
+            Controls.Add(pBCmdInProgress);
+            Controls.Add(lblErrorcode);
+            Controls.Add(indCmdProgress);
+            Controls.Add(lblCmdInProg);
+            Controls.Add(indIndexCalibrated);
+            Controls.Add(label32);
+            Controls.Add(btnSaveRawData);
             Controls.Add(gbSafety);
             Controls.Add(groupBox2);
             Controls.Add(pbDwell);
+            Controls.Add(label9);
             Controls.Add(panel2);
+            Controls.Add(indSourcOut);
             Controls.Add(btnEmgReset);
             Controls.Add(btnEmgStop);
             Controls.Add(label8);
             Controls.Add(lblTimeElapsed);
-            Controls.Add(dataGridView1);
-            Controls.Add(button1);
             Controls.Add(label22);
             Controls.Add(label21);
             Controls.Add(progressBarS);
             Controls.Add(gpDDrive);
             Controls.Add(gpSDrive);
-            Controls.Add(label3);
             Controls.Add(Indexer);
-            Controls.Add(btnSend);
-            Controls.Add(tbSend);
             Controls.Add(progressBarD);
-            Controls.Add(panel1);
             Controls.Add(label17);
             Controls.Add(label16);
             Controls.Add(indiDHome);
@@ -1350,10 +1361,10 @@
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             Indexer.ResumeLayout(false);
             Indexer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
@@ -1361,7 +1372,6 @@
             gpSDrive.PerformLayout();
             gpDDrive.ResumeLayout(false);
             gpDDrive.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numMaxcycles).EndInit();
@@ -1437,16 +1447,12 @@
         private Button btnD_in;
         private Button btnD_out;
         private Button btnDisconnect;
-        private Button calibrate;
-        private ComboBox cbIndexer;
         private NumericUpDown numericUpDown1;
         private Button indexTo;
         private ProgressBar progressBarS;
         private Label label21;
         private Label label22;
-        private Button button1;
         private Label lblIndexSlotNo;
-        private DataGridView dataGridView1;
         private ToolStripMenuItem helpToolStripMenuItem;
         private Label lblTimeElapsed;
         private Label label8;
@@ -1458,7 +1464,7 @@
         private Label label20;
         private Label lblIndexerCount;
         private WinFormsControlLibrary1.Indicator indIndexCalibrated;
-        private Label label23;
+        private Label lblCmdInProg;
         private Label label24;
         private Button btnEmgStop;
         private Button btnEmgReset;
@@ -1482,15 +1488,21 @@
         private WinFormsControlLibrary1.Indicator indDoorSw;
         private WinFormsControlLibrary1.Indicator indPwrSw;
         private GroupBox gbSafety;
-        private Label label30;
-        private Label label29;
-        private Label label26;
-        private Label label7;
+        private Label lblACPower;
+        private Label lblDoor;
+        private Label lblEmgSw;
+        private Label lblKeySw;
         private CheckBox cbDummy;
         private CheckBox cbSource;
         private Label lblSEnc;
         private Label label31;
         private Label lblDEnc;
         private Label label33;
+        private Button btnSaveRawData;
+        private Label label32;
+        private Label lblErrorcode;
+        private ProgressBar pBCmdInProgress;
+        private Label lblSysFault;
+        private WinFormsControlLibrary1.Indicator indSysFault;
     }
 }

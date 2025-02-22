@@ -39,7 +39,7 @@ namespace GUISocket
             sensor1 = byte.Parse(chunks[1]);
             sensor1 = byte.Parse(chunks[2]);
             indxEnc = int.Parse(chunks[3]);
-            srcEnc = int.Parse(chunks[4]);
+            srcEnc = int.Parse(chunks[4]);// Source out will generate negative value
             dmyEnc = int.Parse(chunks[5]);
             dwellT = int.Parse(chunks[6]);
             totalT = int.Parse(chunks[7]);
@@ -74,14 +74,16 @@ namespace GUISocket
 
         public double DummyPosMM()
         {
-            double val= -1 * (dWheelDia*3.14)/dPPR;
-            return  Math.Round(val*dmyEnc, 2);
+            //double val= (dWheelDia*3.14)/dPPR;
+            double mmPerEnc = 33.0/500.0; // experimentaly measured
+            return  Math.Round(mmPerEnc*Math.Abs(dmyEnc), 2);
         }
 
         public double SourcePosMM()
         {
             double val=  (sWheelDia * 3.14) / sPPR; // Direction is inverted due to physical connection.
-            return Math.Round(val * srcEnc, 2);
+            double mmPerEnc = 33.0 / 500.0; // experimentaly measured
+            return Math.Round(mmPerEnc * Math.Abs(srcEnc), 2);
         }
 
 
