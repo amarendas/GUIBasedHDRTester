@@ -93,6 +93,7 @@
             indexTo = new Button();
             numericUpDown1 = new NumericUpDown();
             gpSDrive = new GroupBox();
+            btnMSS = new Button();
             lblSEnc = new Label();
             label31 = new Label();
             btnS_Ereset = new Button();
@@ -102,6 +103,7 @@
             btnS_in = new Button();
             btnS_out = new Button();
             gpDDrive = new GroupBox();
+            btnMDS = new Button();
             lblDEnc = new Label();
             label33 = new Label();
             btnD_Ereset = new Button();
@@ -137,6 +139,8 @@
             indDoorSw = new WinFormsControlLibrary1.Indicator();
             indPwrSw = new WinFormsControlLibrary1.Indicator();
             gbSafety = new GroupBox();
+            lblSysFault = new Label();
+            indSysFault = new WinFormsControlLibrary1.Indicator();
             lblACPower = new Label();
             lblDoor = new Label();
             lblEmgSw = new Label();
@@ -145,8 +149,6 @@
             label32 = new Label();
             lblErrorcode = new Label();
             pBCmdInProgress = new ProgressBar();
-            indSysFault = new WinFormsControlLibrary1.Indicator();
-            lblSysFault = new Label();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -745,6 +747,7 @@
             // 
             // gpSDrive
             // 
+            gpSDrive.Controls.Add(btnMSS);
             gpSDrive.Controls.Add(lblSEnc);
             gpSDrive.Controls.Add(label31);
             gpSDrive.Controls.Add(btnS_Ereset);
@@ -759,6 +762,16 @@
             gpSDrive.TabIndex = 60;
             gpSDrive.TabStop = false;
             gpSDrive.Text = "Source Drive";
+            // 
+            // btnMSS
+            // 
+            btnMSS.Location = new Point(6, 170);
+            btnMSS.Name = "btnMSS";
+            btnMSS.Size = new Size(136, 36);
+            btnMSS.TabIndex = 63;
+            btnMSS.Text = "S_OUT";
+            btnMSS.UseVisualStyleBackColor = true;
+            btnMSS.Click += button1_Click_1;
             // 
             // lblSEnc
             // 
@@ -780,9 +793,9 @@
             // 
             // btnS_Ereset
             // 
-            btnS_Ereset.Location = new Point(5, 262);
+            btnS_Ereset.Location = new Point(4, 260);
             btnS_Ereset.Name = "btnS_Ereset";
-            btnS_Ereset.Size = new Size(140, 33);
+            btnS_Ereset.Size = new Size(136, 36);
             btnS_Ereset.TabIndex = 60;
             btnS_Ereset.Text = "E Reset";
             btnS_Ereset.UseVisualStyleBackColor = true;
@@ -811,9 +824,9 @@
             // 
             // btnS_home
             // 
-            btnS_home.Location = new Point(5, 188);
+            btnS_home.Location = new Point(4, 215);
             btnS_home.Name = "btnS_home";
-            btnS_home.Size = new Size(140, 56);
+            btnS_home.Size = new Size(136, 36);
             btnS_home.TabIndex = 57;
             btnS_home.Text = "Home";
             btnS_home.UseVisualStyleBackColor = true;
@@ -821,7 +834,7 @@
             // 
             // btnS_in
             // 
-            btnS_in.Location = new Point(9, 80);
+            btnS_in.Location = new Point(6, 80);
             btnS_in.Name = "btnS_in";
             btnS_in.Size = new Size(136, 36);
             btnS_in.TabIndex = 56;
@@ -831,7 +844,7 @@
             // 
             // btnS_out
             // 
-            btnS_out.Location = new Point(6, 132);
+            btnS_out.Location = new Point(6, 125);
             btnS_out.Name = "btnS_out";
             btnS_out.Size = new Size(136, 36);
             btnS_out.TabIndex = 55;
@@ -841,6 +854,7 @@
             // 
             // gpDDrive
             // 
+            gpDDrive.Controls.Add(btnMDS);
             gpDDrive.Controls.Add(lblDEnc);
             gpDDrive.Controls.Add(label33);
             gpDDrive.Controls.Add(btnD_Ereset);
@@ -855,6 +869,16 @@
             gpDDrive.TabIndex = 61;
             gpDDrive.TabStop = false;
             gpDDrive.Text = "Dummy Drive";
+            // 
+            // btnMDS
+            // 
+            btnMDS.Location = new Point(9, 170);
+            btnMDS.Name = "btnMDS";
+            btnMDS.Size = new Size(136, 36);
+            btnMDS.TabIndex = 63;
+            btnMDS.Text = "S_OUT";
+            btnMDS.UseVisualStyleBackColor = true;
+            btnMDS.Click += btnMDS_Click;
             // 
             // lblDEnc
             // 
@@ -876,9 +900,9 @@
             // 
             // btnD_Ereset
             // 
-            btnD_Ereset.Location = new Point(5, 262);
+            btnD_Ereset.Location = new Point(9, 260);
             btnD_Ereset.Name = "btnD_Ereset";
-            btnD_Ereset.Size = new Size(140, 33);
+            btnD_Ereset.Size = new Size(136, 36);
             btnD_Ereset.TabIndex = 60;
             btnD_Ereset.Text = "E Reset";
             btnD_Ereset.UseVisualStyleBackColor = true;
@@ -908,9 +932,9 @@
             // 
             // btnD_home
             // 
-            btnD_home.Location = new Point(5, 188);
+            btnD_home.Location = new Point(9, 215);
             btnD_home.Name = "btnD_home";
-            btnD_home.Size = new Size(140, 56);
+            btnD_home.Size = new Size(136, 36);
             btnD_home.TabIndex = 57;
             btnD_home.Text = "Home";
             btnD_home.UseVisualStyleBackColor = true;
@@ -928,7 +952,7 @@
             // 
             // btnD_out
             // 
-            btnD_out.Location = new Point(6, 132);
+            btnD_out.Location = new Point(9, 125);
             btnD_out.Name = "btnD_out";
             btnD_out.Size = new Size(136, 36);
             btnD_out.TabIndex = 55;
@@ -1209,6 +1233,23 @@
             gbSafety.TabStop = false;
             gbSafety.Text = "Safety Int Lock";
             // 
+            // lblSysFault
+            // 
+            lblSysFault.AutoSize = true;
+            lblSysFault.Location = new Point(77, 242);
+            lblSysFault.Name = "lblSysFault";
+            lblSysFault.Size = new Size(74, 15);
+            lblSysFault.TabIndex = 105;
+            lblSysFault.Text = "System Fault";
+            // 
+            // indSysFault
+            // 
+            indSysFault.Location = new Point(14, 230);
+            indSysFault.Name = "indSysFault";
+            indSysFault.Size = new Size(44, 44);
+            indSysFault.TabIndex = 104;
+            indSysFault.Value = false;
+            // 
             // lblACPower
             // 
             lblACPower.AutoSize = true;
@@ -1282,23 +1323,6 @@
             pBCmdInProgress.Style = ProgressBarStyle.Marquee;
             pBCmdInProgress.TabIndex = 104;
             pBCmdInProgress.Value = 1;
-            // 
-            // indSysFault
-            // 
-            indSysFault.Location = new Point(14, 230);
-            indSysFault.Name = "indSysFault";
-            indSysFault.Size = new Size(44, 44);
-            indSysFault.TabIndex = 104;
-            indSysFault.Value = false;
-            // 
-            // lblSysFault
-            // 
-            lblSysFault.AutoSize = true;
-            lblSysFault.Location = new Point(77, 242);
-            lblSysFault.Name = "lblSysFault";
-            lblSysFault.Size = new Size(74, 15);
-            lblSysFault.TabIndex = 105;
-            lblSysFault.Text = "System Fault";
             // 
             // Form1
             // 
@@ -1504,5 +1528,7 @@
         private ProgressBar pBCmdInProgress;
         private Label lblSysFault;
         private WinFormsControlLibrary1.Indicator indSysFault;
+        private Button btnMSS;
+        private Button btnMDS;
     }
 }

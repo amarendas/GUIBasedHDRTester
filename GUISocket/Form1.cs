@@ -58,7 +58,7 @@ namespace GUISocket
         System.Data.DataSet dataSet;
         System.Data.DataTable ChannelTable = new DataTable("ChannelData");
         int[] indexerPosition = { 0, 515, 3741, 6955, 10142, 13352, 16506, 19677, 22856, 26036, 29231, 32424, 35708, 38914, 42120, 45326, 48532, 51738, 54944, 58148, 61353 };
-        int[] indexerEncPosition= new int[21];// = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
+        int[] indexerEncPosition = new int[21];// = { 0, 880, 5879, 10873, 15869, 20822, 25834, 30792,35808,40729,45740,50755,55728,60751,65744, 70725,75705, 80794,85871, 90870,95870};  // This is default positiondata, applicable when not able to read indexer Config file.
         TreatmentState ts = new TreatmentState();
         HDRResponce ResponceData = new HDRResponce();
 
@@ -270,7 +270,7 @@ namespace GUISocket
                     pbDwell.Value = 0;
 
                 lblErrorcode.Text = words[8].ToString();
-                if(lblErrorcode.Text!="0")
+                if (lblErrorcode.Text != "0")
                     lblErrorcode.BackColor = Color.Red;
                 progressBarS.Value = (-1 * int.Parse(words[4])) < 0 ? 0 : -1 * (int.Parse(words[4]));
                 progressBarD.Value = int.Parse(words[5]) < 0 ? 0 : int.Parse(words[5]);
@@ -284,7 +284,7 @@ namespace GUISocket
                     label9.Text = "Source IN";
                 lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
                 lblDEnc.Text = (progressBarD.Value).ToString();
-                lblSEnc.Text = progressBarS.Value.ToString(); 
+                lblSEnc.Text = progressBarS.Value.ToString();
                 if (!indCmdProgress.Value)
                 {
                     lblIndexerCount.Text = words[3];
@@ -329,7 +329,7 @@ namespace GUISocket
 
             // ----------------------
             mask = 0x01;
-            indSysFault.Value=!((dSensor2 & mask)!= 0);
+            indSysFault.Value = !((dSensor2 & mask) != 0);
             if (indSysFault.Value)
                 lblSysFault.Text = "System Faulted";
             else lblSysFault.Text = "System Ready";
@@ -349,7 +349,7 @@ namespace GUISocket
                 lblCmdInProg.Text = "M/c Idle";
                 pBCmdInProgress.Visible = false;
             }
-                
+
 
             mask = 0x04;
             indPwrSw.Value = (dSensor2 & mask) != 0;
@@ -560,8 +560,8 @@ namespace GUISocket
                         }
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
-                            cmdStr = "MSF" + tipPosition + ",";
-                            //cmdStr = "MDF" + tipPosition + ",";
+                            //cmdStr = "MSF" + tipPosition + ",";
+                            cmdStr = "S25800"  + ",";
                             ts.LastCommandSent = "M";
                             data = Send_to_client(cmdStr);
                             WriteLogfile("Source Sent Out.");
@@ -573,7 +573,7 @@ namespace GUISocket
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
                             WriteLogfile("Source Reached Tip position." + ResponceData.DummyPosMM());
-                            cmdStr = "W5";
+                            cmdStr = "W30";
                             ts.LastCommandSent = "W";
                             data = Send_to_client(cmdStr);
                             Debug.WriteLine(cmdStr);
@@ -644,7 +644,7 @@ namespace GUISocket
                         }
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
-                            cmdStr = "MDF" + tipPosition + ",";
+                            cmdStr = "D25800" + ",";
                             //cmdStr = "MDF" + tipPosition + ",";
                             ts.LastCommandSent = "MDF";
                             data = Send_to_client(cmdStr);
@@ -925,10 +925,10 @@ namespace GUISocket
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            
+
             string cmdStr = "O" + "I"; // Send Indexer to origin
             if (indIndexCalibrated.Value)
-                cmdStr =  "I";
+                cmdStr = "I";
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
@@ -981,7 +981,7 @@ namespace GUISocket
         }
 
 
-       
+
 
         private void tbDcount_TextChanged(object sender, EventArgs e)
         {
@@ -1136,6 +1136,22 @@ namespace GUISocket
             StreamWriter log1 = new StreamWriter(rawDatalog, append: true);
             log1.WriteLine(tbRecieved.Text);
             log1.Close();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string cmdStr = "MSS,";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
+        }
+
+        private void btnMDS_Click(object sender, EventArgs e)
+        {
+            string cmdStr = "MDS,";
+            string data = Send_to_client(cmdStr);
+            CommandParser(data);
+            Debug.WriteLine(cmdStr);
         }
     }
 }
