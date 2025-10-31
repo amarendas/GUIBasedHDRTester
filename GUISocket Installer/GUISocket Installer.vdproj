@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_57E75B8B6E2B477C84D22E5A382EE209"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -132,26 +126,6 @@
             {
             "SourcePath" = "8:C:\\Users\\HP\\Pictures\\HDR\\hdrIcon.ico"
             "TargetName" = "8:hdrIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57E75B8B6E2B477C84D22E5A382EE209"
-            {
-            "SourcePath" = "8:D:\\Projects\\HDR-BRIT\\HDR Operation Manual.pdf"
-            "TargetName" = "8:HDR Operation Manual.pdf"
             "Tag" = "8:"
             "Folder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
             "Condition" = "8:"
@@ -379,20 +353,6 @@
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
             "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
-            "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
-            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E91FDAFFABE34B68A7645FBF89724DC9"
-            {
-            "Name" = "8:Shortcut to %sHDR Operation Manual.pdf"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_57E75B8B6E2B477C84D22E5A382EE209"
             "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
             "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
             "Icon" = "8:"

@@ -45,7 +45,7 @@ namespace GUISocket
             public bool StopIssued { get => stopIssued; set => stopIssued = value; }
         }
 
-
+        Boolean Fault = false; // indiactes if Eng is pressed or AC power is not there or System fault or Door open
         Stopwatch stopTime = new Stopwatch();
         Stopwatch totalTime = new Stopwatch();
         Int32 NoOfCycles = 0;
@@ -189,7 +189,7 @@ namespace GUISocket
                 int bytesReceived = clientSocket.Receive(buffer);
                 string dtRecievd = Encoding.ASCII.GetString(buffer, 0, bytesReceived);
                 String timeStamp = (DateTime.Now).ToString("HHmmssffff");
-                tbRecieved.AppendText($"{timeStamp}:< {dtRecievd}> \n");
+                tbRecieved.AppendText($"{timeStamp}:< {dtRecievd}> \r\n");
 
                 //Debug.WriteLine($"{timeStamp}: <{dtRecievd}>: {bytesReceived}: byte [0]={(int)buffer[0]}, byte[1]= {(int)buffer[1]}");
                 return dtRecievd;
@@ -273,8 +273,8 @@ namespace GUISocket
                 if (lblErrorcode.Text != "0")
                     lblErrorcode.BackColor = Color.Red;
                 progressBarS.Value = (-1 * int.Parse(words[4])) < 0 ? 0 : -1 * (int.Parse(words[4]));
-                progressBarD.Value = int.Parse(words[5]) < 0 ? 0 : int.Parse(words[5]);
-                tbSrcEnc.Text = ResponceData.SourcePosMM().ToString(); //Convert.ToString(float.Parse(words[5]) * -0.0706);
+                //progressBarD.Value = int.Parse(words[5]) < 0 ? 0 : int.Parse(words[5]);
+                tbSrcEnc.Text = ResponceData.SourcePosMM().ToString();
                 tbDmyEnc.Text = ResponceData.DummyPosMM().ToString();
                 IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
                 indSourcOut.Value = SourceOut;
@@ -283,8 +283,8 @@ namespace GUISocket
                 else
                     label9.Text = "Source IN";
                 lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
-                lblDEnc.Text = (progressBarD.Value).ToString();
-                lblSEnc.Text = progressBarS.Value.ToString();
+                lblDEnc.Text = ResponceData.DmyEnc.ToString();
+                lblSEnc.Text = ResponceData.SrcEnc.ToString();
                 if (!indCmdProgress.Value)
                 {
                     lblIndexerCount.Text = words[3];
@@ -328,11 +328,7 @@ namespace GUISocket
 
 
             // ----------------------
-            mask = 0x01;
-            indSysFault.Value = !((dSensor2 & mask) != 0);
-            if (indSysFault.Value)
-                lblSysFault.Text = "System Faulted";
-            else lblSysFault.Text = "System Ready";
+
 
 
 
@@ -354,9 +350,17 @@ namespace GUISocket
             mask = 0x04;
             indPwrSw.Value = (dSensor2 & mask) != 0;
             if (indPwrSw.Value)
+            {
+                Fault = true;
                 lblACPower.Text = "AC POWER OFF";
+            }
+
             else
+            {
+                Fault = false;
                 lblACPower.Text = "AC Power ON";
+            }
+
 
             mask = 0x08;
             indIndexCalibrated.Value = (dSensor2 & mask) == 0;
@@ -368,6 +372,13 @@ namespace GUISocket
                 lblDoor.Text = "DOOR OPEN";
             else
                 lblDoor.Text = "DOOR CLOSED";
+
+
+            mask = 0x20;
+            indSysFault.Value = !((dSensor2 & mask) != 0);
+            if (indSysFault.Value)
+                lblSysFault.Text = "System Faulted";
+            else lblSysFault.Text = "System Ready";
 
             mask = 0x40;
             indEmgSw.Value = !((dSensor2 & mask) != 0);
@@ -518,6 +529,20 @@ namespace GUISocket
                 btnStopCycle.Enabled = true;
                 cbSource.Enabled = false;
                 cbDummy.Enabled = false;
+                if (Fault) // If any fault is there, stop the cycle
+                {
+                    ts.Active = false;
+                    WriteLogfile("Cycle Aborted due to Fault.");
+                }
+                else
+                {
+                    if (cbDummy.Checked && cbSource.Checked)
+                        Combinedcycle();
+                    if (!cbDummy.Checked && cbSource.Checked)
+                        Sourcecycle();
+                    if (cbDummy.Checked && !cbSource.Checked)
+                        Dummycycle();
+                }
 
             }
             else
@@ -528,14 +553,8 @@ namespace GUISocket
                 cbSource.Enabled = true;
                 cbDummy.Enabled = true;
             }
-            if (cbDummy.Checked && cbSource.Checked)
-            {
-                Combinedcycle();
-            }
-            if (!cbDummy.Checked && cbSource.Checked)
-                Sourcecycle();
-            if (cbDummy.Checked && !cbSource.Checked)
-                Dummycycle();
+
+
 
 
 
@@ -561,7 +580,7 @@ namespace GUISocket
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
                             //cmdStr = "MSF" + tipPosition + ",";
-                            cmdStr = "S25800"  + ",";
+                            cmdStr = "S25800" + ",";
                             ts.LastCommandSent = "M";
                             data = Send_to_client(cmdStr);
                             WriteLogfile("Source Sent Out.");
@@ -765,8 +784,8 @@ namespace GUISocket
                         if (!indCmdProgress.Value)
                         {  // if previous command is completed
                             WriteLogfile("Source Reached Home.");
-                            NoOfCycles++;
-                            lblcyclesCompleted.Text = NoOfCycles.ToString();
+                            //NoOfCycles++;
+                            //lblcyclesCompleted.Text = NoOfCycles.ToString();
                             WriteLogfile("Cycles Completed: " + NoOfCycles.ToString());
                             Debug.WriteLine("Cycles Completed: " + NoOfCycles.ToString());
                             cmdStr = "W5";
@@ -1152,6 +1171,21 @@ namespace GUISocket
             string data = Send_to_client(cmdStr);
             CommandParser(data);
             Debug.WriteLine(cmdStr);
+        }
+
+        private void lblcyclesCompleted_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbSend_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbRecieved_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

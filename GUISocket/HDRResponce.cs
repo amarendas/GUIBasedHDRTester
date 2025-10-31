@@ -75,15 +75,15 @@ namespace GUISocket
         public double DummyPosMM()
         {
             //double val= (dWheelDia*3.14)/dPPR;
-            double mmPerEnc = 33.0/500.0; // experimentaly measured
-            return  Math.Round(mmPerEnc*Math.Abs(dmyEnc), 2);
+            double mmPerEnc =1.0/14.7; // experimentaly measured
+            return  Math.Round(mmPerEnc*Math.Abs(dmyEnc)-315, 2);
         }
 
         public double SourcePosMM()
         {
-            double val=  (sWheelDia * 3.14) / sPPR; // Direction is inverted due to physical connection.
-            double mmPerEnc = 33.0 / 500.0; // experimentaly measured
-            return Math.Round(mmPerEnc * Math.Abs(srcEnc), 2);
+            //double val=  (sWheelDia * 3.14) / sPPR; // Direction is inverted due to physical connection.
+            double mmPerEnc =1.0/15.0; // experimentaly measured
+            return Math.Round(mmPerEnc * Math.Abs(srcEnc)-278, 2);
         }
 
 

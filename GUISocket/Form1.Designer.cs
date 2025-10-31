@@ -35,7 +35,6 @@
             lblUser = new Label();
             lblStatServer = new Label();
             panel1 = new Panel();
-            btnDisconnect = new Button();
             tbPort = new TextBox();
             tbIP = new TextBox();
             label2 = new Label();
@@ -43,6 +42,7 @@
             tbSend = new TextBox();
             btnSend = new Button();
             label3 = new Label();
+            btnDisconnect = new Button();
             btnConnect = new Button();
             label24 = new Label();
             indIndexCalibrated = new WinFormsControlLibrary1.Indicator();
@@ -170,13 +170,14 @@
             // 
             tbRecieved.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tbRecieved.Cursor = Cursors.No;
-            tbRecieved.Location = new Point(1011, 110);
+            tbRecieved.Location = new Point(1006, 110);
             tbRecieved.MaxLength = 25;
             tbRecieved.Multiline = true;
             tbRecieved.Name = "tbRecieved";
             tbRecieved.ReadOnly = true;
-            tbRecieved.Size = new Size(241, 505);
+            tbRecieved.Size = new Size(345, 505);
             tbRecieved.TabIndex = 5;
+            tbRecieved.TextChanged += tbRecieved_TextChanged;
             // 
             // groupBox1
             // 
@@ -189,7 +190,7 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Location = new Point(0, 679);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1252, 81);
+            groupBox1.Size = new Size(1392, 81);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Status";
@@ -215,25 +216,14 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnDisconnect);
             panel1.Controls.Add(tbPort);
             panel1.Controls.Add(tbIP);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(135, 19);
             panel1.Name = "panel1";
-            panel1.Size = new Size(608, 56);
+            panel1.Size = new Size(260, 56);
             panel1.TabIndex = 49;
-            // 
-            // btnDisconnect
-            // 
-            btnDisconnect.Location = new Point(266, 15);
-            btnDisconnect.Name = "btnDisconnect";
-            btnDisconnect.Size = new Size(130, 35);
-            btnDisconnect.TabIndex = 5;
-            btnDisconnect.Text = "Dis-Connect";
-            btnDisconnect.UseVisualStyleBackColor = true;
-            btnDisconnect.Click += Form1_Closing;
             // 
             // tbPort
             // 
@@ -270,14 +260,15 @@
             // 
             // tbSend
             // 
-            tbSend.Location = new Point(956, 41);
+            tbSend.Location = new Point(443, 46);
             tbSend.Name = "tbSend";
             tbSend.Size = new Size(151, 23);
             tbSend.TabIndex = 8;
+            tbSend.TextChanged += tbSend_TextChanged;
             // 
             // btnSend
             // 
-            btnSend.Location = new Point(1113, 19);
+            btnSend.Location = new Point(607, 18);
             btnSend.Name = "btnSend";
             btnSend.Size = new Size(107, 52);
             btnSend.TabIndex = 6;
@@ -288,15 +279,25 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(956, 19);
+            label3.Location = new Point(450, 18);
             label3.Name = "label3";
             label3.Size = new Size(143, 15);
             label3.TabIndex = 10;
             label3.Text = "Command To send (RAW)";
             // 
+            // btnDisconnect
+            // 
+            btnDisconnect.Location = new Point(977, 59);
+            btnDisconnect.Name = "btnDisconnect";
+            btnDisconnect.Size = new Size(130, 35);
+            btnDisconnect.TabIndex = 5;
+            btnDisconnect.Text = "Dis-Connect";
+            btnDisconnect.UseVisualStyleBackColor = true;
+            btnDisconnect.Click += Form1_Closing;
+            // 
             // btnConnect
             // 
-            btnConnect.Location = new Point(1113, 59);
+            btnConnect.Location = new Point(1122, 59);
             btnConnect.Name = "btnConnect";
             btnConnect.Size = new Size(130, 35);
             btnConnect.TabIndex = 4;
@@ -361,7 +362,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(1026, 628);
+            label4.Location = new Point(1166, 628);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 11;
@@ -372,7 +373,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { loginToolStripMenuItem, aboutToolStripMenuItem, helpToolStripMenuItem, indexerDataToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1264, 24);
+            menuStrip1.Size = new Size(1404, 24);
             menuStrip1.TabIndex = 12;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -1058,7 +1059,7 @@
             panel2.Controls.Add(IndexerPosition);
             panel2.Controls.Add(lblIndexSlotNo);
             panel2.Controls.Add(label5);
-            panel2.Location = new Point(830, 122);
+            panel2.Location = new Point(819, 122);
             panel2.Name = "panel2";
             panel2.Size = new Size(170, 232);
             panel2.TabIndex = 88;
@@ -1085,10 +1086,10 @@
             // numMaxcycles
             // 
             numMaxcycles.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            numMaxcycles.Increment = new decimal(new int[] { 100, 0, 0, 0 });
+            numMaxcycles.Increment = new decimal(new int[] { 10, 0, 0, 0 });
             numMaxcycles.Location = new Point(7, 118);
             numMaxcycles.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
-            numMaxcycles.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numMaxcycles.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMaxcycles.Name = "numMaxcycles";
             numMaxcycles.Size = new Size(120, 29);
             numMaxcycles.TabIndex = 91;
@@ -1113,6 +1114,7 @@
             lblcyclesCompleted.Size = new Size(38, 46);
             lblcyclesCompleted.TabIndex = 93;
             lblcyclesCompleted.Text = "0";
+            lblcyclesCompleted.Click += lblcyclesCompleted_Click;
             // 
             // pbDwell
             // 
@@ -1228,7 +1230,7 @@
             gbSafety.Controls.Add(indDoorSw);
             gbSafety.Location = new Point(819, 360);
             gbSafety.Name = "gbSafety";
-            gbSafety.Size = new Size(181, 283);
+            gbSafety.Size = new Size(170, 283);
             gbSafety.TabIndex = 100;
             gbSafety.TabStop = false;
             gbSafety.Text = "Safety Int Lock";
@@ -1319,7 +1321,7 @@
             // 
             pBCmdInProgress.Location = new Point(592, 64);
             pBCmdInProgress.Name = "pBCmdInProgress";
-            pBCmdInProgress.Size = new Size(355, 23);
+            pBCmdInProgress.Size = new Size(221, 23);
             pBCmdInProgress.Style = ProgressBarStyle.Marquee;
             pBCmdInProgress.TabIndex = 104;
             pBCmdInProgress.Value = 1;
@@ -1329,7 +1331,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1264, 761);
+            ClientSize = new Size(1404, 761);
+            Controls.Add(btnDisconnect);
             Controls.Add(label24);
             Controls.Add(btnConnect);
             Controls.Add(pBCmdInProgress);
