@@ -79,66 +79,6 @@ namespace GUISocket
 
         StreamWriter log;
 
-        private void MakeChannelTable()
-        {
-
-            // Declare variables for DataColumn and DataRow objects.
-            DataColumn column;
-            DataRow row;
-
-            // Create new DataColumn, set DataType,
-            // ColumnName and add to DataTable.
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.Int32");
-            column.ColumnName = "id";
-            column.ReadOnly = false;
-            column.Unique = true;
-            // Add the Column to the DataColumnCollection.
-            ChannelTable.Columns.Add(column);
-
-            // Create second column.
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.Double");
-            column.ColumnName = "Position";
-            column.AutoIncrement = false;
-            column.Caption = "Position";
-            column.ReadOnly = false;
-            column.Unique = false;
-            // Add the column to the table.
-            ChannelTable.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.Double");
-            column.ColumnName = "TreatmentTime";
-            column.AutoIncrement = false;
-            column.Caption = "Treatment Time";
-            column.ReadOnly = false;
-            column.Unique = false;
-            // Add the column to the table.
-            ChannelTable.Columns.Add(column);
-
-            // Make the ID column the primary key column.
-            DataColumn[] PrimaryKeyColumns = new DataColumn[1];
-            PrimaryKeyColumns[0] = ChannelTable.Columns["id"];
-            ChannelTable.PrimaryKey = PrimaryKeyColumns;
-
-            // Instantiate the DataSet variable.
-            dataSet = new DataSet();
-            // Add the new DataTable to the DataSet.
-            dataSet.Tables.Add(ChannelTable);
-
-            // Create three new DataRow objects and add
-            // them to the DataTable
-            for (int i = 0; i <= 5; i++)
-            {
-                row = ChannelTable.NewRow();
-                row["id"] = i;
-                row["Position"] = Convert.ToInt32(30 * 2.8);
-                row["TreatmentTime"] = 5000;
-                ChannelTable.Rows.Add(row);
-            }
-        }
-
 
         public Form1()
         {
@@ -185,7 +125,13 @@ namespace GUISocket
             {
                 string toSend = "#," + Data2send + ",?";
                 byte[] msg1 = Encoding.ASCII.GetBytes(toSend);
-                int bytesSent = clientSocket.Send(msg1);
+                if (clientSocket != null)
+                {
+                    int bytesSent = clientSocket.Send(msg1);
+                }
+                else
+                    throw new Exception("This is a generic exception message.");
+
                 int bytesReceived = clientSocket.Receive(buffer);
                 string dtRecievd = Encoding.ASCII.GetString(buffer, 0, bytesReceived);
                 String timeStamp = (DateTime.Now).ToString("HHmmssffff");
@@ -214,7 +160,11 @@ namespace GUISocket
                 lblStatServer.ForeColor = System.Drawing.Color.Red;
                 lblStatServer.Text = "Server:Disconnected";
                 timer1.Enabled = false;
-                clientSocket.Close();
+                if (clientSocket != null)
+                {
+                    clientSocket.Close();
+                }
+                
                 btnConnect.Enabled = true;
                 btnSend.Enabled = false;
                 MessageBox.Show(e1.Message, "All Send button Other Exception");
