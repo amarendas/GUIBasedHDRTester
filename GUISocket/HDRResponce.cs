@@ -18,10 +18,16 @@ namespace GUISocket
         int errCode;
 
         int pcd = 180; //PCD of Holes
-        int dWheelDia = 90;// 90mm drive wheel dia
+        /*int dWheelDia = 90;// 90mm drive wheel dia
         int sWheelDia = 90;
         int dPPR = 4000; // pulse per rev of dummy encoder
         int sPPR = 4000;
+        */
+        double mmPerEncD = 1.0 / 14.7; // experimentaly measured
+        double mmPerEncS = 1.0 / 15.0; // experimentaly measured
+        
+        double offsetS;        
+        double offsetD;
 
         public byte Sensor1 { get => sensor1; }
         public byte Sensor2 { get => sensor2; }
@@ -31,6 +37,8 @@ namespace GUISocket
         public int DwellT { get => dwellT;  }
         public int TotalT { get => totalT;  }
         public int ErrCode { get => errCode;  }
+        public double OffsetS { get => offsetS; set => offsetS = value; }
+        public double OffsetD { get => offsetD; set => offsetD = value; }
 
         public HDRResponce()
         {
@@ -44,6 +52,8 @@ namespace GUISocket
             dwellT = int.Parse(chunks[6]);
             totalT = int.Parse(chunks[7]);
             errCode = int.Parse(chunks[8]);
+            offsetS = 278;//Default Values
+            offsetD = 315; // Default Values
 
         }
         public void Update(string dtRecievd)
@@ -74,16 +84,14 @@ namespace GUISocket
 
         public double DummyPosMM()
         {
-            //double val= (dWheelDia*3.14)/dPPR;
-            double mmPerEnc =1.0/14.7; // experimentaly measured
-            return  Math.Round(mmPerEnc*Math.Abs(dmyEnc)-315, 2);
+            
+            return  Math.Round(mmPerEncD*Math.Abs(dmyEnc)- OffsetD, 2);
         }
 
         public double SourcePosMM()
         {
-            //double val=  (sWheelDia * 3.14) / sPPR; // Direction is inverted due to physical connection.
-            double mmPerEnc =1.0/15.0; // experimentaly measured
-            return Math.Round(mmPerEnc * Math.Abs(srcEnc)-278, 2);
+            
+            return Math.Round(mmPerEncS * Math.Abs(srcEnc)-OffsetS, 2);
         }
 
 

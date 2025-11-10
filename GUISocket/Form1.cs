@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static GUISocket.Form2;
 using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace GUISocket
@@ -85,10 +86,10 @@ namespace GUISocket
             InitializeComponent();
             ip = IPAddress.Parse(ipno);
             remoteEP = new IPEndPoint(ip, port);
-            //MakeChannelTable();
-            //dataGridView1.DataSource = ChannelTable;
             path = dirpath + "IndexePosData.txt";
             ReadIndexerConfigFile(path);
+            lbOffsetD.Text = "Dummy OffSet (mm): " + ResponceData.OffsetD.ToString();
+            lbOffsetS.Text = "Source OffSet (mm): " + ResponceData.OffsetS.ToString();
         }
 
         private void ReadIndexerConfigFile(string path)
@@ -115,7 +116,7 @@ namespace GUISocket
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Indexer config file could not be loaded.\n\n" + ex.Message, "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Valid indexer config file could not be loaded.\n\n" + ex.Message, "Caution", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -156,7 +157,7 @@ namespace GUISocket
             catch (Exception e1)
             {
 
-                timer1.Enabled = false;
+
                 lblStatServer.ForeColor = System.Drawing.Color.Red;
                 lblStatServer.Text = "Server:Disconnected";
                 timer1.Enabled = false;
@@ -164,7 +165,7 @@ namespace GUISocket
                 {
                     clientSocket.Close();
                 }
-                
+
                 btnConnect.Enabled = true;
                 btnSend.Enabled = false;
                 MessageBox.Show(e1.Message, "All Send button Other Exception");
@@ -179,74 +180,19 @@ namespace GUISocket
         {
             //Parsing of command
             string[] words = dtRecievd.Split(",");
-            ResponceData.Update(dtRecievd);
-
-            //Update GUI -------
-            UpdateGUI(words);
-
-            return words;
-
-        }
-
-        private void UpdateGUI(string[] words)
-        {
-            if (words.Length > 8)
+            if (words.Length == 9)
             {
-                missedConnectioncounter = 0; // Reset missed counter
-                //Debug.WriteLine(words.Length);
-                //Debug.WriteLine("DSensor :" + Convert.ToString(dSensor, 2));
-                //SensorUdate(byte.Parse(words[1]), byte.Parse(words[2])); // update the sensor display
-                byte s1 = ResponceData.Sensor1;
-                byte s2 = ResponceData.Sensor2;
-                if (ResponceData.ErrCode != 0)
-                {
-                    ts.Active = false;
-                    WriteLogfile("cycle aborted Due to Fauly : " + ResponceData.ErrCode);
-
-                }
-                SensorUdate(s1, s2);
-                if (indiSourceOut.Value)
-                    label9.Text = "Source OUT";
-                else
-                    label9.Text = "Source IN";
-                if (ts.Active && (ts.LastCommandSent == "W"))
-                {
-                    double v = ResponceData.DwellT / 1000;
-                    pbDwell.Value = ResponceData.DwellT > 5000 ? 5 : ResponceData.DwellT / 1000;
-                    lblTimeElapsed.Text = Math.Round(v, 1).ToString();
-                }
-
-                else
-                    pbDwell.Value = 0;
-
-                lblErrorcode.Text = words[8].ToString();
-                if (lblErrorcode.Text != "0")
-                    lblErrorcode.BackColor = Color.Red;
-                progressBarS.Value = (-1 * int.Parse(words[4])) < 0 ? 0 : -1 * (int.Parse(words[4]));
-                //progressBarD.Value = int.Parse(words[5]) < 0 ? 0 : int.Parse(words[5]);
-                tbSrcEnc.Text = ResponceData.SourcePosMM().ToString();
-                tbDmyEnc.Text = ResponceData.DummyPosMM().ToString();
-                IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
-                indSourcOut.Value = SourceOut;
-                if (indSourcOut.Value)
-                    label9.Text = "Source OUT";
-                else
-                    label9.Text = "Source IN";
-                lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
-                lblDEnc.Text = ResponceData.DmyEnc.ToString();
-                lblSEnc.Text = ResponceData.SrcEnc.ToString();
-                if (!indCmdProgress.Value)
-                {
-                    lblIndexerCount.Text = words[3];
-                }
-                else
-                    lblIndexerCount.Text = "-- NA --";
+                ResponceData.Update(dtRecievd);
+                //Update GUI -------
+                UpdateGUI(words);
             }
             else
             {
-                missedConnectioncounter++;
-                Debug.WriteLine(" Wrong Data recieved from Server.");
+                MessageBox.Show("Wrong size of data recieved from Server(Mega).");
             }
+
+
+            return words;
 
         }
 
@@ -346,6 +292,76 @@ namespace GUISocket
 
 
         }
+        private void UpdateGUI(string[] words)
+        {
+            lbOffsetD.Text = "Dummy OffSet (mm): " + ResponceData.OffsetD.ToString();
+            lbOffsetS.Text = "Source OffSet (mm): " + ResponceData.OffsetS.ToString();
+            if (words.Length > 8)
+            {
+                missedConnectioncounter = 0; // Reset missed counter
+                //Debug.WriteLine(words.Length);
+                //Debug.WriteLine("DSensor :" + Convert.ToString(dSensor, 2));
+                //SensorUdate(byte.Parse(words[1]), byte.Parse(words[2])); // update the sensor display
+                byte s1 = ResponceData.Sensor1;
+                byte s2 = ResponceData.Sensor2;
+                if (ResponceData.ErrCode != 0)
+                {
+                    ts.Active = false;
+                    WriteLogfile("cycle aborted Due to Fauly : " + ResponceData.ErrCode);
+
+                }
+                SensorUdate(s1, s2);
+                if (indiSourceOut.Value)
+                    label9.Text = "Source OUT";
+                else
+                    label9.Text = "Source IN";
+                if (ts.Active && (ts.LastCommandSent == "W"))
+                {
+                    double v = ResponceData.DwellT / 1000;
+                    pbDwell.Value = ResponceData.DwellT > 5000 ? 5 : ResponceData.DwellT / 1000;
+                    lblTimeElapsed.Text = Math.Round(v, 1).ToString();
+                }
+
+                else
+                    pbDwell.Value = 0;
+
+                lblErrorcode.Text = words[8].ToString();
+                if (lblErrorcode.Text != "0")
+                    lblErrorcode.BackColor = Color.Red;
+
+                tbSrcEnc.Text = ResponceData.SourcePosMM().ToString();
+                tbDmyEnc.Text = ResponceData.DummyPosMM().ToString();
+                if (ResponceData.DummyPosMM() < 3000)
+                    progressBarD.Value = (ResponceData.DummyPosMM()) < 0 ? 0 : (int)ResponceData.DummyPosMM();
+                if (ResponceData.SourcePosMM() < 3000)
+                    progressBarS.Value = (ResponceData.SourcePosMM()) < 0 ? 0 : (int)ResponceData.SourcePosMM();
+
+                IndexerPosition.CtValue = int.Parse(words[3]) * 360 / 100000;
+                indSourcOut.Value = SourceOut;
+                if (indSourcOut.Value)
+                    label9.Text = "Source OUT";
+                else
+                    label9.Text = "Source IN";
+                lblIndexSlotNo.Text = ((int.Parse(words[3]) - 656) / 5000 + 1).ToString();
+                lblDEnc.Text = ResponceData.DmyEnc.ToString();
+                lblSEnc.Text = ResponceData.SrcEnc.ToString();
+
+                if (!indCmdProgress.Value)
+                {
+                    lblIndexerCount.Text = words[3];
+                }
+                else
+                    lblIndexerCount.Text = "-- NA --";
+            }
+            else
+            {
+                missedConnectioncounter++;
+                Debug.WriteLine(" Wrong Data recieved from Server.");
+            }
+
+        }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             tbIP.Text = ip.ToString();
@@ -364,8 +380,11 @@ namespace GUISocket
         {
             //release socket
             timer1.Enabled = false;
-            clientSocket.Shutdown(SocketShutdown.Both);
-            clientSocket.Close();
+            if (clientSocket != null)
+            {
+                clientSocket.Shutdown(SocketShutdown.Both);
+                clientSocket.Close();
+            }
             lblStatServer.ForeColor = System.Drawing.Color.Red;
             lblStatServer.Text = "Server:Disconnected";
             btnConnect.Enabled = true;
@@ -377,54 +396,58 @@ namespace GUISocket
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            ip = IPAddress.Parse(tbIP.Text);
+            port = int.Parse(tbPort.Text);
+            remoteEP = new IPEndPoint(ip, port);
+
+            // Create client
             try
             {
-                ip = IPAddress.Parse(tbIP.Text);
-                port = int.Parse(tbPort.Text);
-                remoteEP = new IPEndPoint(ip, port);
                 clientSocket = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                // Connect to the server
 
-                try
-                {
-                    clientSocket.Connect(remoteEP);
-                    btnSend.Enabled = true;
-                    btnConnect.Enabled = false;
-                    Indexer.Enabled = true;
-                    lblStatServer.Text = "Server:Connected (" + ipno + ":" + port.ToString() + ")";
-                    lblStatServer.ForeColor = System.Drawing.Color.Green;
-                    MessageBox.Show("Socket Connected", "Success ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    timer1.Enabled = true;
-                    //Send_to_client("OD");
-                    //System.Threading.Thread.Sleep(1000);
-                    //Send_to_client("OS");
-
-
-                }
-                catch (ArgumentNullException e1)
-                {
-
-                    MessageBox.Show(e1.Message, "Argument Null ");
-                    throw;
-                }
-                catch (SocketException e1)
-                {
-
-                    MessageBox.Show(e1.Message, "Socket Connection Execption");
-
-                }
-                catch (Exception e1)
-                {
-
-                    MessageBox.Show(e1.Message, "All Other Exception");
-
-                }
             }
             catch (Exception e1)
             {
                 MessageBox.Show(e1.Message, "Socket Creation Exceprton");
 
             }
+
+            // Connect to the server
+            try
+            {
+                clientSocket.Connect(remoteEP);
+                btnSend.Enabled = true;
+                btnConnect.Enabled = false;
+                Indexer.Enabled = true;
+                lblStatServer.Text = "Server:Connected (" + ip.ToString() + ":" + port.ToString() + ")";
+                lblStatServer.ForeColor = System.Drawing.Color.Green;
+                MessageBox.Show("Socket Connected", "Success ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                timer1.Enabled = true;
+                //Send_to_client("OD");
+                //System.Threading.Thread.Sleep(1000);
+                //Send_to_client("OS");
+
+
+            }
+            catch (ArgumentNullException e1)
+            {
+
+                MessageBox.Show(e1.Message, "Argument Null ");
+                throw;
+            }
+            catch (SocketException e1)
+            {
+
+                MessageBox.Show(e1.Message, "Socket Connection Execption");
+
+            }
+            catch (Exception e1)
+            {
+
+                MessageBox.Show(e1.Message, "All Other Exception");
+
+            }
+
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -459,18 +482,8 @@ namespace GUISocket
             string cmdStr = "HB";
             string data = Send_to_client(cmdStr);
             string[] parList = CommandParser(data); // UpdateGui
-            //Beeper Action
-            if (indiSHome.Value == false)
-            {
-                tmrSourceOUT.Enabled = true;
-                SourceOut = true;
-            }
-            else
-            {
-                tmrSourceOUT.Enabled = false;
-                SourceOut = false;
-            }
-            //Beeper Action over
+                                                    //Beeper Action
+            ActivateBeeperIfSourceOut();
 
             if (ts.Active)
             {
@@ -509,6 +522,22 @@ namespace GUISocket
 
 
         }
+
+        private void ActivateBeeperIfSourceOut()
+        {
+            if (indiSHome.Value == false)
+            {
+                tmrSourceOUT.Enabled = true;
+                SourceOut = true;
+            }
+            else
+            {
+                tmrSourceOUT.Enabled = false;
+                SourceOut = false;
+            }
+            //Beeper Action over
+        }
+
         private void Sourcecycle()
         {
 
@@ -889,9 +918,6 @@ namespace GUISocket
 
         }
 
-
-
-
         private void btnHome_Click(object sender, EventArgs e)
         {
 
@@ -944,13 +970,6 @@ namespace GUISocket
             Debug.WriteLine(cmdStr);
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
 
         private void tbDcount_TextChanged(object sender, EventArgs e)
         {
@@ -963,10 +982,7 @@ namespace GUISocket
         {
         }
 
-        private void lblHelpCmd_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void indexTo_Click(object sender, EventArgs e)
         {
@@ -976,19 +992,8 @@ namespace GUISocket
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
 
-            ts.Active = true;
-
-
-        }
-
-        private void listOfCommandsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1134,6 +1139,60 @@ namespace GUISocket
         }
 
         private void tbRecieved_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void splitter1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void splitter2_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void btnSetOfsetD_Click(object sender, EventArgs e)
+        {
+
+            string input = tboffsetD.Text;
+            if (int.TryParse(input, out int result))
+            {
+                ResponceData.OffsetD = result;
+                // The input is a valid integer
+                MessageBox.Show("Offset of Dummy: " + result);
+            }
+            else
+            {
+                // The input is not a valid integer
+                MessageBox.Show("Please enter a valid integer.");
+            }
+
+        }
+
+        private void btnSetOfsetS_Click(object sender, EventArgs e)
+        {
+            string input = tboffsetS.Text;
+            if (int.TryParse(input, out int result))
+            {
+                ResponceData.OffsetS = result;
+                // The input is a valid integer
+                MessageBox.Show("Offset of Source set to : " + result);
+            }
+            else
+            {
+                // The input is not a valid integer
+                MessageBox.Show("Please enter a valid integer.");
+            }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
         {
 
         }
