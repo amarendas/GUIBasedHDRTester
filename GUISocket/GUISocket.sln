@@ -5,9 +5,9 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUISocket", "GUISocket.csproj", "{5157E6AC-2A4D-4151-B610-7FEF17989B54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDRControlLibrary", "..\MyCustome Controls\HDRControlLibrary\HDRControlLibrary.csproj", "{737B001F-91BE-47DC-B1C8-BA21CA1F8773}"
-EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GUISocket Installer", "..\GUISocket Installer\GUISocket Installer.vdproj", "{26A89026-3852-4891-93BF-345F6BA051BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HDRControlLibrary", "..\MyCustome Controls\HDRControlLibrary\HDRControlLibrary.csproj", "{1419F990-4160-488C-B0B1-0893FB493B67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +19,12 @@ Global
 		{5157E6AC-2A4D-4151-B610-7FEF17989B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5157E6AC-2A4D-4151-B610-7FEF17989B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5157E6AC-2A4D-4151-B610-7FEF17989B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{737B001F-91BE-47DC-B1C8-BA21CA1F8773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{737B001F-91BE-47DC-B1C8-BA21CA1F8773}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{737B001F-91BE-47DC-B1C8-BA21CA1F8773}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{737B001F-91BE-47DC-B1C8-BA21CA1F8773}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26A89026-3852-4891-93BF-345F6BA051BB}.Debug|Any CPU.ActiveCfg = Debug
 		{26A89026-3852-4891-93BF-345F6BA051BB}.Release|Any CPU.ActiveCfg = Release
+		{1419F990-4160-488C-B0B1-0893FB493B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1419F990-4160-488C-B0B1-0893FB493B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1419F990-4160-488C-B0B1-0893FB493B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1419F990-4160-488C-B0B1-0893FB493B67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

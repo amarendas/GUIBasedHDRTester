@@ -159,7 +159,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_136BF0CE92904302B81C396898B4A007"
                     {
-                    "Name" = "8:HDR-Test"
+                    "Name" = "8:HDR"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -210,15 +210,15 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GUISocket Installer"
         "ProductCode" = "8:{06CB8360-C291-413F-A16B-0C28AEC580F9}"
-        "PackageCode" = "8:{E037A78D-EBC8-40BB-8485-45ABE54E3A77}"
+        "PackageCode" = "8:{C74AC9B1-CFFC-4C4B-BA54-166FD5EE60E9}"
         "UpgradeCode" = "8:{5E7EE8FA-1C18-409C-BD5F-B547DA62BFFD}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
-        "InstallAllUsers" = "11:FALSE"
+        "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:MEG,BRIT"
+        "Manufacturer" = "8:MEG,BRIT,Vashi"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:GUISocket Installer"
@@ -330,23 +330,9 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_442390B8674B4058940BE2EE162F5C45"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_17FDDDF8F6DD481284B0A38F60018CA9"
             {
-            "Name" = "8:GUISocket"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
-            "Folder" = "8:_F2DC2BD9D2654C53BAD2959DEC842198"
-            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E7EED7C4753D46818E0E99749DF38ECA"
-            {
-            "Name" = "8:GUISocket"
+            "Name" = "8:HDRCalib"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -355,7 +341,21 @@
             "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
             "Folder" = "8:_136BF0CE92904302B81C396898B4A007"
             "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
-            "Icon" = "8:"
+            "Icon" = "8:_3D5EA972AFEB42198972D14B1F656D13"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C095A829D38246B88836FA0C4E6FB521"
+            {
+            "Name" = "8:HDRCalib"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_7FEEB9AD63E3481BBAFFCEFB4E9FF47E"
+            "Folder" = "8:_F2DC2BD9D2654C53BAD2959DEC842198"
+            "WorkingFolder" = "8:_AD6AF840C8EE4345AC42E1101B36C163"
+            "Icon" = "8:_3D5EA972AFEB42198972D14B1F656D13"
             "Feature" = "8:"
             }
         }
